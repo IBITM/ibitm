@@ -289,10 +289,10 @@
         
           <div class="tag-cloud">
             <div class="tag-cloud-title">
-                暂无标签
+                目前共计 1 个标签
             </div>
             <div class="tag-cloud-tags">
-              
+              <a href="/tags/%E6%84%9F%E6%82%9F/" style="font-size: 12px; color: #ccc">感悟</a>
             </div>
           </div>
         
@@ -315,14 +315,7 @@
 
   
     <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
-        </noscript>
-      </div>
     </div>
-
   
 
 
@@ -374,6 +367,15 @@
 
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>
@@ -574,26 +576,6 @@
 
   
 
-    
-      <script id="dsq-count-scr" src="https://ZXiao.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/tags/index.html';
-          this.page.identifier = 'tags/index.html';
-          this.page.title = '标签';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://ZXiao.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
 
 
 
@@ -609,12 +591,38 @@
 
 
 
+  
 
 
 
 
 
 
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '59jSyrRz5vygBBEppvd4Inud-MdYXbMMI',
+        appKey: '14TLHCXpYXedwKjmamiT2knn',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 
