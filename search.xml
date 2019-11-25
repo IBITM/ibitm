@@ -3,7 +3,9 @@
   <entry>
     <title>Windows下的Spark程序开发环境配置</title>
     <url>/2019/11/25/Spark-program-development-environment-configuration-under-Windows/</url>
-    <content><![CDATA[<h2 id="Windows下的Spark程序开发环境配置"><a href="#Windows下的Spark程序开发环境配置" class="headerlink" title="Windows下的Spark程序开发环境配置"></a>Windows下的Spark程序开发环境配置</h2><h3 id="Maven的安装与配置"><a href="#Maven的安装与配置" class="headerlink" title="Maven的安装与配置"></a>Maven的安装与配置</h3><p>需要配置<code>Maven home directory</code>、<code>User settings file</code>、<code>Local repository</code>、 <code>Import Maven projects automatically</code></p>
+    <content><![CDATA[<p>在Windows环境下, 使用IDEA进行Spark程序开发所需的环境配置, 主要是Maven pom文件的配置和Scala SDK的配置。</p>
+<a id="more"></a>
+<h3 id="Maven的安装与配置"><a href="#Maven的安装与配置" class="headerlink" title="Maven的安装与配置"></a>Maven的安装与配置</h3><p>需要配置<code>Maven home directory</code>、<code>User settings file</code>、<code>Local repository</code>、 <code>Import Maven projects automatically</code></p>
 <h2 id="IDEA-Maven工程创建与配置"><a href="#IDEA-Maven工程创建与配置" class="headerlink" title="IDEA Maven工程创建与配置"></a>IDEA Maven工程创建与配置</h2><h3 id="配置pom-xml文件"><a href="#配置pom-xml文件" class="headerlink" title="配置pom.xml文件"></a>配置<code>pom.xml</code>文件</h3><p><strong>spark精简版的pom.xml</strong></p>
 <p><a href="https://github.com/apache/spark/blob/master/examples/pom.xml" target="_blank" rel="noopener">https://github.com/apache/spark/blob/master/examples/pom.xml</a></p>
 <p><strong>spark最全版的pom.xml</strong></p>
