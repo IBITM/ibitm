@@ -17,14 +17,9 @@
 <p><a href="https://docs.scala-lang.org/overviews/jdk-compatibility/overview.html" target="_blank" rel="noopener">JDK COMPATIBILITY</a></p>
 ]]></content>
       <tags>
-        <tag>Scala</tag>
-        <tag>Spark</tag>
+        <tag>scala</tag>
+        <tag>spark</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Spark 关于闭包的若干思考</title>
-    <url>/2019/11/26/Spark-%E5%85%B3%E4%BA%8E%E9%97%AD%E5%8C%85%E7%9A%84%E8%8B%A5%E5%B9%B2%E6%80%9D%E8%80%83/</url>
-    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>Spark 共享变量的若干思考</title>
@@ -53,7 +48,7 @@
 <p>广播变量通过在一个变量 <code>v</code> 上调用 <code>SparkContext.broadcast(v)</code> 方法来进行创建。广播变量是 <code>v</code> 的一个 wrapper（包装器），可以通过调用 <code>value</code> 方法来访问它的值。代码示例如下:</p>
 <figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 这里的 v 指的是 Array(1, 2, 3)</span></span><br><span class="line">scala&gt; <span class="keyword">val</span> broadcastVar = sc.broadcast(<span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>))</span><br><span class="line">broadcastVar: org.apache.spark.broadcast.<span class="type">Broadcast</span>[<span class="type">Array</span>[<span class="type">Int</span>]] = <span class="type">Broadcast</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; broadcastVar.value</span><br><span class="line">res0: <span class="type">Array</span>[<span class="type">Int</span>] = <span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
-        <tag>Spark</tag>
+        <tag>spark</tag>
       </tags>
   </entry>
   <entry>
@@ -93,8 +88,8 @@
 </blockquote>
 ]]></content>
       <tags>
-        <tag>大数据</tag>
         <tag>spark</tag>
+        <tag>大数据</tag>
       </tags>
   </entry>
   <entry>
