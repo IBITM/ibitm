@@ -81,7 +81,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="求索之心">
-<meta property="og:url" content="https:&#x2F;&#x2F;ibitm.github.io&#x2F;tags&#x2F;Spark&#x2F;index.html">
+<meta property="og:url" content="https:&#x2F;&#x2F;ibitm.github.io&#x2F;tags&#x2F;spark&#x2F;index.html">
 <meta property="og:site_name" content="求索之心">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
@@ -114,13 +114,13 @@
 
 
 
-  <link rel="canonical" href="https://ibitm.github.io/tags/Spark/"/>
+  <link rel="canonical" href="https://ibitm.github.io/tags/spark/"/>
 
 
 
 
 
-  <title>标签: Spark | 求索之心</title>
+  <title>标签: spark | 求索之心</title>
   
 
 
@@ -274,7 +274,7 @@
 
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h1>Spark<small>标签</small>
+        <h1>spark<small>标签</small>
         </h1>
       </div>
 
@@ -286,37 +286,9 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2019/11/26/scala%E5%92%8Cjava%E7%9A%84%E7%89%88%E6%9C%AC%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98/" itemprop="url">
+            <a class="post-title-link" href="/2019/11/25/Spark-program-development-environment-configuration-under-Windows/" itemprop="url">
               
-                <span itemprop="name">scala和java的版本兼容问题</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-11-26T11:54:09+08:00"
-              content="2019-11-26" >
-          11-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/11/26/reflections-on-Spark-shared-variables/" itemprop="url">
-              
-                <span itemprop="name">Spark 共享变量的若干思考</span>
+                <span itemprop="name">Windows下的Spark程序开发环境配置</span>
               
             </a>
         
@@ -324,9 +296,9 @@
 
       <div class="post-meta">
         <time class="post-time" itemprop="dateCreated"
-              datetime="2019-11-26T10:19:40+08:00"
-              content="2019-11-26" >
-          11-26
+              datetime="2019-11-25T20:25:01+08:00"
+              content="2019-11-25" >
+          11-25
         </time>
       </div>
 
@@ -950,6 +922,50 @@
     }
 
     // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+r popup window;
     $('.popup-trigger').click(function(e) {
       e.stopPropagation();
       if (isfetched === false) {
