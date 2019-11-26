@@ -282,6 +282,156 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/11/26/reflections-on-Spark-shared-variables/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张潇">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="求索之心">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/26/reflections-on-Spark-shared-variables/" itemprop="url">Spark 共享变量的若干思考</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-26T10:19:40+08:00">
+                2019-11-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/11/26/reflections-on-Spark-shared-variables/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/11/26/reflections-on-Spark-shared-variables/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>通常在向 Spark 传递函数时，可以使用 driver programme 中定义的变量，但是集群中运行的每个 tusk 都只会得到这些变量的一份新的副本，更新这些副本的值也不会影响driver programme 中的对应变量。</p>
+<p>Spark 的两个共享变量，累加器与广播变量，使用结果聚合与广播这两种常见的通信模式突破了这一限制。</p>
+<h2 id="Accumulator"><a href="#Accumulator" class="headerlink" title="Accumulator"></a>Accumulator</h2><h3 id="基本使用方法"><a href="#基本使用方法" class="headerlink" title="基本使用方法"></a>基本使用方法</h3><p>第一种共享变量，即累加器，提供了将 worker node 中的值聚合到 driver programme 中的简单语法。</p>
+<p>下面的代码展示了一个 accumulator 被用于对一个数组中的元素求和:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> accum = sc.longAccumulator(<span class="string">"My Accumulator"</span>)</span><br><span class="line">accum: org.apache.spark.util.<span class="type">LongAccumulator</span> = <span class="type">LongAccumulator</span>(id: <span class="number">0</span>, name: <span class="type">Some</span>(<span class="type">My</span> <span class="type">Accumulator</span>), value: <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; sc.parallelize(<span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)).foreach(x =&gt; accum.add(x))</span><br><span class="line">...</span><br><span class="line"><span class="number">10</span>/<span class="number">09</span>/<span class="number">29</span> <span class="number">18</span>:<span class="number">41</span>:<span class="number">08</span> <span class="type">INFO</span> <span class="type">SparkContext</span>: <span class="type">Tasks</span> finished in <span class="number">0.317106</span> s</span><br><span class="line"></span><br><span class="line">scala&gt; accum.value</span><br><span class="line">res2: <span class="type">Long</span> = <span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<p>可以通过调用 <code>SparkContext.longAccumulator()</code> 或 <code>SparkContext.doubleAccumulator()</code> 方法创建数值类型的 <code>accumulator</code>（累加器）以分别累加 Long 或 Double 类型的值。集群上正在运行的任务就可以使用 <code>add</code> 方法来累计数值。</p>
+<p>注意，worker node 上的 tusk 不能访问累加器的值。从这些任务的角度来看，累加器是一个只写变量。只有 driver program 才可以使用 <code>value</code> 方法读取累加器的值。</p>
+<h3 id="累加器与容错"><a href="#累加器与容错" class="headerlink" title="累加器与容错"></a>累加器与容错</h3><p>Spark 会自动重新执行失败的或较慢的仕务来应对有错的或着比较慢的机器。例如，如果对某分区执行 <code>map()</code> 操作的节点失败了，Spark 会在另一个节点上重新运行该任务。即使该节点没有崩溃，而只是处理速度比别的节点慢很多，Spark 也可以抢占式地在另一个节点上启动一个“投机”（speculative）型的任务副本，如果该任务更早结束就可以直接获取结果。即使没有节点失败，Spark有时也需要重新运行任务来获取缓存中被移除出内存的数据。</p>
+<p><em>因此最终结果就是同一个函数可能对同一个数据运行了多次。</em></p>
+<p>这种情况下累加器要怎么处理呢？</p>
+<p>实际结果是，对于要在 action 操作中使用的累加器，Spark只会把每个任务对累加器的修改应用一次。</p>
+<p>因此，如果想要一个无论在失败还是重复计算时都绝对可靠的累加器，我们必须把它放在 <code>foreach()</code> 这样的 action 操作中。对于在 RDD  transform 操作中使用的累加器，就不能保证有这种情况了。transform 操作中累加器可能会发生不止一次更新。</p>
+<p>举个例子，当一个被缓存下来但是没有经常使用的RDD在第一次从 LRU 缓存中被移除并又被重新用到时，这种非预期的累加器的多次更新就会发生。</p>
+<h2 id="Broadcast-Variables"><a href="#Broadcast-Variables" class="headerlink" title="Broadcast Variables"></a>Broadcast Variables</h2><p>Spark 的第二种共享变量是<em>广播变量</em>，它可以让程序高效的向所有的 worker node 发送一个较大的 只读值。比如，你的应用需要向所有的节点发送一个较大的只读查询表，甚至是机器学习算法中的一个很大的特征向量，这个时候广播变量就会很好用了。</p>
+<p>如果你对闭包有了解，你会发现，Spark 会自动把闭包中所有引用到的变量发送到 worker node上。这虽然很方便，但也很低效。原因有二：</p>
+<ul>
+<li>默认的任务发送机制是专门为小任务进行优化的，当发送的共享数据量较大时效率较低</li>
+<li>事实上你可能会在多个操作中使用同一个变量，但是Spark会为每个操作分别发送。</li>
+</ul>
+<p>广播变量通过在一个变量 <code>v</code> 上调用 <code>SparkContext.broadcast(v)</code> 方法来进行创建。广播变量是 <code>v</code> 的一个 wrapper（包装器），可以通过调用 <code>value</code> 方法来访问它的值。代码示例如下:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这里的 v 指的是 Array(1, 2, 3)</span></span><br><span class="line">scala&gt; <span class="keyword">val</span> broadcastVar = sc.broadcast(<span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>))</span><br><span class="line">broadcastVar: org.apache.spark.broadcast.<span class="type">Broadcast</span>[<span class="type">Array</span>[<span class="type">Int</span>]] = <span class="type">Broadcast</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; broadcastVar.value</span><br><span class="line">res0: <span class="type">Array</span>[<span class="type">Int</span>] = <span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/11/25/Spark-program-development-environment-configuration-under-Windows/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -586,7 +736,7 @@
               
                 <a href="/archives%7C%7C%20archives">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -599,7 +749,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
