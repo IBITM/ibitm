@@ -40,7 +40,7 @@
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
     path: 'search.xml',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     sidebarPadding: 40
@@ -55,7 +55,7 @@
 <meta property="og:site_name" content="求索之心">
 <meta property="og:description" content="通常在向 Spark 传递函数时，可以使用 driver programme 中定义的变量，但是集群中运行的每个 tusk 都只会得到这些变量的一份新的副本，更新这些副本的值也不会影响driver programme 中的对应变量。 Spark 的两个共享变量，累加器与广播变量，使用结果聚合与广播这两种常见的通信模式突破了这一限制。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-26T12:34:32.306Z">
+<meta property="og:updated_time" content="2019-11-26T02:19:40.000Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://ibitm.github.io/2019/11/26/reflections-on-Spark-shared-variables/">
@@ -156,9 +156,34 @@
     <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 
 </nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
 </div>
     </header>
 
@@ -204,12 +229,25 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-11-26 10:19:40 / 修改时间：20:34:32" itemprop="dateCreated datePublished" datetime="2019-11-26T10:19:40+08:00">2019-11-26</time>
+              <time title="创建时间：2019-11-26 10:19:40" itemprop="dateCreated datePublished" datetime="2019-11-26T10:19:40+08:00">2019-11-26</time>
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/11/26/reflections-on-Spark-shared-variables/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/26/reflections-on-Spark-shared-variables/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -225,7 +263,7 @@
 <a id="more"></a>
 <h2 id="Accumulator"><a href="#Accumulator" class="headerlink" title="Accumulator"></a>Accumulator</h2><h3 id="基本使用方法"><a href="#基本使用方法" class="headerlink" title="基本使用方法"></a>基本使用方法</h3><p>第一种共享变量，即累加器，提供了将 worker node 中的值聚合到 driver programme 中的简单语法。</p>
 <p>下面的代码展示了一个 accumulator 被用于对一个数组中的元素求和:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> accum = sc.longAccumulator(<span class="string">"My Accumulator"</span>)</span><br><span class="line">accum: org.apache.spark.util.<span class="type">LongAccumulator</span> = <span class="type">LongAccumulator</span>(id: <span class="number">0</span>, name: <span class="type">Some</span>(<span class="type">My</span> <span class="type">Accumulator</span>), value: <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; sc.parallelize(<span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)).foreach(x =&gt; accum.add(x))</span><br><span class="line">...</span><br><span class="line"><span class="number">10</span>/<span class="number">09</span>/<span class="number">29</span> <span class="number">18</span>:<span class="number">41</span>:<span class="number">08</span> <span class="type">INFO</span> <span class="type">SparkContext</span>: <span class="type">Tasks</span> finished in <span class="number">0.317106</span> s</span><br><span class="line"></span><br><span class="line">scala&gt; accum.value</span><br><span class="line">res2: <span class="type">Long</span> = <span class="number">10</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">scala> <span class="keyword">val</span> accum = sc.longAccumulator(<span class="string">"My Accumulator"</span>)</span><br><span class="line">accum: org.apache.spark.util.<span class="type">LongAccumulator</span> = <span class="type">LongAccumulator</span>(id: <span class="number">0</span>, name: <span class="type">Some</span>(<span class="type">My</span> <span class="type">Accumulator</span>), value: <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">scala> sc.parallelize(<span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)).foreach(x => accum.add(x))</span><br><span class="line">...</span><br><span class="line"><span class="number">10</span>/<span class="number">09</span>/<span class="number">29</span> <span class="number">18</span>:<span class="number">41</span>:<span class="number">08</span> <span class="type">INFO</span> <span class="type">SparkContext</span>: <span class="type">Tasks</span> finished in <span class="number">0.317106</span> s</span><br><span class="line"></span><br><span class="line">scala> accum.value</span><br><span class="line">res2: <span class="type">Long</span> = <span class="number">10</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>可以通过调用 <code>SparkContext.longAccumulator()</code> 或 <code>SparkContext.doubleAccumulator()</code> 方法创建数值类型的 <code>accumulator</code>（累加器）以分别累加 Long 或 Double 类型的值。集群上正在运行的任务就可以使用 <code>add</code> 方法来累计数值。</p>
 <p>注意，worker node 上的 tusk 不能访问累加器的值。从这些任务的角度来看，累加器是一个只写变量。只有 driver program 才可以使用 <code>value</code> 方法读取累加器的值。</p>
@@ -242,7 +280,25 @@
 <li>事实上你可能会在多个操作中使用同一个变量，但是Spark会为每个操作分别发送。</li>
 </ul>
 <p>广播变量通过在一个变量 <code>v</code> 上调用 <code>SparkContext.broadcast(v)</code> 方法来进行创建。广播变量是 <code>v</code> 的一个 wrapper（包装器），可以通过调用 <code>value</code> 方法来访问它的值。代码示例如下:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这里的 v 指的是 Array(1, 2, 3)</span></span><br><span class="line">scala&gt; <span class="keyword">val</span> broadcastVar = sc.broadcast(<span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>))</span><br><span class="line">broadcastVar: org.apache.spark.broadcast.<span class="type">Broadcast</span>[<span class="type">Array</span>[<span class="type">Int</span>]] = <span class="type">Broadcast</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; broadcastVar.value</span><br><span class="line">res0: <span class="type">Array</span>[<span class="type">Int</span>] = <span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这里的 v 指的是 Array(1, 2, 3)</span></span><br><span class="line">scala> <span class="keyword">val</span> broadcastVar = sc.broadcast(<span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>))</span><br><span class="line">broadcastVar: org.apache.spark.broadcast.<span class="type">Broadcast</span>[<span class="type">Array</span>[<span class="type">Int</span>]] = <span class="type">Broadcast</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">scala> broadcastVar.value</span><br><span class="line">res0: <span class="type">Array</span>[<span class="type">Int</span>] = <span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br></pre></td></tr></tbody></table></figure><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
     </div>
 
     
@@ -280,6 +336,7 @@
 
           </div>
           
+    <div class="comments" id="comments"></div>
 
         </div>
           
@@ -320,14 +377,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -409,6 +472,8 @@
 
 
 
+  <script src="/js/local-search.js"></script>
+
 
 
 
@@ -424,6 +489,33 @@
   
 
   
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: '59jSyrRz5vygBBEppvd4Inud-MdYXbMMI',
+    appKey: '14TLHCXpYXedwKjmamiT2knn',
+    placeholder: "Just go go",
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
 
 </body>
 </html>

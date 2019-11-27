@@ -1,16 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>aaa</title>
+    <url>/2019/11/27/aaa/</url>
+    <content><![CDATA[<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+  </entry>
+  <entry>
+    <title>646. 最长数对链</title>
+    <url>/2019/11/27/646-%E6%9C%80%E9%95%BF%E6%95%B0%E5%AF%B9%E9%93%BE/</url>
+    <content><![CDATA[<h4 id="646-最长数对链"><a href="#646-最长数对链" class="headerlink" title="646. 最长数对链"></a><a href="https://leetcode-cn.com/problems/maximum-length-of-pair-chain/" target="_blank" rel="noopener">646. 最长数对链</a></h4><p>如何排列 pair 使得 pair 链最长，类似于👉<a href="https://zh.wikipedia.org/wiki/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">贪心算法</a>的经典问题-✍️<a href="https://en.wikipedia.org/wiki/Activity_selection_problem" target="_blank" rel="noopener">活动选择问题</a></p>
+<p>这类问题的贪心算法就是：</p>
+<p>在现有的活动中选择「最早结束」的活动，对应到我们的这个问题，就是选择 pair 中第二位最小的数。</p>
+<a id="more"></a>
+
+<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findLongestChain</span><span class="params">(<span class="keyword">int</span>[][] pairs)</span> </span>{</span><br><span class="line">        <span class="keyword">if</span> (pairs == <span class="keyword">null</span> || pairs.length == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = pairs.length;</span><br><span class="line">        Arrays.sort(pairs, <span class="keyword">new</span> Comparator<<span class="keyword">int</span>[]>() {</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(<span class="keyword">int</span>[] o1, <span class="keyword">int</span>[] o2)</span> </span>{</span><br><span class="line">                <span class="keyword">if</span> (o1[<span class="number">0</span>] != o2[<span class="number">0</span>]) {</span><br><span class="line">                    <span class="keyword">return</span> o1[<span class="number">0</span>] - o2[<span class="number">0</span>];</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">return</span> o1[<span class="number">1</span>] - o2[<span class="number">1</span>];</span><br><span class="line">            }</span><br><span class="line">        });</span><br><span class="line">        <span class="keyword">int</span> a = Integer.MIN_VALUE;</span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] pair : pairs) {</span><br><span class="line">            <span class="keyword">if</span> (pair[<span class="number">0</span>] > a) {</span><br><span class="line">                a = pair[<span class="number">1</span>];</span><br><span class="line">                cnt++;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> cnt;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>算法和数据结构</category>
+      </categories>
+      <tags>
+        <tag>Leetcode</tag>
+        <tag>算法和数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Leetcode 题解</title>
     <url>/2019/11/26/Leetcode-%E9%A2%98%E8%A7%A3/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<span class="github-emoji" style="color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/1f389.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/1f389.png?v8">🎉</span> still works.<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
   </entry>
   <entry>
     <title>二分查找的各种变形</title>
     <url>/2019/11/26/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%9A%84%E5%90%84%E7%A7%8D%E5%8F%98%E5%BD%A2/</url>
-    <content><![CDATA[<h2 id="二分查找，寻找插入的位置"><a href="#二分查找，寻找插入的位置" class="headerlink" title="二分查找，寻找插入的位置"></a>二分查找，寻找插入的位置</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> l, <span class="keyword">int</span> h, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//开区间</span></span><br><span class="line">    <span class="keyword">while</span> (l &lt; h) &#123;</span><br><span class="line">        <span class="keyword">int</span> m = l + (h - l) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (nums[m] == k) &#123;</span><br><span class="line">            <span class="keyword">return</span> m;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[m] &gt; k) &#123;</span><br><span class="line">            h = m;</span><br><span class="line">        &#125; <span class="keyword">else</span></span><br><span class="line">            l = m + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> l;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h2 id="二分查找，寻找插入的位置"><a href="#二分查找，寻找插入的位置" class="headerlink" title="二分查找，寻找插入的位置"></a>二分查找，寻找插入的位置</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> l, <span class="keyword">int</span> h, <span class="keyword">int</span> k)</span> </span>{</span><br><span class="line">    <span class="comment">//开区间</span></span><br><span class="line">    <span class="keyword">while</span> (l < h) {</span><br><span class="line">        <span class="keyword">int</span> m = l + (h - l) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (nums[m] == k) {</span><br><span class="line">            <span class="keyword">return</span> m;</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (nums[m] > k) {</span><br><span class="line">            h = m;</span><br><span class="line">        } <span class="keyword">else</span></span><br><span class="line">            l = m + <span class="number">1</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> l;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-]]></content>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
       <tags>
         <tag>算法和数据结构</tag>
       </tags>
@@ -20,10 +116,27 @@
     <url>/2019/11/26/Scala-and-java-version-compatibility-issues/</url>
     <content><![CDATA[<p><img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/1574740536160.png?raw=true" alt></p>
 <p><a href="https://docs.scala-lang.org/overviews/jdk-compatibility/overview.html" target="_blank" rel="noopener">JDK COMPATIBILITY</a></p>
-]]></content>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
       <tags>
         <tag>scala</tag>
-        <tag>spark</tag>
       </tags>
   </entry>
   <entry>
@@ -34,7 +147,7 @@
 <a id="more"></a>
 <h2 id="Accumulator"><a href="#Accumulator" class="headerlink" title="Accumulator"></a>Accumulator</h2><h3 id="基本使用方法"><a href="#基本使用方法" class="headerlink" title="基本使用方法"></a>基本使用方法</h3><p>第一种共享变量，即累加器，提供了将 worker node 中的值聚合到 driver programme 中的简单语法。</p>
 <p>下面的代码展示了一个 accumulator 被用于对一个数组中的元素求和:</p>
-<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> accum = sc.longAccumulator(<span class="string">"My Accumulator"</span>)</span><br><span class="line">accum: org.apache.spark.util.<span class="type">LongAccumulator</span> = <span class="type">LongAccumulator</span>(id: <span class="number">0</span>, name: <span class="type">Some</span>(<span class="type">My</span> <span class="type">Accumulator</span>), value: <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; sc.parallelize(<span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)).foreach(x =&gt; accum.add(x))</span><br><span class="line">...</span><br><span class="line"><span class="number">10</span>/<span class="number">09</span>/<span class="number">29</span> <span class="number">18</span>:<span class="number">41</span>:<span class="number">08</span> <span class="type">INFO</span> <span class="type">SparkContext</span>: <span class="type">Tasks</span> finished in <span class="number">0.317106</span> s</span><br><span class="line"></span><br><span class="line">scala&gt; accum.value</span><br><span class="line">res2: <span class="type">Long</span> = <span class="number">10</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tbody><tr><td class="code"><pre><span class="line">scala> <span class="keyword">val</span> accum = sc.longAccumulator(<span class="string">"My Accumulator"</span>)</span><br><span class="line">accum: org.apache.spark.util.<span class="type">LongAccumulator</span> = <span class="type">LongAccumulator</span>(id: <span class="number">0</span>, name: <span class="type">Some</span>(<span class="type">My</span> <span class="type">Accumulator</span>), value: <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">scala> sc.parallelize(<span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)).foreach(x => accum.add(x))</span><br><span class="line">...</span><br><span class="line"><span class="number">10</span>/<span class="number">09</span>/<span class="number">29</span> <span class="number">18</span>:<span class="number">41</span>:<span class="number">08</span> <span class="type">INFO</span> <span class="type">SparkContext</span>: <span class="type">Tasks</span> finished in <span class="number">0.317106</span> s</span><br><span class="line"></span><br><span class="line">scala> accum.value</span><br><span class="line">res2: <span class="type">Long</span> = <span class="number">10</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>可以通过调用 <code>SparkContext.longAccumulator()</code> 或 <code>SparkContext.doubleAccumulator()</code> 方法创建数值类型的 <code>accumulator</code>（累加器）以分别累加 Long 或 Double 类型的值。集群上正在运行的任务就可以使用 <code>add</code> 方法来累计数值。</p>
 <p>注意，worker node 上的 tusk 不能访问累加器的值。从这些任务的角度来看，累加器是一个只写变量。只有 driver program 才可以使用 <code>value</code> 方法读取累加器的值。</p>
@@ -51,7 +164,25 @@
 <li>事实上你可能会在多个操作中使用同一个变量，但是Spark会为每个操作分别发送。</li>
 </ul>
 <p>广播变量通过在一个变量 <code>v</code> 上调用 <code>SparkContext.broadcast(v)</code> 方法来进行创建。广播变量是 <code>v</code> 的一个 wrapper（包装器），可以通过调用 <code>value</code> 方法来访问它的值。代码示例如下:</p>
-<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 这里的 v 指的是 Array(1, 2, 3)</span></span><br><span class="line">scala&gt; <span class="keyword">val</span> broadcastVar = sc.broadcast(<span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>))</span><br><span class="line">broadcastVar: org.apache.spark.broadcast.<span class="type">Broadcast</span>[<span class="type">Array</span>[<span class="type">Int</span>]] = <span class="type">Broadcast</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; broadcastVar.value</span><br><span class="line">res0: <span class="type">Array</span>[<span class="type">Int</span>] = <span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight scala"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">// 这里的 v 指的是 Array(1, 2, 3)</span></span><br><span class="line">scala> <span class="keyword">val</span> broadcastVar = sc.broadcast(<span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>))</span><br><span class="line">broadcastVar: org.apache.spark.broadcast.<span class="type">Broadcast</span>[<span class="type">Array</span>[<span class="type">Int</span>]] = <span class="type">Broadcast</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">scala> broadcastVar.value</span><br><span class="line">res0: <span class="type">Array</span>[<span class="type">Int</span>] = <span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br></pre></td></tr></tbody></table></figure><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
       <tags>
         <tag>spark</tag>
       </tags>
@@ -68,17 +199,17 @@
 <p><a href="https://github.com/apache/spark/blob/master/pom.xml" target="_blank" rel="noopener">https://github.com/apache/spark/blob/master/pom.xml</a></p>
 <p><strong>maven repository</strong></p>
 <p><a href="https://mvnrepository.com/search?q=spark" target="_blank" rel="noopener">https://mvnrepository.com/search?q=spark</a></p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>war<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>TestSpark<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.kfk.spark<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>TestSpark<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scala.version</span>&gt;</span>2.11.12<span class="tag">&lt;/<span class="name">scala.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scala.binary.version</span>&gt;</span>2.11<span class="tag">&lt;/<span class="name">scala.binary.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">spark.version</span>&gt;</span>2.2.0<span class="tag">&lt;/<span class="name">spark.version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.spark<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spark-core_$&#123;scala.binary.version&#125;<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spark.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.spark<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spark-streaming_$&#123;scala.binary.version&#125;<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spark.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.spark<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spark-sql_$&#123;scala.binary.version&#125;<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spark.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.spark<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spark-hive_$&#123;scala.binary.version&#125;<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spark.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.spark<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spark-streaming-kafka-0-10_$&#123;scala.binary.version&#125;<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spark.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.hadoop<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hadoop-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.6.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta"><?xml version="1.0" encoding="UTF-8"?></span></span><br><span class="line"></span><br><span class="line"><span class="tag"><<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"</span>></span></span><br><span class="line"></span><br><span class="line">  <span class="tag"><<span class="name">modelVersion</span>></span>4.0.0<span class="tag"></<span class="name">modelVersion</span>></span></span><br><span class="line">  <span class="tag"><<span class="name">packaging</span>></span>war<span class="tag"></<span class="name">packaging</span>></span></span><br><span class="line"></span><br><span class="line">  <span class="tag"><<span class="name">name</span>></span>TestSpark<span class="tag"></<span class="name">name</span>></span></span><br><span class="line">  <span class="tag"><<span class="name">groupId</span>></span>com.kfk.spark<span class="tag"></<span class="name">groupId</span>></span></span><br><span class="line">  <span class="tag"><<span class="name">artifactId</span>></span>TestSpark<span class="tag"></<span class="name">artifactId</span>></span></span><br><span class="line">  <span class="tag"><<span class="name">version</span>></span>1.0-SNAPSHOT<span class="tag"></<span class="name">version</span>></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="tag"><<span class="name">properties</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">scala.version</span>></span>2.11.12<span class="tag"></<span class="name">scala.version</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">scala.binary.version</span>></span>2.11<span class="tag"></<span class="name">scala.binary.version</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">spark.version</span>></span>2.2.0<span class="tag"></<span class="name">spark.version</span>></span></span><br><span class="line">  <span class="tag"></<span class="name">properties</span>></span></span><br><span class="line"></span><br><span class="line">  <span class="tag"><<span class="name">dependencies</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">dependency</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">groupId</span>></span>org.apache.spark<span class="tag"></<span class="name">groupId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">artifactId</span>></span>spark-core_${scala.binary.version}<span class="tag"></<span class="name">artifactId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">version</span>></span>${spark.version}<span class="tag"></<span class="name">version</span>></span></span><br><span class="line">    <span class="tag"></<span class="name">dependency</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">dependency</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">groupId</span>></span>org.apache.spark<span class="tag"></<span class="name">groupId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">artifactId</span>></span>spark-streaming_${scala.binary.version}<span class="tag"></<span class="name">artifactId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">version</span>></span>${spark.version}<span class="tag"></<span class="name">version</span>></span></span><br><span class="line">    <span class="tag"></<span class="name">dependency</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">dependency</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">groupId</span>></span>org.apache.spark<span class="tag"></<span class="name">groupId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">artifactId</span>></span>spark-sql_${scala.binary.version}<span class="tag"></<span class="name">artifactId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">version</span>></span>${spark.version}<span class="tag"></<span class="name">version</span>></span></span><br><span class="line">    <span class="tag"></<span class="name">dependency</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">dependency</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">groupId</span>></span>org.apache.spark<span class="tag"></<span class="name">groupId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">artifactId</span>></span>spark-hive_${scala.binary.version}<span class="tag"></<span class="name">artifactId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">version</span>></span>${spark.version}<span class="tag"></<span class="name">version</span>></span></span><br><span class="line">    <span class="tag"></<span class="name">dependency</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">dependency</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">groupId</span>></span>org.apache.spark<span class="tag"></<span class="name">groupId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">artifactId</span>></span>spark-streaming-kafka-0-10_${scala.binary.version}<span class="tag"></<span class="name">artifactId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">version</span>></span>${spark.version}<span class="tag"></<span class="name">version</span>></span></span><br><span class="line">    <span class="tag"></<span class="name">dependency</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">dependency</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">groupId</span>></span>org.apache.hadoop<span class="tag"></<span class="name">groupId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">artifactId</span>></span>hadoop-client<span class="tag"></<span class="name">artifactId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">version</span>></span>2.6.0<span class="tag"></<span class="name">version</span>></span></span><br><span class="line">    <span class="tag"></<span class="name">dependency</span>></span></span><br><span class="line">  <span class="tag"></<span class="name">dependencies</span>></span></span><br><span class="line"></span><br><span class="line"><span class="tag"></<span class="name">project</span>></span></span><br></pre></td></tr></tbody></table></figure>
 
 <h3 id="导入Scala-SDK"><a href="#导入Scala-SDK" class="headerlink" title="导入Scala SDK"></a>导入<code>Scala SDK</code></h3><p><code>groupId</code>和<code>artifactId</code>被统称为“坐标”是为了保证项目唯一性而提出的</p>
 <p><code>groupId</code>一般分为多个段，这里我只说两段，第一段为域，第二段为公司名称。举个apache公司的tomcat项目例子：这个项目的<code>groupId</code>是org.apache</p>
 <p>artifactId表示这个项目的名称</p>
 <p>包结构最好是<code>groupId.artifactId.xxx</code></p>
-<h2 id="编写spark程序"><a href="#编写spark程序" class="headerlink" title="编写spark程序"></a>编写spark程序</h2><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.spark.test</span><br><span class="line"><span class="keyword">import</span> org.apache.spark.&#123;<span class="type">SparkConf</span>, <span class="type">SparkContext</span>&#125;</span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">MyScalaWordCout</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="comment">//参数检查</span></span><br><span class="line">    <span class="keyword">if</span> (args.length &lt; <span class="number">2</span>) &#123;</span><br><span class="line">      <span class="type">System</span>.err.println(<span class="string">"Usage: MyWordCout    "</span>)</span><br><span class="line">      <span class="type">System</span>.exit(<span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获取参数</span></span><br><span class="line">    <span class="keyword">val</span> input=args(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">val</span> output=args(<span class="number">1</span>)</span><br><span class="line">    <span class="comment">//创建scala版本的SparkContext</span></span><br><span class="line">    <span class="keyword">val</span> conf=<span class="keyword">new</span> <span class="type">SparkConf</span>().setAppName(<span class="string">"myWordCount"</span>)</span><br><span class="line">    <span class="keyword">val</span> sc=<span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line">    <span class="comment">//读取数据</span></span><br><span class="line">    <span class="keyword">val</span> lines=sc.textFile(input)</span><br><span class="line">    <span class="comment">//进行相关计算</span></span><br><span class="line">    <span class="keyword">val</span> resultRdd=lines.flatMap(_.split(<span class="string">" "</span>)).map((_,<span class="number">1</span>)).reduceByKey(_+_)</span><br><span class="line">    <span class="comment">//保存结果</span></span><br><span class="line">    resultRdd.saveAsTextFile(output)</span><br><span class="line">    sc.stop()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="编写spark程序"><a href="#编写spark程序" class="headerlink" title="编写spark程序"></a>编写spark程序</h2><figure class="highlight scala"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.spark.test</span><br><span class="line"><span class="keyword">import</span> org.apache.spark.{<span class="type">SparkConf</span>, <span class="type">SparkContext</span>}</span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">MyScalaWordCout</span> </span>{</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = {</span><br><span class="line">    <span class="comment">//参数检查</span></span><br><span class="line">    <span class="keyword">if</span> (args.length < <span class="number">2</span>) {</span><br><span class="line">      <span class="type">System</span>.err.println(<span class="string">"Usage: MyWordCout    "</span>)</span><br><span class="line">      <span class="type">System</span>.exit(<span class="number">1</span>)</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//获取参数</span></span><br><span class="line">    <span class="keyword">val</span> input=args(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">val</span> output=args(<span class="number">1</span>)</span><br><span class="line">    <span class="comment">//创建scala版本的SparkContext</span></span><br><span class="line">    <span class="keyword">val</span> conf=<span class="keyword">new</span> <span class="type">SparkConf</span>().setAppName(<span class="string">"myWordCount"</span>)</span><br><span class="line">    <span class="keyword">val</span> sc=<span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line">    <span class="comment">//读取数据</span></span><br><span class="line">    <span class="keyword">val</span> lines=sc.textFile(input)</span><br><span class="line">    <span class="comment">//进行相关计算</span></span><br><span class="line">    <span class="keyword">val</span> resultRdd=lines.flatMap(_.split(<span class="string">" "</span>)).map((_,<span class="number">1</span>)).reduceByKey(_+_)</span><br><span class="line">    <span class="comment">//保存结果</span></span><br><span class="line">    resultRdd.saveAsTextFile(output)</span><br><span class="line">    sc.stop()</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-<h2 id="打成jar包然后上传到服务器"><a href="#打成jar包然后上传到服务器" class="headerlink" title="打成jar包然后上传到服务器"></a>打成jar包然后上传到服务器</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bin/spark-submit --master <span class="built_in">local</span>[2] /opt/jars/sparkStu.jar hdfs://bigdata-pro01.kfk.com:9000/user/data/stu.txt</span><br></pre></td></tr></table></figure>
+<h2 id="打成jar包然后上传到服务器"><a href="#打成jar包然后上传到服务器" class="headerlink" title="打成jar包然后上传到服务器"></a>打成jar包然后上传到服务器</h2><figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">bin/spark-submit --master <span class="built_in">local</span>[2] /opt/jars/sparkStu.jar hdfs://bigdata-pro01.kfk.com:9000/user/data/stu.txt</span><br></pre></td></tr></tbody></table></figure>
 
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./bin/spark-submit \</span><br><span class="line">  --class &lt;main-class&gt; \</span><br><span class="line">  --master &lt;master-url&gt; \</span><br><span class="line">  --deploy-mode &lt;deploy-mode&gt; \</span><br><span class="line">  --conf &lt;key&gt;=&lt;value&gt; \</span><br><span class="line">  ... <span class="comment"># other options</span></span><br><span class="line">  &lt;application-jar&gt; \</span><br><span class="line">  [application-arguments]</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">./bin/spark-submit \</span><br><span class="line">  --class <main-class> \</span><br><span class="line">  --master <master-url> \</span><br><span class="line">  --deploy-mode <deploy-mode> \</span><br><span class="line">  --conf <key>=<value> \</span><br><span class="line">  ... <span class="comment"># other options</span></span><br><span class="line">  <application-jar> \</span><br><span class="line">  [application-arguments]</span><br></pre></td></tr></tbody></table></figure>
 
 <p>Some of the commonly used options are:</p>
 <blockquote>
@@ -91,9 +222,26 @@
 <li><code>application-arguments</code>: Arguments passed to the main method of your main class, if any</li>
 </ul>
 </blockquote>
-]]></content>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
       <tags>
-        <tag>spark</tag>
         <tag>大数据</tag>
       </tags>
   </entry>
@@ -104,7 +252,25 @@
 <p>为什么想要写博客呢，一方面是想要记录自己的成长，看着自己学会、总结的东西越来越多，还是很有成就感的；另一方面是想要留下点东西，帮助别人吧，把自己踩过的坑，走过的弯路以及经验分享给别人吧。</p>
 <p>写博客是一个慢活，得精雕细琢，这对于我这个急性子是一个挺大的挑战。希望写博客能帮我客服一下这个毛病吧。</p>
 <p>最后的最后希望，我能一直坚持下去，不断的输入和不断的输出。</p>
-]]></content>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
       <tags>
         <tag>随笔</tag>
       </tags>

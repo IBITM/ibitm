@@ -40,7 +40,7 @@
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
     path: 'search.xml',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     sidebarPadding: 40
@@ -48,14 +48,14 @@
 </script>
 
   <meta name="description" content="在Windows环境下, 使用IDEA进行Spark程序开发所需的环境配置, 主要是Maven pom文件的配置和Scala SDK的配置。">
-<meta name="keywords" content="spark,大数据">
+<meta name="keywords" content="大数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows下的Spark程序开发环境配置">
 <meta property="og:url" content="https:&#x2F;&#x2F;ibitm.github.io&#x2F;2019&#x2F;11&#x2F;25&#x2F;Spark-program-development-environment-configuration-under-Windows&#x2F;index.html">
 <meta property="og:site_name" content="求索之心">
 <meta property="og:description" content="在Windows环境下, 使用IDEA进行Spark程序开发所需的环境配置, 主要是Maven pom文件的配置和Scala SDK的配置。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-25T13:09:26.885Z">
+<meta property="og:updated_time" content="2019-11-25T12:25:01.000Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://ibitm.github.io/2019/11/25/Spark-program-development-environment-configuration-under-Windows/">
@@ -156,9 +156,34 @@
     <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 
 </nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
 </div>
     </header>
 
@@ -204,12 +229,25 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-11-25 20:25:01 / 修改时间：21:09:26" itemprop="dateCreated datePublished" datetime="2019-11-25T20:25:01+08:00">2019-11-25</time>
+              <time title="创建时间：2019-11-25 20:25:01" itemprop="dateCreated datePublished" datetime="2019-11-25T20:25:01+08:00">2019-11-25</time>
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/11/25/Spark-program-development-environment-configuration-under-Windows/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/25/Spark-program-development-environment-configuration-under-Windows/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -229,17 +267,17 @@
 <p><a href="https://github.com/apache/spark/blob/master/pom.xml" target="_blank" rel="noopener">https://github.com/apache/spark/blob/master/pom.xml</a></p>
 <p><strong>maven repository</strong></p>
 <p><a href="https://mvnrepository.com/search?q=spark" target="_blank" rel="noopener">https://mvnrepository.com/search?q=spark</a></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>war<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>TestSpark<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.kfk.spark<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>TestSpark<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scala.version</span>&gt;</span>2.11.12<span class="tag">&lt;/<span class="name">scala.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scala.binary.version</span>&gt;</span>2.11<span class="tag">&lt;/<span class="name">scala.binary.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">spark.version</span>&gt;</span>2.2.0<span class="tag">&lt;/<span class="name">spark.version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.spark<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spark-core_$&#123;scala.binary.version&#125;<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spark.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.spark<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spark-streaming_$&#123;scala.binary.version&#125;<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spark.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.spark<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spark-sql_$&#123;scala.binary.version&#125;<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spark.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.spark<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spark-hive_$&#123;scala.binary.version&#125;<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spark.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.spark<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spark-streaming-kafka-0-10_$&#123;scala.binary.version&#125;<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spark.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.hadoop<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hadoop-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.6.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><?xml version="1.0" encoding="UTF-8"?></span></span><br><span class="line"></span><br><span class="line"><span class="tag"><<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"</span>></span></span><br><span class="line"></span><br><span class="line">  <span class="tag"><<span class="name">modelVersion</span>></span>4.0.0<span class="tag"></<span class="name">modelVersion</span>></span></span><br><span class="line">  <span class="tag"><<span class="name">packaging</span>></span>war<span class="tag"></<span class="name">packaging</span>></span></span><br><span class="line"></span><br><span class="line">  <span class="tag"><<span class="name">name</span>></span>TestSpark<span class="tag"></<span class="name">name</span>></span></span><br><span class="line">  <span class="tag"><<span class="name">groupId</span>></span>com.kfk.spark<span class="tag"></<span class="name">groupId</span>></span></span><br><span class="line">  <span class="tag"><<span class="name">artifactId</span>></span>TestSpark<span class="tag"></<span class="name">artifactId</span>></span></span><br><span class="line">  <span class="tag"><<span class="name">version</span>></span>1.0-SNAPSHOT<span class="tag"></<span class="name">version</span>></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="tag"><<span class="name">properties</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">scala.version</span>></span>2.11.12<span class="tag"></<span class="name">scala.version</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">scala.binary.version</span>></span>2.11<span class="tag"></<span class="name">scala.binary.version</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">spark.version</span>></span>2.2.0<span class="tag"></<span class="name">spark.version</span>></span></span><br><span class="line">  <span class="tag"></<span class="name">properties</span>></span></span><br><span class="line"></span><br><span class="line">  <span class="tag"><<span class="name">dependencies</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">dependency</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">groupId</span>></span>org.apache.spark<span class="tag"></<span class="name">groupId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">artifactId</span>></span>spark-core_${scala.binary.version}<span class="tag"></<span class="name">artifactId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">version</span>></span>${spark.version}<span class="tag"></<span class="name">version</span>></span></span><br><span class="line">    <span class="tag"></<span class="name">dependency</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">dependency</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">groupId</span>></span>org.apache.spark<span class="tag"></<span class="name">groupId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">artifactId</span>></span>spark-streaming_${scala.binary.version}<span class="tag"></<span class="name">artifactId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">version</span>></span>${spark.version}<span class="tag"></<span class="name">version</span>></span></span><br><span class="line">    <span class="tag"></<span class="name">dependency</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">dependency</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">groupId</span>></span>org.apache.spark<span class="tag"></<span class="name">groupId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">artifactId</span>></span>spark-sql_${scala.binary.version}<span class="tag"></<span class="name">artifactId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">version</span>></span>${spark.version}<span class="tag"></<span class="name">version</span>></span></span><br><span class="line">    <span class="tag"></<span class="name">dependency</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">dependency</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">groupId</span>></span>org.apache.spark<span class="tag"></<span class="name">groupId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">artifactId</span>></span>spark-hive_${scala.binary.version}<span class="tag"></<span class="name">artifactId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">version</span>></span>${spark.version}<span class="tag"></<span class="name">version</span>></span></span><br><span class="line">    <span class="tag"></<span class="name">dependency</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">dependency</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">groupId</span>></span>org.apache.spark<span class="tag"></<span class="name">groupId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">artifactId</span>></span>spark-streaming-kafka-0-10_${scala.binary.version}<span class="tag"></<span class="name">artifactId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">version</span>></span>${spark.version}<span class="tag"></<span class="name">version</span>></span></span><br><span class="line">    <span class="tag"></<span class="name">dependency</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">dependency</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">groupId</span>></span>org.apache.hadoop<span class="tag"></<span class="name">groupId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">artifactId</span>></span>hadoop-client<span class="tag"></<span class="name">artifactId</span>></span></span><br><span class="line">      <span class="tag"><<span class="name">version</span>></span>2.6.0<span class="tag"></<span class="name">version</span>></span></span><br><span class="line">    <span class="tag"></<span class="name">dependency</span>></span></span><br><span class="line">  <span class="tag"></<span class="name">dependencies</span>></span></span><br><span class="line"></span><br><span class="line"><span class="tag"></<span class="name">project</span>></span></span><br></pre></td></tr></tbody></table></figure>
 
 <h3 id="导入Scala-SDK"><a href="#导入Scala-SDK" class="headerlink" title="导入Scala SDK"></a>导入<code>Scala SDK</code></h3><p><code>groupId</code>和<code>artifactId</code>被统称为“坐标”是为了保证项目唯一性而提出的</p>
 <p><code>groupId</code>一般分为多个段，这里我只说两段，第一段为域，第二段为公司名称。举个apache公司的tomcat项目例子：这个项目的<code>groupId</code>是org.apache</p>
 <p>artifactId表示这个项目的名称</p>
 <p>包结构最好是<code>groupId.artifactId.xxx</code></p>
-<h2 id="编写spark程序"><a href="#编写spark程序" class="headerlink" title="编写spark程序"></a>编写spark程序</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.spark.test</span><br><span class="line"><span class="keyword">import</span> org.apache.spark.&#123;<span class="type">SparkConf</span>, <span class="type">SparkContext</span>&#125;</span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">MyScalaWordCout</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="comment">//参数检查</span></span><br><span class="line">    <span class="keyword">if</span> (args.length &lt; <span class="number">2</span>) &#123;</span><br><span class="line">      <span class="type">System</span>.err.println(<span class="string">"Usage: MyWordCout    "</span>)</span><br><span class="line">      <span class="type">System</span>.exit(<span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获取参数</span></span><br><span class="line">    <span class="keyword">val</span> input=args(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">val</span> output=args(<span class="number">1</span>)</span><br><span class="line">    <span class="comment">//创建scala版本的SparkContext</span></span><br><span class="line">    <span class="keyword">val</span> conf=<span class="keyword">new</span> <span class="type">SparkConf</span>().setAppName(<span class="string">"myWordCount"</span>)</span><br><span class="line">    <span class="keyword">val</span> sc=<span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line">    <span class="comment">//读取数据</span></span><br><span class="line">    <span class="keyword">val</span> lines=sc.textFile(input)</span><br><span class="line">    <span class="comment">//进行相关计算</span></span><br><span class="line">    <span class="keyword">val</span> resultRdd=lines.flatMap(_.split(<span class="string">" "</span>)).map((_,<span class="number">1</span>)).reduceByKey(_+_)</span><br><span class="line">    <span class="comment">//保存结果</span></span><br><span class="line">    resultRdd.saveAsTextFile(output)</span><br><span class="line">    sc.stop()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="编写spark程序"><a href="#编写spark程序" class="headerlink" title="编写spark程序"></a>编写spark程序</h2><figure class="highlight scala"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.spark.test</span><br><span class="line"><span class="keyword">import</span> org.apache.spark.{<span class="type">SparkConf</span>, <span class="type">SparkContext</span>}</span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">MyScalaWordCout</span> </span>{</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = {</span><br><span class="line">    <span class="comment">//参数检查</span></span><br><span class="line">    <span class="keyword">if</span> (args.length < <span class="number">2</span>) {</span><br><span class="line">      <span class="type">System</span>.err.println(<span class="string">"Usage: MyWordCout    "</span>)</span><br><span class="line">      <span class="type">System</span>.exit(<span class="number">1</span>)</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//获取参数</span></span><br><span class="line">    <span class="keyword">val</span> input=args(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">val</span> output=args(<span class="number">1</span>)</span><br><span class="line">    <span class="comment">//创建scala版本的SparkContext</span></span><br><span class="line">    <span class="keyword">val</span> conf=<span class="keyword">new</span> <span class="type">SparkConf</span>().setAppName(<span class="string">"myWordCount"</span>)</span><br><span class="line">    <span class="keyword">val</span> sc=<span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line">    <span class="comment">//读取数据</span></span><br><span class="line">    <span class="keyword">val</span> lines=sc.textFile(input)</span><br><span class="line">    <span class="comment">//进行相关计算</span></span><br><span class="line">    <span class="keyword">val</span> resultRdd=lines.flatMap(_.split(<span class="string">" "</span>)).map((_,<span class="number">1</span>)).reduceByKey(_+_)</span><br><span class="line">    <span class="comment">//保存结果</span></span><br><span class="line">    resultRdd.saveAsTextFile(output)</span><br><span class="line">    sc.stop()</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-<h2 id="打成jar包然后上传到服务器"><a href="#打成jar包然后上传到服务器" class="headerlink" title="打成jar包然后上传到服务器"></a>打成jar包然后上传到服务器</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/spark-submit --master <span class="built_in">local</span>[2] /opt/jars/sparkStu.jar hdfs://bigdata-pro01.kfk.com:9000/user/data/stu.txt</span><br></pre></td></tr></table></figure>
+<h2 id="打成jar包然后上传到服务器"><a href="#打成jar包然后上传到服务器" class="headerlink" title="打成jar包然后上传到服务器"></a>打成jar包然后上传到服务器</h2><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/spark-submit --master <span class="built_in">local</span>[2] /opt/jars/sparkStu.jar hdfs://bigdata-pro01.kfk.com:9000/user/data/stu.txt</span><br></pre></td></tr></tbody></table></figure>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">./bin/spark-submit \</span><br><span class="line">  --class &lt;main-class&gt; \</span><br><span class="line">  --master &lt;master-url&gt; \</span><br><span class="line">  --deploy-mode &lt;deploy-mode&gt; \</span><br><span class="line">  --conf &lt;key&gt;=&lt;value&gt; \</span><br><span class="line">  ... <span class="comment"># other options</span></span><br><span class="line">  &lt;application-jar&gt; \</span><br><span class="line">  [application-arguments]</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">./bin/spark-submit \</span><br><span class="line">  --class <main-class> \</span><br><span class="line">  --master <master-url> \</span><br><span class="line">  --deploy-mode <deploy-mode> \</span><br><span class="line">  --conf <key>=<value> \</span><br><span class="line">  ... <span class="comment"># other options</span></span><br><span class="line">  <application-jar> \</span><br><span class="line">  [application-arguments]</span><br></pre></td></tr></tbody></table></figure>
 
 <p>Some of the commonly used options are:</p>
 <blockquote>
@@ -252,7 +290,25 @@
 <li><code>application-arguments</code>: Arguments passed to the main method of your main class, if any</li>
 </ul>
 </blockquote>
-
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
     </div>
 
     
@@ -261,7 +317,6 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/spark/" rel="tag"># spark</a>
               <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag"># 大数据</a>
           </div>
 
@@ -291,6 +346,7 @@
 
           </div>
           
+    <div class="comments" id="comments"></div>
 
         </div>
           
@@ -331,14 +387,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -420,6 +482,8 @@
 
 
 
+  <script src="/js/local-search.js"></script>
+
 
 
 
@@ -435,6 +499,33 @@
   
 
   
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: '59jSyrRz5vygBBEppvd4Inud-MdYXbMMI',
+    appKey: '14TLHCXpYXedwKjmamiT2knn',
+    placeholder: "Just go go",
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
 
 </body>
 </html>
