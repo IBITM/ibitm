@@ -266,7 +266,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p><img src="/.io//Users/ZXiao/Desktop/未命名表单.png" alt="未命名表单"></p>
+          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>待补充</p>
 <h2 id="0-1背包问题"><a href="#0-1背包问题" class="headerlink" title="0/1背包问题"></a>0/1背包问题</h2><h3 id="二维动态规划"><a href="#二维动态规划" class="headerlink" title="二维动态规划"></a>二维动态规划</h3><p>有一个容量为 N 的背包，要用这个背包装下物品的价值最大，这些物品有两个属性：体积 w 和价值 v。</p>
 <p>定义一个二维数组 <code>dp</code> 存储最大价值，其中 <code>dp[i][j]</code> 表示前 i 件物品体积不超过 j 的情况下能达到的最大价值。设第 i 件物品体积为 w，价值为 v，根据第 i 件物品是否添加到背包中，可以分两种情况讨论：</p>
 <ul>
@@ -276,10 +276,12 @@
 <p>第 i 件物品可添加也可以不添加，取决于哪种情况下最大价值更大。因此，0-1 背包的状态转移方程为：</p>
 <script type="math/tex; mode=display">
 dp[i][j] = max(dp[i-1][j],dp[i-1][j-w]+v)</script><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        W 表示背包能容纳的最大重量</span></span><br><span class="line"><span class="comment">        N 表示物品的数量</span></span><br><span class="line"><span class="comment">        wiehgts 表示 N 件物品的重量</span></span><br><span class="line"><span class="comment">        value 表示 N 件物品的价值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">knapsack</span><span class="params">(<span class="keyword">int</span> W, <span class="keyword">int</span> N, <span class="keyword">int</span>[] weights, <span class="keyword">int</span>[] values)</span> </span>{</span><br><span class="line">        <span class="comment">//dp[i][j] 表示只放前 i 件的商品，体积不超过 j 的最大价值</span></span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[N + <span class="number">1</span>][W + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i <= N; i++) {</span><br><span class="line">            <span class="keyword">int</span> w = weights[i - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">int</span> v = values[i - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j <= w; j++) {</span><br><span class="line">                <span class="keyword">if</span> (j >= w) {</span><br><span class="line">                    dp[i][j] = Math.max(dp[i - <span class="number">1</span>][j], dp[i - <span class="number">1</span>][j - w] + v);</span><br><span class="line">                } <span class="keyword">else</span> {</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j];</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> dp[N][W];</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<p>我们以下面的物品举例说明求解的过程</p>
-<div align="center"> <img src="/.io//未命名表单2.png" width="274px" height="141px"> </div>
+<p><strong>我们以下面的物品举例说明求解的过程</strong></p>
+<div align="left"> <img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/%E6%9C%AA%E5%91%BD%E5%90%8D%E8%A1%A8%E5%8D%952.png?raw=true" width="274px" height="141px"> </div>
+下面以四个状态的计算举例
 
-<p><img src="/.io//未命名表单.png" alt="未命名表单"></p>
+<div align="left"> <img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/%E6%9C%AA%E5%91%BD%E5%90%8D%E8%A1%A8%E5%8D%95.png?raw=true" width="1108px" height="535px"> </div>
+
 <h3 id="一维动态规划"><a href="#一维动态规划" class="headerlink" title="一维动态规划"></a>一维动态规划</h3><p>观察状态转移方程或者填充表格的顺序，我们可以知道，前 i 件物品的状态仅与前 i-1 件物品的状态有关，因此可以将 dp 定义为一维数组，其中<code>dp[j]</code>  既可以表示 <code>dp[i-1][j]</code> 也可以表示 <code>dp[i][j]</code>，本质上表示容量为 j 时，可以获得的最大价值。</p>
 <script type="math/tex; mode=display">
 dp[j] = max(dp[j],dp[j-w]+v)</script><p>如果我们实现代码的时候，内层循环还是按照从小到大循环的话，就会出现一个问题，就是<code>dp[j-w]</code>表示的不再是<code>dp[i-1][j-w]</code>而是<code>dp[i][j-w]</code>。</p>
@@ -557,7 +559,8 @@ dp[j] = max(dp[j],dp[j-w]+v)</script><p>如果我们实现代码的时候，内�
     <div class="post-body" itemprop="articleBody">
 
       
-          <span class="github-emoji" style="color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/1f389.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/1f389.png?v8">🎉</span> still works.<script>
+          <p><span class="github-emoji" style="color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/1f389.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/1f389.png?v8">🎉</span> still works.</p>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -647,7 +650,6 @@ dp[j] = max(dp[j],dp[j-w]+v)</script><p>如果我们实现代码的时候，内�
 
       
           <h2 id="二分查找，寻找插入的位置"><a href="#二分查找，寻找插入的位置" class="headerlink" title="二分查找，寻找插入的位置"></a>二分查找，寻找插入的位置</h2><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> l, <span class="keyword">int</span> h, <span class="keyword">int</span> k)</span> </span>{</span><br><span class="line">    <span class="comment">//开区间</span></span><br><span class="line">    <span class="keyword">while</span> (l < h) {</span><br><span class="line">        <span class="keyword">int</span> m = l + (h - l) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (nums[m] == k) {</span><br><span class="line">            <span class="keyword">return</span> m;</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (nums[m] > k) {</span><br><span class="line">            h = m;</span><br><span class="line">        } <span class="keyword">else</span></span><br><span class="line">            l = m + <span class="number">1</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> l;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -829,7 +831,7 @@ dp[j] = max(dp[j],dp[j-w]+v)</script><p>如果我们实现代码的时候，内�
 
       
           <p>通常在向 Spark 传递函数时，可以使用 driver programme 中定义的变量，但是集群中运行的每个 tusk 都只会得到这些变量的一份新的副本，更新这些副本的值也不会影响driver programme 中的对应变量。</p>
-<p>Spark 的两个共享变量，累加器与广播变量，使用结果聚合与广播这两种常见的通信模式突破了这一限制。</p>
+<p>Spark 的两个共享变量，累加器与广播变量，使用结果聚合与广播这两种常见的通信模式突破了这一限制。<br></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/11/26/reflections-on-Spark-shared-variables/#more" rel="contents">
@@ -908,7 +910,7 @@ dp[j] = max(dp[j],dp[j-w]+v)</script><p>如果我们实现代码的时候，内�
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>在Windows环境下, 使用IDEA进行Spark程序开发所需的环境配置, 主要是Maven pom文件的配置和Scala SDK的配置。</p>
+          <p>在Windows环境下, 使用IDEA进行Spark程序开发所需的环境配置, 主要是Maven pom文件的配置和Scala SDK的配置。<br></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/11/25/Spark-program-development-environment-configuration-under-Windows/#more" rel="contents">
