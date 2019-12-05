@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>专业书籍备忘录</title>
+    <url>/2019/12/05/%E4%B8%93%E4%B8%9A%E4%B9%A6%E7%B1%8D%E5%A4%87%E5%BF%98%E5%BD%95/</url>
+    <content><![CDATA[<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+  </entry>
+  <entry>
     <title>从Comparable到compareTo方法</title>
     <url>/2019/12/05/%E4%BB%8EComparable%E5%88%B0compareTo%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<p>今天刷LeetCode <a href="https://leetcode-cn.com/problems/largest-number/" target="_blank" rel="noopener">179. 最大数</a> 需要用到 String 类型的排序问题，就具体看了一下 Java 的实现方法</p>
