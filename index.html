@@ -203,6 +203,148 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/12/08/%E4%BD%BF%E7%94%A8%E4%B8%A4%E7%A7%8D%E9%94%81%E5%AE%9E%E7%8E%B0%E5%B8%A6%E6%9C%89%E7%8E%AF%E5%BD%A2%E7%BC%93%E5%86%B2%E5%8C%BA%E7%9A%84%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
+      <meta itemprop="name" content="张潇">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="求索之心">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/08/%E4%BD%BF%E7%94%A8%E4%B8%A4%E7%A7%8D%E9%94%81%E5%AE%9E%E7%8E%B0%E5%B8%A6%E6%9C%89%E7%8E%AF%E5%BD%A2%E7%BC%93%E5%86%B2%E5%8C%BA%E7%9A%84%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%9E%8B/" class="post-title-link" itemprop="url">使用两种锁实现带有环形缓冲区的生产者消费者模型</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-08 11:03:22" itemprop="dateCreated datePublished" datetime="2019-12-08T11:03:22+08:00">2019-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/12/08/%E4%BD%BF%E7%94%A8%E4%B8%A4%E7%A7%8D%E9%94%81%E5%AE%9E%E7%8E%B0%E5%B8%A6%E6%9C%89%E7%8E%AF%E5%BD%A2%E7%BC%93%E5%86%B2%E5%8C%BA%E7%9A%84%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%9E%8B/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/08/%E4%BD%BF%E7%94%A8%E4%B8%A4%E7%A7%8D%E9%94%81%E5%AE%9E%E7%8E%B0%E5%B8%A6%E6%9C%89%E7%8E%AF%E5%BD%A2%E7%BC%93%E5%86%B2%E5%8C%BA%E7%9A%84%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%9E%8B/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="使用synchronized关键字"><a href="#使用synchronized关键字" class="headerlink" title="使用synchronized关键字"></a>使用<code>synchronized</code>关键字</h2><p>我们使用<strong>双指针</strong>法构建了一个环形缓冲区，使用环形缓冲区有几个需要注意的地方</p>
+<ul>
+<li><p>其中 head 表示缓冲区的开始，tail 表示缓冲区的结束，[head,tail) 前闭后开表示缓冲区中有数据的空间。</p>
+<ul>
+<li>初始化 head = tail = 0 表示缓冲区为空</li>
+<li>随着生产物品 tail 不断的增加 <code>tail = (tail + 1) % CAPACITY</code></li>
+<li>直到 <code>(tail + 1) % CAPACITY == head</code>表示缓冲区满</li>
+</ul>
+</li>
+<li><p>有一个空间会被空置，作为缓冲区满的判断标志，所以真正的容量为 CAPACITY - 1。</p>
+</li>
+</ul>
+<p>其次，关于 synchronized 关键字有几个需要注意的地方</p>
+<ul>
+<li>synchronized 是要结合 <code>Object.wait()</code> 和 <code>Object.notify</code> 或者 <code>Object.notifyAll()</code> 使用，具体说明请看文章 <a href="https://zhuanlan.zhihu.com/p/76625784" target="_blank" rel="noopener">为什么wait()和notify()需要搭配synchonized关键字使用?</a></li>
+<li>因为 synchronized 只有一个阻塞队列，当多生产者多消费者时，唤醒时需要使用 <code>Object.notifyAll()</code></li>
+<li>还有就是可能会出现的中断异常 InterruptedException 。</li>
+</ul>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> CAPACITY = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span>[] buffer = <span class="keyword">new</span> <span class="keyword">int</span>[CAPACITY];</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> head = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> tail = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">        <span class="comment">//生产者</span></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() {</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{</span><br><span class="line">                <span class="keyword">synchronized</span> (buffer) {</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < <span class="number">100</span>; i++) {</span><br><span class="line">                        <span class="keyword">while</span> ((tail + <span class="number">1</span>) % CAPACITY == head) {</span><br><span class="line">                            <span class="keyword">try</span> {</span><br><span class="line">                                buffer.wait();</span><br><span class="line">                            } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                                e.printStackTrace();</span><br><span class="line">                            }</span><br><span class="line">                        }</span><br><span class="line">                        buffer[tail] = i;</span><br><span class="line">                        tail = (tail + <span class="number">1</span>) % CAPACITY;</span><br><span class="line">                        System.out.println(<span class="string">"生产者生产了"</span> + i);</span><br><span class="line">                        buffer.notifyAll();</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }).start();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//消费者</span></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() {</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{</span><br><span class="line">                <span class="keyword">synchronized</span> (buffer) {</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < <span class="number">100</span>; i++) {</span><br><span class="line">                        <span class="keyword">while</span> (head == tail) {</span><br><span class="line">                            <span class="keyword">try</span> {</span><br><span class="line">                                buffer.wait();</span><br><span class="line">                            } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                                e.printStackTrace();</span><br><span class="line">                            }</span><br><span class="line">                        }</span><br><span class="line">                        System.out.println(<span class="string">"消费者消费了"</span> + buffer[head]);</span><br><span class="line">                        head = (head + <span class="number">1</span>) % CAPACITY;</span><br><span class="line">                        buffer.notifyAll();</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }).start();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="使用ReentrantLock实现"><a href="#使用ReentrantLock实现" class="headerlink" title="使用ReentrantLock实现"></a>使用<code>ReentrantLock</code>实现</h2><p>对比 ReentrantLock 和 synchronized 可以看出两者的差别（最后会总结二者的区别）</p>
+<ul>
+<li>synchronized 只能有一个阻塞队列，而 ReentrantLock 可以通过添加多个条件互斥量增加阻塞队列的个数</li>
+</ul>
+<p>使用 ReentrantLock 有一个注意的地方，要在在 finally 中关闭锁。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> class <span class="title">test</span><span class="params">()</span></span>{</span><br><span class="line">    <span class="keyword">private</span> Lock lock=<span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMethod</span><span class="params">()</span></span>{</span><br><span class="line">        <span class="keyword">try</span>{</span><br><span class="line">            lock.lock();</span><br><span class="line">            <span class="comment">//code</span></span><br><span class="line">        } </span><br><span class="line">        <span class="keyword">finally</span>{</span><br><span class="line">            lock.unlock();</span><br><span class="line">        }   </span><br><span class="line">    }  </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.Condition;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> CAPACITY = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span>[] buffer = <span class="keyword">new</span> <span class="keyword">int</span>[CAPACITY];</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Condition notFull = lock.newCondition();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Condition notEmpty = lock.newCondition();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> head = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> tail = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">        <span class="comment">//生产者</span></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() {</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{</span><br><span class="line">                <span class="keyword">try</span> {</span><br><span class="line">                    lock.lockInterruptibly();</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < <span class="number">100</span>; i++) {</span><br><span class="line">                        <span class="keyword">while</span> ((tail + <span class="number">1</span>) % CAPACITY == head) {</span><br><span class="line">                            <span class="keyword">try</span> {</span><br><span class="line">                                notFull.await();</span><br><span class="line">                            } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                                e.printStackTrace();</span><br><span class="line">                            }</span><br><span class="line">                        }</span><br><span class="line">                        buffer[tail] = i;</span><br><span class="line">                        tail = (tail + <span class="number">1</span>) % CAPACITY;</span><br><span class="line">                        System.out.println(<span class="string">"生产者生产了"</span> + i);</span><br><span class="line">                        notEmpty.signal();</span><br><span class="line">                    }</span><br><span class="line">                } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                } <span class="keyword">finally</span> {</span><br><span class="line">                    lock.unlock();</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }).start();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//消费者</span></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() {</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{</span><br><span class="line">                <span class="keyword">try</span> {</span><br><span class="line">                    lock.lockInterruptibly();</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < <span class="number">100</span>; i++) {</span><br><span class="line">                        <span class="keyword">while</span> (head == tail) {</span><br><span class="line">                            <span class="keyword">try</span> {</span><br><span class="line">                                notEmpty.await();</span><br><span class="line">                            } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                                e.printStackTrace();</span><br><span class="line">                            }</span><br><span class="line">                        }</span><br><span class="line">                        System.out.println(<span class="string">"消费者消费了"</span> + buffer[head]);</span><br><span class="line">                        head = (head + <span class="number">1</span>) % CAPACITY;</span><br><span class="line">                        notFull.signal();</span><br><span class="line">                    }</span><br><span class="line">                } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                } <span class="keyword">finally</span> {</span><br><span class="line">                    lock.unlock();</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }).start();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="两种锁的区别"><a href="#两种锁的区别" class="headerlink" title="两种锁的区别"></a>两种锁的区别</h2><h3 id="区别一："><a href="#区别一：" class="headerlink" title="区别一："></a>区别一：</h3><p>synchronized 是通过虚拟机层面实现的，而 ReentrantLock 是通过 JDK API 实现的</p>
+<h3 id="区别二：等待可中断"><a href="#区别二：等待可中断" class="headerlink" title="区别二：等待可中断"></a>区别二：等待可中断</h3><p>等待可中断是指当持有锁的线程长期不释放锁的时候，正在等待的线程可以选择放弃等待，改为处理其他事情。可等待特性对处理执行时间非常长的同步块很有帮助。</p>
+<p>具体说来，假如业务代码中有两个线程，Thread1 和 Thread2。假设 Thread1 获取了对象锁，Thread2 将等待 Thread1 释放锁。</p>
+<ul>
+<li>使用synchronized。如果 Thread1 不释放，Thread2 将一直等待，不能被中断。</li>
+<li>使用ReentrantLock。如果 Thread1 不释放，Thread2 等待了很长时间以后，可以中断等待，转而去做别的事情。</li>
+</ul>
+<h3 id="区别三：公平锁"><a href="#区别三：公平锁" class="headerlink" title="区别三：公平锁"></a>区别三：公平锁</h3><p>公平锁是指多个线程在等待同一个锁时，必须按照申请的时间顺序来依次获得锁；而非公平锁则不能保证这一点。非公平锁在锁被释放时，任何一个等待锁的线程都有机会获得锁。 </p>
+<ul>
+<li><p>synchronized的锁是非公平锁</p>
+</li>
+<li><p>ReentrantLock默认情况下也是非公平锁，但可以通过带 boolean 的构造函数要求使用公平锁。</p>
+</li>
+</ul>
+<h3 id="区别四：绑定多个条件"><a href="#区别四：绑定多个条件" class="headerlink" title="区别四：绑定多个条件"></a>区别四：绑定多个条件</h3><p>ReentrantLock可以同时绑定多个Condition对象，只需多次调用 <code>newCondition()</code> 方法即可。</p>
+<p>synchronized中，锁对象的 <code>wait()</code> 和 <code>notify()</code>  或 <code>notifyAll()</code> 方法可以实现一个隐含的条件。如果需要多个条件，只能多加锁。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/12/05/%E4%B8%93%E4%B8%9A%E4%B9%A6%E7%B1%8D%E5%A4%87%E5%BF%98%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -688,7 +830,7 @@
 </ul>
 <p>第 i 件物品可添加也可以不添加，取决于哪种情况下最大价值更大。因此，0-1 背包的状态转移方程为：</p>
 <script type="math/tex; mode=display">
-dp[i][j] = max(dp[i-1][j],dp[i-1][j-w]+v)</script><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        W 表示背包能容纳的最大重量</span></span><br><span class="line"><span class="comment">        N 表示物品的数量</span></span><br><span class="line"><span class="comment">        wiehgts 表示 N 件物品的重量</span></span><br><span class="line"><span class="comment">        value 表示 N 件物品的价值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">knapsack</span><span class="params">(<span class="keyword">int</span> W, <span class="keyword">int</span> N, <span class="keyword">int</span>[] weights, <span class="keyword">int</span>[] values)</span> </span>{</span><br><span class="line">        <span class="comment">//dp[i][j] 表示只放前 i 件的商品，体积不超过 j 的最大价值</span></span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[N + <span class="number">1</span>][W + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i <= N; i++) {</span><br><span class="line">            <span class="keyword">int</span> w = weights[i - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">int</span> v = values[i - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j <= w; j++) {</span><br><span class="line">                <span class="keyword">if</span> (j >= w) {</span><br><span class="line">                    dp[i][j] = Math.max(dp[i - <span class="number">1</span>][j], dp[i - <span class="number">1</span>][j - w] + v);</span><br><span class="line">                } <span class="keyword">else</span> {</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j];</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> dp[N][W];</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+dp[i][j] = max(dp[i-1][j],dp[i-1][j-w]+v)</script><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        W 表示背包能容纳的最大重量</span></span><br><span class="line"><span class="comment">        N 表示物品的数量</span></span><br><span class="line"><span class="comment">        wiehgts 表示 N 件物品的重量</span></span><br><span class="line"><span class="comment">        value 表示 N 件物品的价值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">knapsack</span><span class="params">(<span class="keyword">int</span> W, <span class="keyword">int</span> N, <span class="keyword">int</span>[] weights, <span class="keyword">int</span>[] values)</span> </span>{</span><br><span class="line">        <span class="comment">//dp[i][j] 表示只放前 i 件的商品，体积不超过 j 的最大价值</span></span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[N + <span class="number">1</span>][W + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i <= n; i++) {< span><br><span class="line">            <span class="keyword">int</span> w = weights[i - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">int</span> v = values[i - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j <= w; j++) {< span><br><span class="line">                <span class="keyword">if</span> (j >= w) {</span><br><span class="line">                    dp[i][j] = Math.max(dp[i - <span class="number">1</span>][j], dp[i - <span class="number">1</span>][j - w] + v);</span><br><span class="line">                } <span class="keyword">else</span> {</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j];</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> dp[N][W];</span><br><span class="line">    }</span><br><span class="line">}</span><br></=></span></=></span></pre></td></tr></tbody></table></figure>
 <p><strong>我们以下面的物品举例说明求解的过程</strong></p>
 <p></p><div align="left"> <img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/%E6%9C%AA%E5%91%BD%E5%90%8D%E8%A1%A8%E5%8D%952.png?raw=true" width="274px" height="141px"> </div><br>下面以四个状态的计算举例<p></p>
 <p></p><div align="left"> <img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/%E6%9C%AA%E5%91%BD%E5%90%8D%E8%A1%A8%E5%8D%95.png?raw=true" width="1108px" height="535px"> </div><p></p>
@@ -697,7 +839,7 @@ dp[i][j] = max(dp[i-1][j],dp[i-1][j-w]+v)</script><figure class="highlight java"
 dp[j] = max(dp[j],dp[j-w]+v)</script><p>值得注意的是，等号左边的<code>dp[j]</code>表示前 i 件商品容量为 j 时可以获得的最大价值，本质上是<code>dp[i][j]</code>；等号右边的<code>dp[j]</code>和<code>dp[j-w]</code>是前 i -1 件商品时容量分别为 j 和 j-w 时获得的最大价值，本质上其实是<code>dp[i-1][j]</code>和<code>dp[i-1][j-w]</code>。</p>
 <p>如果我们实现代码的时候，内层循环还是按照容量从小到大循环，就会出现一个问题，就是<code>dp[j-w]</code>表示的不再是<code>dp[i-1][j-w]</code>而是<code>dp[i][j-w]</code>。</p>
 <p>所以，我们实现的时候内层循环，要按照容量从大向小来循环。</p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">knapsack</span><span class="params">(<span class="keyword">int</span> W, <span class="keyword">int</span> N, <span class="keyword">int</span>[] weights, <span class="keyword">int</span>[] values)</span> </span>{</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[W + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i <= N; i++) {</span><br><span class="line">        <span class="keyword">int</span> w = weights[i - <span class="number">1</span>], v = values[i - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = W; j >= <span class="number">1</span>; j--) {</span><br><span class="line">            <span class="keyword">if</span> (j >= w) {</span><br><span class="line">                dp[j] = Math.max(dp[j], dp[j - w] + v);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> dp[W];</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">knapsack</span><span class="params">(<span class="keyword">int</span> W, <span class="keyword">int</span> N, <span class="keyword">int</span>[] weights, <span class="keyword">int</span>[] values)</span> </span>{</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[W + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i <= n; i++) {< span><br><span class="line">        <span class="keyword">int</span> w = weights[i - <span class="number">1</span>], v = values[i - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = W; j >= <span class="number">1</span>; j--) {</span><br><span class="line">            <span class="keyword">if</span> (j >= w) {</span><br><span class="line">                dp[j] = Math.max(dp[j], dp[j - w] + v);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> dp[W];</span><br><span class="line">}</span><br></=></span></pre></td></tr></tbody></table></figure>
 <p>内容参考<a href="https://cyc2018.github.io/CS-Notes/#/notes/Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92?id=_0-1-%e8%83%8c%e5%8c%85" target="_blank" rel="noopener">Leetcode题解/动态规划/0-1-背包</a></p>
 <h2 id="二维费用背包问题"><a href="#二维费用背包问题" class="headerlink" title="二维费用背包问题"></a>二维费用背包问题</h2><p>二维费用背包问题本质上只是0/1背包的变形，多添加一种费用。二维费用背包问题是指：</p>
 <ul>
@@ -1154,86 +1296,6 @@ dp[j] = min(dp[j], dp[j-c] + 1)</script><p>在这里我们可以完全背包和0
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/11/26/reflections-on-Spark-shared-variables/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
-      <meta itemprop="name" content="张潇">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="求索之心">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/26/reflections-on-Spark-shared-variables/" class="post-title-link" itemprop="url">Spark 共享变量的若干思考</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-26 10:19:40" itemprop="dateCreated datePublished" datetime="2019-11-26T10:19:40+08:00">2019-11-26</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/11/26/reflections-on-Spark-shared-variables/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/26/reflections-on-Spark-shared-variables/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>通常在向 Spark 传递函数时，可以使用 driver programme 中定义的变量，但是集群中运行的每个 tusk 都只会得到这些变量的一份新的副本，更新这些副本的值也不会影响driver programme 中的对应变量。</p>
-<p>Spark 的两个共享变量，累加器与广播变量，使用结果聚合与广播这两种常见的通信模式突破了这一限制。<br></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/26/reflections-on-Spark-shared-variables/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1284,20 +1346,20 @@ dp[j] = min(dp[j], dp[j-c] + 1)</script><p>在这里我们可以完全背包和0
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

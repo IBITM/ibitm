@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="求索之心" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://ibitm.github.io').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="使用synchronized关键字我们使用双指针法构建了一个环形缓冲区，使用环形缓冲区有几个需要注意的地方  其中 head 表示缓冲区的开始，tail 表示缓冲区的结束，[head,tail) 前闭后开表示缓冲区中有数据的空间。  初始化 head = tail = 0 表示缓冲区为空 随着生产物品 tail 不断的增加 tail = (tail + 1) % CAPACITY 直到 (tail">
+<meta name="keywords" content="Java,并发编程,面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用两种锁实现带有环形缓冲区的生产者消费者模型">
+<meta property="og:url" content="https:&#x2F;&#x2F;ibitm.github.io&#x2F;2019&#x2F;12&#x2F;08&#x2F;%E4%BD%BF%E7%94%A8%E4%B8%A4%E7%A7%8D%E9%94%81%E5%AE%9E%E7%8E%B0%E5%B8%A6%E6%9C%89%E7%8E%AF%E5%BD%A2%E7%BC%93%E5%86%B2%E5%8C%BA%E7%9A%84%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%9E%8B&#x2F;index.html">
+<meta property="og:site_name" content="求索之心">
+<meta property="og:description" content="使用synchronized关键字我们使用双指针法构建了一个环形缓冲区，使用环形缓冲区有几个需要注意的地方  其中 head 表示缓冲区的开始，tail 表示缓冲区的结束，[head,tail) 前闭后开表示缓冲区中有数据的空间。  初始化 head = tail = 0 表示缓冲区为空 随着生产物品 tail 不断的增加 tail = (tail + 1) % CAPACITY 直到 (tail">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-08T03:03:22.000Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://ibitm.github.io/2019/12/08/%E4%BD%BF%E7%94%A8%E4%B8%A4%E7%A7%8D%E9%94%81%E5%AE%9E%E7%8E%B0%E5%B8%A6%E6%9C%89%E7%8E%AF%E5%BD%A2%E7%BC%93%E5%86%B2%E5%8C%BA%E7%9A%84%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%9E%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>使用两种锁实现带有环形缓冲区的生产者消费者模型 | 求索之心</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">求索之心</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">点滴琢磨</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/12/08/%E4%BD%BF%E7%94%A8%E4%B8%A4%E7%A7%8D%E9%94%81%E5%AE%9E%E7%8E%B0%E5%B8%A6%E6%9C%89%E7%8E%AF%E5%BD%A2%E7%BC%93%E5%86%B2%E5%8C%BA%E7%9A%84%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
+      <meta itemprop="name" content="张潇">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="求索之心">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用两种锁实现带有环形缓冲区的生产者消费者模型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-08 11:03:22" itemprop="dateCreated datePublished" datetime="2019-12-08T11:03:22+08:00">2019-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/12/08/%E4%BD%BF%E7%94%A8%E4%B8%A4%E7%A7%8D%E9%94%81%E5%AE%9E%E7%8E%B0%E5%B8%A6%E6%9C%89%E7%8E%AF%E5%BD%A2%E7%BC%93%E5%86%B2%E5%8C%BA%E7%9A%84%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%9E%8B/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/08/%E4%BD%BF%E7%94%A8%E4%B8%A4%E7%A7%8D%E9%94%81%E5%AE%9E%E7%8E%B0%E5%B8%A6%E6%9C%89%E7%8E%AF%E5%BD%A2%E7%BC%93%E5%86%B2%E5%8C%BA%E7%9A%84%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%9E%8B/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="使用synchronized关键字"><a href="#使用synchronized关键字" class="headerlink" title="使用synchronized关键字"></a>使用<code>synchronized</code>关键字</h2><p>我们使用<strong>双指针</strong>法构建了一个环形缓冲区，使用环形缓冲区有几个需要注意的地方</p>
+<ul>
+<li><p>其中 head 表示缓冲区的开始，tail 表示缓冲区的结束，[head,tail) 前闭后开表示缓冲区中有数据的空间。</p>
+<ul>
+<li>初始化 head = tail = 0 表示缓冲区为空</li>
+<li>随着生产物品 tail 不断的增加 <code>tail = (tail + 1) % CAPACITY</code></li>
+<li>直到 <code>(tail + 1) % CAPACITY == head</code>表示缓冲区满</li>
+</ul>
+</li>
+<li><p>有一个空间会被空置，作为缓冲区满的判断标志，所以真正的容量为 CAPACITY - 1。</p>
+</li>
+</ul>
+<p>其次，关于 synchronized 关键字有几个需要注意的地方</p>
+<ul>
+<li>synchronized 是要结合 <code>Object.wait()</code> 和 <code>Object.notify</code> 或者 <code>Object.notifyAll()</code> 使用，具体说明请看文章 <a href="https://zhuanlan.zhihu.com/p/76625784" target="_blank" rel="noopener">为什么wait()和notify()需要搭配synchonized关键字使用?</a></li>
+<li>因为 synchronized 只有一个阻塞队列，当多生产者多消费者时，唤醒时需要使用 <code>Object.notifyAll()</code></li>
+<li>还有就是可能会出现的中断异常 InterruptedException 。</li>
+</ul>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> CAPACITY = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span>[] buffer = <span class="keyword">new</span> <span class="keyword">int</span>[CAPACITY];</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> head = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> tail = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">        <span class="comment">//生产者</span></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() {</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{</span><br><span class="line">                <span class="keyword">synchronized</span> (buffer) {</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < <span class="number">100</span>; i++) {</span><br><span class="line">                        <span class="keyword">while</span> ((tail + <span class="number">1</span>) % CAPACITY == head) {</span><br><span class="line">                            <span class="keyword">try</span> {</span><br><span class="line">                                buffer.wait();</span><br><span class="line">                            } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                                e.printStackTrace();</span><br><span class="line">                            }</span><br><span class="line">                        }</span><br><span class="line">                        buffer[tail] = i;</span><br><span class="line">                        tail = (tail + <span class="number">1</span>) % CAPACITY;</span><br><span class="line">                        System.out.println(<span class="string">"生产者生产了"</span> + i);</span><br><span class="line">                        buffer.notifyAll();</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }).start();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//消费者</span></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() {</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{</span><br><span class="line">                <span class="keyword">synchronized</span> (buffer) {</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < <span class="number">100</span>; i++) {</span><br><span class="line">                        <span class="keyword">while</span> (head == tail) {</span><br><span class="line">                            <span class="keyword">try</span> {</span><br><span class="line">                                buffer.wait();</span><br><span class="line">                            } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                                e.printStackTrace();</span><br><span class="line">                            }</span><br><span class="line">                        }</span><br><span class="line">                        System.out.println(<span class="string">"消费者消费了"</span> + buffer[head]);</span><br><span class="line">                        head = (head + <span class="number">1</span>) % CAPACITY;</span><br><span class="line">                        buffer.notifyAll();</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }).start();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="使用ReentrantLock实现"><a href="#使用ReentrantLock实现" class="headerlink" title="使用ReentrantLock实现"></a>使用<code>ReentrantLock</code>实现</h2><p>对比 ReentrantLock 和 synchronized 可以看出两者的差别（最后会总结二者的区别）</p>
+<ul>
+<li>synchronized 只能有一个阻塞队列，而 ReentrantLock 可以通过添加多个条件互斥量增加阻塞队列的个数</li>
+</ul>
+<p>使用 ReentrantLock 有一个注意的地方，要在在 finally 中关闭锁。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> class <span class="title">test</span><span class="params">()</span></span>{</span><br><span class="line">    <span class="keyword">private</span> Lock lock=<span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMethod</span><span class="params">()</span></span>{</span><br><span class="line">        <span class="keyword">try</span>{</span><br><span class="line">            lock.lock();</span><br><span class="line">            <span class="comment">//code</span></span><br><span class="line">        } </span><br><span class="line">        <span class="keyword">finally</span>{</span><br><span class="line">            lock.unlock();</span><br><span class="line">        }   </span><br><span class="line">    }  </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.Condition;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> CAPACITY = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span>[] buffer = <span class="keyword">new</span> <span class="keyword">int</span>[CAPACITY];</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Condition notFull = lock.newCondition();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Condition notEmpty = lock.newCondition();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> head = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> tail = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">        <span class="comment">//生产者</span></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() {</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{</span><br><span class="line">                <span class="keyword">try</span> {</span><br><span class="line">                    lock.lockInterruptibly();</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < <span class="number">100</span>; i++) {</span><br><span class="line">                        <span class="keyword">while</span> ((tail + <span class="number">1</span>) % CAPACITY == head) {</span><br><span class="line">                            <span class="keyword">try</span> {</span><br><span class="line">                                notFull.await();</span><br><span class="line">                            } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                                e.printStackTrace();</span><br><span class="line">                            }</span><br><span class="line">                        }</span><br><span class="line">                        buffer[tail] = i;</span><br><span class="line">                        tail = (tail + <span class="number">1</span>) % CAPACITY;</span><br><span class="line">                        System.out.println(<span class="string">"生产者生产了"</span> + i);</span><br><span class="line">                        notEmpty.signal();</span><br><span class="line">                    }</span><br><span class="line">                } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                } <span class="keyword">finally</span> {</span><br><span class="line">                    lock.unlock();</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }).start();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//消费者</span></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() {</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{</span><br><span class="line">                <span class="keyword">try</span> {</span><br><span class="line">                    lock.lockInterruptibly();</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < <span class="number">100</span>; i++) {</span><br><span class="line">                        <span class="keyword">while</span> (head == tail) {</span><br><span class="line">                            <span class="keyword">try</span> {</span><br><span class="line">                                notEmpty.await();</span><br><span class="line">                            } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                                e.printStackTrace();</span><br><span class="line">                            }</span><br><span class="line">                        }</span><br><span class="line">                        System.out.println(<span class="string">"消费者消费了"</span> + buffer[head]);</span><br><span class="line">                        head = (head + <span class="number">1</span>) % CAPACITY;</span><br><span class="line">                        notFull.signal();</span><br><span class="line">                    }</span><br><span class="line">                } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                } <span class="keyword">finally</span> {</span><br><span class="line">                    lock.unlock();</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }).start();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="两种锁的区别"><a href="#两种锁的区别" class="headerlink" title="两种锁的区别"></a>两种锁的区别</h2><h3 id="区别一："><a href="#区别一：" class="headerlink" title="区别一："></a>区别一：</h3><p>synchronized 是通过虚拟机层面实现的，而 ReentrantLock 是通过 JDK API 实现的</p>
+<h3 id="区别二：等待可中断"><a href="#区别二：等待可中断" class="headerlink" title="区别二：等待可中断"></a>区别二：等待可中断</h3><p>等待可中断是指当持有锁的线程长期不释放锁的时候，正在等待的线程可以选择放弃等待，改为处理其他事情。可等待特性对处理执行时间非常长的同步块很有帮助。</p>
+<p>具体说来，假如业务代码中有两个线程，Thread1 和 Thread2。假设 Thread1 获取了对象锁，Thread2 将等待 Thread1 释放锁。</p>
+<ul>
+<li>使用synchronized。如果 Thread1 不释放，Thread2 将一直等待，不能被中断。</li>
+<li>使用ReentrantLock。如果 Thread1 不释放，Thread2 等待了很长时间以后，可以中断等待，转而去做别的事情。</li>
+</ul>
+<h3 id="区别三：公平锁"><a href="#区别三：公平锁" class="headerlink" title="区别三：公平锁"></a>区别三：公平锁</h3><p>公平锁是指多个线程在等待同一个锁时，必须按照申请的时间顺序来依次获得锁；而非公平锁则不能保证这一点。非公平锁在锁被释放时，任何一个等待锁的线程都有机会获得锁。 </p>
+<ul>
+<li><p>synchronized的锁是非公平锁</p>
+</li>
+<li><p>ReentrantLock默认情况下也是非公平锁，但可以通过带 boolean 的构造函数要求使用公平锁。</p>
+</li>
+</ul>
+<h3 id="区别四：绑定多个条件"><a href="#区别四：绑定多个条件" class="headerlink" title="区别四：绑定多个条件"></a>区别四：绑定多个条件</h3><p>ReentrantLock可以同时绑定多个Condition对象，只需多次调用 <code>newCondition()</code> 方法即可。</p>
+<p>synchronized中，锁对象的 <code>wait()</code> 和 <code>notify()</code>  或 <code>notifyAll()</code> 方法可以实现一个隐含的条件。如果需要多个条件，只能多加锁。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" rel="tag"># 并发编程</a>
+              <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"># 面试</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/05/%E4%B8%93%E4%B8%9A%E4%B9%A6%E7%B1%8D%E5%A4%87%E5%BF%98%E5%BD%95/" rel="prev" title="专业书籍备忘录">
+      <i class="fa fa-chevron-left"></i> 专业书籍备忘录
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用synchronized关键字"><span class="nav-number">1.</span> <span class="nav-text">使用synchronized关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用ReentrantLock实现"><span class="nav-number">2.</span> <span class="nav-text">使用ReentrantLock实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两种锁的区别"><span class="nav-number">3.</span> <span class="nav-text">两种锁的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#区别一："><span class="nav-number">3.1.</span> <span class="nav-text">区别一：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区别二：等待可中断"><span class="nav-number">3.2.</span> <span class="nav-text">区别二：等待可中断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区别三：公平锁"><span class="nav-number">3.3.</span> <span class="nav-text">区别三：公平锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区别四：绑定多个条件"><span class="nav-number">3.4.</span> <span class="nav-text">区别四：绑定多个条件</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="张潇"
+      src="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
+  <p class="site-author-name" itemprop="name">张潇</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ibitm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ibitm" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/mailto:875080958@qq.com" title="E-Mail → mailto:875080958@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.zhihu.com/people/zhang-xiao-61-53/activities" title="zhihu → http:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;zhang-xiao-61-53&#x2F;activities" rel="noopener" target="_blank"><i class="fa fa-fw fa-zhihu"></i>zhihu</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张潇</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: '59jSyrRz5vygBBEppvd4Inud-MdYXbMMI',
+    appKey: '14TLHCXpYXedwKjmamiT2knn',
+    placeholder: "Just go go",
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
