@@ -203,6 +203,368 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/12/08/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
+      <meta itemprop="name" content="张潇">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="求索之心">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/08/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">日志分析系统</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-08 15:30:41" itemprop="dateCreated datePublished" datetime="2019-12-08T15:30:41+08:00">2019-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/12/08/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/08/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="项目概述"><a href="#项目概述" class="headerlink" title="项目概述"></a>项目概述</h2><h2 id="项目所用的组件版本"><a href="#项目所用的组件版本" class="headerlink" title="项目所用的组件版本"></a>项目所用的组件版本</h2><h2 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h2><p>Zookeeper 两个最重要的系统模型：ZNode 和 Watcher</p>
+<h3 id="ZNode"><a href="#ZNode" class="headerlink" title="ZNode"></a>ZNode</h3><p>在 Zookeeper 中节点有三种类型：</p>
+<ul>
+<li>持久节点（persistent）</li>
+<li>临时节点（ephemeral）</li>
+<li>顺序节点</li>
+</ul>
+<p>在节点创建过程中，通过组合使用，可是生成 4 种组合型节点</p>
+<p><strong>持久节点</strong></p>
+<p>持久节点是指数据节点创建后，就会一直存在 Zookeeper 服务器上，直到有删除操作删除这个节点。</p>
+<p><strong>临时节点</strong></p>
+<p>与持久节点不同，临时节点的生命周期与客户端的会话联系在一起。也就说，如果客户端会话失效，那么这个客户端创建的临时节点就会被删除。</p>
+<h3 id="Watcher-数据变更的通知"><a href="#Watcher-数据变更的通知" class="headerlink" title="Watcher - 数据变更的通知"></a>Watcher - 数据变更的通知</h3><p>Zookeeper 通过 Watcher 机制提供了一种分布式数据订阅/发布功能。Zookeeper 允许客户端在一个节点上注册一个 Watcher 事件监听，一旦一些事务对这个节点做一些操作，就会触发了这个 Watcher，客户端就会收到一个事件通知。</p>
+<p>理解了 ZNode 和 Watcher 基本上就能大致了解 Zookeeper 的运行机制。</p>
+<h2 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h2><h3 id="预分区"><a href="#预分区" class="headerlink" title="预分区"></a>预分区</h3><h3 id="RowKey-设计"><a href="#RowKey-设计" class="headerlink" title="RowKey 设计"></a>RowKey 设计</h3><p>在 HBase 中一条记录的唯一标识就是 rowkey ，那么这条数据存储于哪个 region，取决于 rowkey 处于哪个一个预分区的区间内。</p>
+<p><strong>设计 rowkey 的主要目的 ，就是让数据均匀的分布于所有的 region 中，在一定程度上防止数据倾斜。</strong></p>
+<h4 id="rowkey-长度原则"><a href="#rowkey-长度原则" class="headerlink" title="rowkey 长度原则"></a>rowkey 长度原则</h4><p>Rowkey 是一个二进制码流，Rowkey 的长度被很多开发者建议说设计在 10~100 个字节，不过建议是越短越好，不要超过 16 个字节，存为byte[]字节数组，<strong>一般设计成定长的</strong>。</p>
+<p>原因如下：</p>
+<ol>
+<li>数据的持久化文件 HFile 中是按照 KeyValue 存储的，如果 Rowkey 过长比如 100 个字 节，1000 万列数据光 Rowkey 就要占用 100*1000 万=10 亿个字节，将近 1G 数据，这会极大 影响 HFile 的存储效率；</li>
+<li>MemStore 将缓存部分数据到内存，如果 Rowkey 字段过长内存的有效利用率会降低， 系统将无法缓存更多的数据，这会降低检索效率。因此 Rowkey 的字节长度越短越好。</li>
+<li>目前操作系统是都是 64 位系统，内存 8 字节对齐。控制在 16 个字节，8 字节的整数 倍利用操作系统的最佳特性。</li>
+</ol>
+<h4 id="rowkey-散列原则"><a href="#rowkey-散列原则" class="headerlink" title="rowkey 散列原则"></a>rowkey 散列原则</h4><p>如果 Rowkey 是按时间戳的方式递增，不要将时间放在二进制码的前面，建议将 Rowkey 的高位作为散列字段，由程序循环生成，低位放时间字段，这样将提高数据均衡分布在每个 RegionServer 实现负载均衡的几率。</p>
+<p>如果没有散列字段，首字段直接是时间信息将产生所有 新数据都在一个 RegionServer 上堆积的热点现象，这样在做数据检索的时候负载将会集中 在个别 RegionServer，降低查询效率。</p>
+<p>row key是按照<strong>字典序</strong>存储，因此，设计row key时，要充分利用这个排序特点，将经常一起读取的数据存储到一块，将最近可能会被访问的数据放在一块。</p>
+<p>举个例子：如果最近写入HBase表中的数据是最可能被访问的，可以考虑将时间戳作为row key的一部分，由于是字典序排序，所以可以使用 <code>Long.MAX_VALUE - timestamp</code> 作为rowkey，这样能保证新写入的数据在读取时可以被快速命中。</p>
+<h4 id="rowkey-唯一原则"><a href="#rowkey-唯一原则" class="headerlink" title="rowkey 唯一原则"></a>rowkey 唯一原则</h4><p>必须在设计上保证其唯一性。rowkey 是按照字典顺序排序存储的，因此，设计 rowkey 的时候，要充分利用这个排序的特点，将经常读取的数据存储到一块，将最近可能会被访问 的数据放到一块。</p>
+<p>在日志数据中，用户 id 有 16 位左右，时间是 8 位，当前时间是 <code>System.currentTimeMillis()</code>不足16位，补 0. </p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleRowKeyGenerator</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] getUUIDKey(String prefix) <span class="keyword">throws</span> UnsupportedEncodingException {</span><br><span class="line">        <span class="keyword">return</span> (prefix + UUID.randomUUID().toString()).getBytes(<span class="string">"UTF8"</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] getRandomKey(String prefix) <span class="keyword">throws</span> UnsupportedEncodingException {</span><br><span class="line">        <span class="keyword">return</span> (prefix + String.valueOf(<span class="keyword">new</span> Random().nextLong())).getBytes(<span class="string">"UTF8"</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] getTimestampKey(String prefix) <span class="keyword">throws</span> UnsupportedEncodingException {</span><br><span class="line">        <span class="keyword">return</span> (prefix + String.valueOf(System.currentTimeMillis())).getBytes(<span class="string">"UTF8"</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] getNanoTimestampKey(String prefix) <span class="keyword">throws</span> UnsupportedEncodingException {</span><br><span class="line">        <span class="keyword">return</span> (prefix + String.valueOf(System.nanoTime())).getBytes(<span class="string">"UTF8"</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// 自定义 RowKey</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] getKfkRowKey(String userid,String datetime)<span class="keyword">throws</span> UnsupportedEncodingException {</span><br><span class="line">        <span class="keyword">return</span> (userid + datetime + String.valueOf(System.currentTimeMillis())).getBytes(<span class="string">"UTF8"</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/12/08/The_producer-consumer_model_with_ring_buffers_is_implemented_using_two_types_of_locks/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
+      <meta itemprop="name" content="张潇">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="求索之心">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/08/The_producer-consumer_model_with_ring_buffers_is_implemented_using_two_types_of_locks/" class="post-title-link" itemprop="url">使用两种锁实现带有环形缓冲区的生产者消费者模型</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-08 11:03:22" itemprop="dateCreated datePublished" datetime="2019-12-08T11:03:22+08:00">2019-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/12/08/The_producer-consumer_model_with_ring_buffers_is_implemented_using_two_types_of_locks/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/08/The_producer-consumer_model_with_ring_buffers_is_implemented_using_two_types_of_locks/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="使用synchronized关键字"><a href="#使用synchronized关键字" class="headerlink" title="使用synchronized关键字"></a>使用<code>synchronized</code>关键字</h2><p>我们使用<strong>双指针</strong>法构建了一个环形缓冲区，使用环形缓冲区有几个需要注意的地方</p>
+<ul>
+<li><p>其中 head 表示缓冲区的开始，tail 表示缓冲区的结束，[head,tail) 前闭后开表示缓冲区中有数据的空间。</p>
+<ul>
+<li>初始化 head = tail = 0 表示缓冲区为空</li>
+<li>随着生产物品 tail 不断的增加 <code>tail = (tail + 1) % CAPACITY</code></li>
+<li>直到 <code>(tail + 1) % CAPACITY == head</code>表示缓冲区满</li>
+</ul>
+</li>
+<li><p>有一个空间会被空置，作为缓冲区满的判断标志，所以真正的容量为 CAPACITY - 1。</p>
+</li>
+</ul>
+<p>其次，关于 synchronized 关键字有几个需要注意的地方</p>
+<ul>
+<li>synchronized 是要结合 <code>Object.wait()</code> 和 <code>Object.notify</code> 或者 <code>Object.notifyAll()</code> 使用，具体说明请看文章 <a href="https://zhuanlan.zhihu.com/p/76625784" target="_blank" rel="noopener">为什么wait()和notify()需要搭配synchonized关键字使用?</a></li>
+<li>因为 synchronized 只有一个阻塞队列，当多生产者多消费者时，唤醒时需要使用 <code>Object.notifyAll()</code></li>
+<li>还有就是可能会出现的中断异常 InterruptedException 。</li>
+</ul>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> CAPACITY = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span>[] buffer = <span class="keyword">new</span> <span class="keyword">int</span>[CAPACITY];</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> head = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> tail = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">        <span class="comment">//生产者</span></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() {</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{</span><br><span class="line">                <span class="keyword">synchronized</span> (buffer) {</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < <span class="number">100</span>; i++) {</span><br><span class="line">                        <span class="keyword">while</span> ((tail + <span class="number">1</span>) % CAPACITY == head) {</span><br><span class="line">                            <span class="keyword">try</span> {</span><br><span class="line">                                buffer.wait();</span><br><span class="line">                            } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                                e.printStackTrace();</span><br><span class="line">                            }</span><br><span class="line">                        }</span><br><span class="line">                        buffer[tail] = i;</span><br><span class="line">                        tail = (tail + <span class="number">1</span>) % CAPACITY;</span><br><span class="line">                        System.out.println(<span class="string">"生产者生产了"</span> + i);</span><br><span class="line">                        buffer.notifyAll();</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }).start();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//消费者</span></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() {</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{</span><br><span class="line">                <span class="keyword">synchronized</span> (buffer) {</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < <span class="number">100</span>; i++) {</span><br><span class="line">                        <span class="keyword">while</span> (head == tail) {</span><br><span class="line">                            <span class="keyword">try</span> {</span><br><span class="line">                                buffer.wait();</span><br><span class="line">                            } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                                e.printStackTrace();</span><br><span class="line">                            }</span><br><span class="line">                        }</span><br><span class="line">                        System.out.println(<span class="string">"消费者消费了"</span> + buffer[head]);</span><br><span class="line">                        head = (head + <span class="number">1</span>) % CAPACITY;</span><br><span class="line">                        buffer.notifyAll();</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }).start();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="使用ReentrantLock实现"><a href="#使用ReentrantLock实现" class="headerlink" title="使用ReentrantLock实现"></a>使用<code>ReentrantLock</code>实现</h2><p>对比 ReentrantLock 和 synchronized 可以看出两者的差别（最后会总结二者的区别）</p>
+<ul>
+<li>synchronized 只能有一个阻塞队列，而 ReentrantLock 可以通过添加多个条件互斥量增加阻塞队列的个数</li>
+</ul>
+<p>使用 ReentrantLock 有一个注意的地方，要在在 finally 中关闭锁。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> class <span class="title">test</span><span class="params">()</span></span>{</span><br><span class="line">    <span class="keyword">private</span> Lock lock=<span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMethod</span><span class="params">()</span></span>{</span><br><span class="line">        <span class="keyword">try</span>{</span><br><span class="line">            lock.lock();</span><br><span class="line">            <span class="comment">//code</span></span><br><span class="line">        } </span><br><span class="line">        <span class="keyword">finally</span>{</span><br><span class="line">            lock.unlock();</span><br><span class="line">        }   </span><br><span class="line">    }  </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.Condition;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> CAPACITY = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span>[] buffer = <span class="keyword">new</span> <span class="keyword">int</span>[CAPACITY];</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Condition notFull = lock.newCondition();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Condition notEmpty = lock.newCondition();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> head = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> tail = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">        <span class="comment">//生产者</span></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() {</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{</span><br><span class="line">                <span class="keyword">try</span> {</span><br><span class="line">                    lock.lockInterruptibly();</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < <span class="number">100</span>; i++) {</span><br><span class="line">                        <span class="keyword">while</span> ((tail + <span class="number">1</span>) % CAPACITY == head) {</span><br><span class="line">                            <span class="keyword">try</span> {</span><br><span class="line">                                notFull.await();</span><br><span class="line">                            } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                                e.printStackTrace();</span><br><span class="line">                            }</span><br><span class="line">                        }</span><br><span class="line">                        buffer[tail] = i;</span><br><span class="line">                        tail = (tail + <span class="number">1</span>) % CAPACITY;</span><br><span class="line">                        System.out.println(<span class="string">"生产者生产了"</span> + i);</span><br><span class="line">                        notEmpty.signal();</span><br><span class="line">                    }</span><br><span class="line">                } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                } <span class="keyword">finally</span> {</span><br><span class="line">                    lock.unlock();</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }).start();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//消费者</span></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() {</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{</span><br><span class="line">                <span class="keyword">try</span> {</span><br><span class="line">                    lock.lockInterruptibly();</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < <span class="number">100</span>; i++) {</span><br><span class="line">                        <span class="keyword">while</span> (head == tail) {</span><br><span class="line">                            <span class="keyword">try</span> {</span><br><span class="line">                                notEmpty.await();</span><br><span class="line">                            } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                                e.printStackTrace();</span><br><span class="line">                            }</span><br><span class="line">                        }</span><br><span class="line">                        System.out.println(<span class="string">"消费者消费了"</span> + buffer[head]);</span><br><span class="line">                        head = (head + <span class="number">1</span>) % CAPACITY;</span><br><span class="line">                        notFull.signal();</span><br><span class="line">                    }</span><br><span class="line">                } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                } <span class="keyword">finally</span> {</span><br><span class="line">                    lock.unlock();</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }).start();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="两种锁的区别"><a href="#两种锁的区别" class="headerlink" title="两种锁的区别"></a>两种锁的区别</h2><h3 id="区别一："><a href="#区别一：" class="headerlink" title="区别一："></a>区别一：</h3><p>synchronized 是通过虚拟机层面实现的，而 ReentrantLock 是通过 JDK API 实现的</p>
+<h3 id="区别二：等待可中断"><a href="#区别二：等待可中断" class="headerlink" title="区别二：等待可中断"></a>区别二：等待可中断</h3><p>等待可中断是指当持有锁的线程长期不释放锁的时候，正在等待的线程可以选择放弃等待，改为处理其他事情。可等待特性对处理执行时间非常长的同步块很有帮助。</p>
+<p>具体说来，假如业务代码中有两个线程，Thread1 和 Thread2。假设 Thread1 获取了对象锁，Thread2 将等待 Thread1 释放锁。</p>
+<ul>
+<li>使用synchronized。如果 Thread1 不释放，Thread2 将一直等待，不能被中断。</li>
+<li>使用ReentrantLock。如果 Thread1 不释放，Thread2 等待了很长时间以后，可以中断等待，转而去做别的事情。</li>
+</ul>
+<h3 id="区别三：公平锁"><a href="#区别三：公平锁" class="headerlink" title="区别三：公平锁"></a>区别三：公平锁</h3><p>公平锁是指多个线程在等待同一个锁时，必须按照申请的时间顺序来依次获得锁；而非公平锁则不能保证这一点。非公平锁在锁被释放时，任何一个等待锁的线程都有机会获得锁。 </p>
+<ul>
+<li><p>synchronized的锁是非公平锁</p>
+</li>
+<li><p>ReentrantLock默认情况下也是非公平锁，但可以通过带 boolean 的构造函数要求使用公平锁。</p>
+</li>
+</ul>
+<h3 id="区别四：绑定多个条件"><a href="#区别四：绑定多个条件" class="headerlink" title="区别四：绑定多个条件"></a>区别四：绑定多个条件</h3><p>ReentrantLock可以同时绑定多个Condition对象，只需多次调用 <code>newCondition()</code> 方法即可。</p>
+<p>synchronized中，锁对象的 <code>wait()</code> 和 <code>notify()</code>  或 <code>notifyAll()</code> 方法可以实现一个隐含的条件。如果需要多个条件，只能多加锁。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/12/05/%E4%B8%93%E4%B8%9A%E4%B9%A6%E7%B1%8D%E5%A4%87%E5%BF%98%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
+      <meta itemprop="name" content="张潇">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="求索之心">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/05/%E4%B8%93%E4%B8%9A%E4%B9%A6%E7%B1%8D%E5%A4%87%E5%BF%98%E5%BD%95/" class="post-title-link" itemprop="url">专业书籍备忘录</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-05 19:52:22" itemprop="dateCreated datePublished" datetime="2019-12-05T19:52:22+08:00">2019-12-05</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/12/05/%E4%B8%93%E4%B8%9A%E4%B9%A6%E7%B1%8D%E5%A4%87%E5%BF%98%E5%BD%95/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/05/%E4%B8%93%E4%B8%9A%E4%B9%A6%E7%B1%8D%E5%A4%87%E5%BF%98%E5%BD%95/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/%E5%AD%A6%E4%B9%A0%E4%B9%A6%E7%B1%8D.png?raw=true" alt></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/12/05/%E4%BB%8EComparable%E5%88%B0compareTo%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -598,7 +960,7 @@
 </ul>
 <p>第 i 件物品可添加也可以不添加，取决于哪种情况下最大价值更大。因此，0-1 背包的状态转移方程为：</p>
 <script type="math/tex; mode=display">
-dp[i][j] = max(dp[i-1][j],dp[i-1][j-w]+v)</script><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        W 表示背包能容纳的最大重量</span></span><br><span class="line"><span class="comment">        N 表示物品的数量</span></span><br><span class="line"><span class="comment">        wiehgts 表示 N 件物品的重量</span></span><br><span class="line"><span class="comment">        value 表示 N 件物品的价值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">knapsack</span><span class="params">(<span class="keyword">int</span> W, <span class="keyword">int</span> N, <span class="keyword">int</span>[] weights, <span class="keyword">int</span>[] values)</span> </span>{</span><br><span class="line">        <span class="comment">//dp[i][j] 表示只放前 i 件的商品，体积不超过 j 的最大价值</span></span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[N + <span class="number">1</span>][W + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i <= n; i++) {< span><br><span class="line">            <span class="keyword">int</span> w = weights[i - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">int</span> v = values[i - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j <= w; j++) {< span><br><span class="line">                <span class="keyword">if</span> (j >= w) {</span><br><span class="line">                    dp[i][j] = Math.max(dp[i - <span class="number">1</span>][j], dp[i - <span class="number">1</span>][j - w] + v);</span><br><span class="line">                } <span class="keyword">else</span> {</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j];</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> dp[N][W];</span><br><span class="line">    }</span><br><span class="line">}</span><br></=></span></=></span></pre></td></tr></tbody></table></figure>
+dp[i][j] = max(dp[i-1][j],dp[i-1][j-w]+v)</script><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        W 表示背包能容纳的最大重量</span></span><br><span class="line"><span class="comment">        N 表示物品的数量</span></span><br><span class="line"><span class="comment">        wiehgts 表示 N 件物品的重量</span></span><br><span class="line"><span class="comment">        value 表示 N 件物品的价值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">knapsack</span><span class="params">(<span class="keyword">int</span> W, <span class="keyword">int</span> N, <span class="keyword">int</span>[] weights, <span class="keyword">int</span>[] values)</span> </span>{</span><br><span class="line">        <span class="comment">//dp[i][j] 表示只放前 i 件的商品，体积不超过 j 的最大价值</span></span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[N + <span class="number">1</span>][W + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i <= N; i++) {</span><br><span class="line">            <span class="keyword">int</span> w = weights[i - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">int</span> v = values[i - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j <= w; j++) {</span><br><span class="line">                <span class="keyword">if</span> (j >= w) {</span><br><span class="line">                    dp[i][j] = Math.max(dp[i - <span class="number">1</span>][j], dp[i - <span class="number">1</span>][j - w] + v);</span><br><span class="line">                } <span class="keyword">else</span> {</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j];</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> dp[N][W];</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p><strong>我们以下面的物品举例说明求解的过程</strong></p>
 <p></p><div align="left"> <img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/%E6%9C%AA%E5%91%BD%E5%90%8D%E8%A1%A8%E5%8D%952.png?raw=true" width="274px" height="141px"> </div><br>下面以四个状态的计算举例<p></p>
 <p></p><div align="left"> <img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/%E6%9C%AA%E5%91%BD%E5%90%8D%E8%A1%A8%E5%8D%95.png?raw=true" width="1108px" height="535px"> </div><p></p>
@@ -607,7 +969,7 @@ dp[i][j] = max(dp[i-1][j],dp[i-1][j-w]+v)</script><figure class="highlight java"
 dp[j] = max(dp[j],dp[j-w]+v)</script><p>值得注意的是，等号左边的<code>dp[j]</code>表示前 i 件商品容量为 j 时可以获得的最大价值，本质上是<code>dp[i][j]</code>；等号右边的<code>dp[j]</code>和<code>dp[j-w]</code>是前 i -1 件商品时容量分别为 j 和 j-w 时获得的最大价值，本质上其实是<code>dp[i-1][j]</code>和<code>dp[i-1][j-w]</code>。</p>
 <p>如果我们实现代码的时候，内层循环还是按照容量从小到大循环，就会出现一个问题，就是<code>dp[j-w]</code>表示的不再是<code>dp[i-1][j-w]</code>而是<code>dp[i][j-w]</code>。</p>
 <p>所以，我们实现的时候内层循环，要按照容量从大向小来循环。</p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">knapsack</span><span class="params">(<span class="keyword">int</span> W, <span class="keyword">int</span> N, <span class="keyword">int</span>[] weights, <span class="keyword">int</span>[] values)</span> </span>{</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[W + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i <= n; i++) {< span><br><span class="line">        <span class="keyword">int</span> w = weights[i - <span class="number">1</span>], v = values[i - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = W; j >= <span class="number">1</span>; j--) {</span><br><span class="line">            <span class="keyword">if</span> (j >= w) {</span><br><span class="line">                dp[j] = Math.max(dp[j], dp[j - w] + v);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> dp[W];</span><br><span class="line">}</span><br></=></span></pre></td></tr></tbody></table></figure>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">knapsack</span><span class="params">(<span class="keyword">int</span> W, <span class="keyword">int</span> N, <span class="keyword">int</span>[] weights, <span class="keyword">int</span>[] values)</span> </span>{</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[W + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i <= N; i++) {</span><br><span class="line">        <span class="keyword">int</span> w = weights[i - <span class="number">1</span>], v = values[i - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = W; j >= <span class="number">1</span>; j--) {</span><br><span class="line">            <span class="keyword">if</span> (j >= w) {</span><br><span class="line">                dp[j] = Math.max(dp[j], dp[j - w] + v);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> dp[W];</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>内容参考<a href="https://cyc2018.github.io/CS-Notes/#/notes/Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92?id=_0-1-%e8%83%8c%e5%8c%85" target="_blank" rel="noopener">Leetcode题解/动态规划/0-1-背包</a></p>
 <h2 id="二维费用背包问题"><a href="#二维费用背包问题" class="headerlink" title="二维费用背包问题"></a>二维费用背包问题</h2><p>二维费用背包问题本质上只是0/1背包的变形，多添加一种费用。二维费用背包问题是指：</p>
 <ul>
@@ -973,256 +1335,6 @@ dp[j] = min(dp[j], dp[j-c] + 1)</script><p>在这里我们可以完全背包和0
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/11/26/Scala-and-java-version-compatibility-issues/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
-      <meta itemprop="name" content="张潇">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="求索之心">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/26/Scala-and-java-version-compatibility-issues/" class="post-title-link" itemprop="url">Scala和Java的版本兼容问题</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-26 11:54:09" itemprop="dateCreated datePublished" datetime="2019-11-26T11:54:09+08:00">2019-11-26</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/11/26/Scala-and-java-version-compatibility-issues/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/26/Scala-and-java-version-compatibility-issues/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/1574740536160.png?raw=true" alt></p>
-<p><a href="https://docs.scala-lang.org/overviews/jdk-compatibility/overview.html" target="_blank" rel="noopener">JDK COMPATIBILITY</a></p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/11/26/reflections-on-Spark-shared-variables/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
-      <meta itemprop="name" content="张潇">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="求索之心">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/26/reflections-on-Spark-shared-variables/" class="post-title-link" itemprop="url">Spark 共享变量的若干思考</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-26 10:19:40" itemprop="dateCreated datePublished" datetime="2019-11-26T10:19:40+08:00">2019-11-26</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/11/26/reflections-on-Spark-shared-variables/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/26/reflections-on-Spark-shared-variables/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>通常在向 Spark 传递函数时，可以使用 driver programme 中定义的变量，但是集群中运行的每个 tusk 都只会得到这些变量的一份新的副本，更新这些副本的值也不会影响driver programme 中的对应变量。</p>
-<p>Spark 的两个共享变量，累加器与广播变量，使用结果聚合与广播这两种常见的通信模式突破了这一限制。<br></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/26/reflections-on-Spark-shared-variables/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/11/25/Spark-program-development-environment-configuration-under-Windows/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
-      <meta itemprop="name" content="张潇">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="求索之心">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/25/Spark-program-development-environment-configuration-under-Windows/" class="post-title-link" itemprop="url">Windows下的Spark程序开发环境配置</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-25 20:25:01" itemprop="dateCreated datePublished" datetime="2019-11-25T20:25:01+08:00">2019-11-25</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/11/25/Spark-program-development-environment-configuration-under-Windows/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/25/Spark-program-development-environment-configuration-under-Windows/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在Windows环境下, 使用IDEA进行Spark程序开发所需的环境配置, 主要是Maven pom文件的配置和Scala SDK的配置。<br></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/25/Spark-program-development-environment-configuration-under-Windows/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1273,7 +1385,7 @@ dp[j] = min(dp[j], dp[j-c] + 1)</script><p>在这里我们可以完全背包和0
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1286,7 +1398,7 @@ dp[j] = min(dp[j], dp[j-c] + 1)</script><p>在这里我们可以完全背包和0
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
