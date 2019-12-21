@@ -47,12 +47,13 @@
   };
 </script>
 
-  <meta name="description" content="document.querySelectorAll(&amp;apos;.github-emoji&amp;apos;)           .forEach(el =&amp;gt; {             if (!el.dataset.src) { return; }             const img = document.createElement(&amp;apos;img&amp;apos;);             img.style">
+  <meta name="description" content="概念性问题实践性问题不同表相同字段当进行关联操作时，会发生什么？我们现在有 A，B 两个表 1234567891011121314151617select * from A;  +------+| id   |+------+|    1 ||    2 ||    3 |+------+select * from B;+------+| id   |+------+|    3 ||    4">
+<meta name="keywords" content="SQL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL 实践总结">
 <meta property="og:url" content="https:&#x2F;&#x2F;ibitm.github.io&#x2F;2019&#x2F;12&#x2F;21&#x2F;SQL-%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93&#x2F;index.html">
 <meta property="og:site_name" content="求索之心">
-<meta property="og:description" content="document.querySelectorAll(&amp;apos;.github-emoji&amp;apos;)           .forEach(el =&amp;gt; {             if (!el.dataset.src) { return; }             const img = document.createElement(&amp;apos;img&amp;apos;);             img.style">
+<meta property="og:description" content="概念性问题实践性问题不同表相同字段当进行关联操作时，会发生什么？我们现在有 A，B 两个表 1234567891011121314151617select * from A;  +------+| id   |+------+|    1 ||    2 ||    3 |+------+select * from B;+------+| id   |+------+|    3 ||    4">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-12-21T09:08:29.000Z">
 <meta name="twitter:card" content="summary">
@@ -231,6 +232,17 @@
 
               <time title="创建时间：2019-12-21 17:08:29" itemprop="dateCreated datePublished" datetime="2019-12-21T17:08:29+08:00">2019-12-21</time>
             </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SQL/" itemprop="url" rel="index">
+                    <span itemprop="name">SQL</span>
+                  </a>
+                </span>
+            </span>
 
           
   
@@ -257,7 +269,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <script>
+        <h2 id="概念性问题"><a href="#概念性问题" class="headerlink" title="概念性问题"></a>概念性问题</h2><h2 id="实践性问题"><a href="#实践性问题" class="headerlink" title="实践性问题"></a>实践性问题</h2><h2 id="不同表相同字段当进行关联操作时，会发生什么？"><a href="#不同表相同字段当进行关联操作时，会发生什么？" class="headerlink" title="不同表相同字段当进行关联操作时，会发生什么？"></a>不同表相同字段当进行关联操作时，会发生什么？</h2><p>我们现在有 A，B 两个表</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> A;  </span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line">| id   |</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line">|    1 |</span><br><span class="line">|    2 |</span><br><span class="line">|    3 |</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> B;</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line">| id   |</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line">|    3 |</span><br><span class="line">|    4 |</span><br><span class="line">|    5 |</span><br><span class="line">+<span class="comment">------+</span></span><br></pre></td></tr></tbody></table></figure>
+<p>当我们进行关联操作时会发生什么呢？</p>
+<h3 id="笛卡尔积"><a href="#笛卡尔积" class="headerlink" title="笛卡尔积"></a>笛卡尔积</h3><figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> A,B;</span><br><span class="line">+<span class="comment">------+------+</span></span><br><span class="line">| id   | id   |</span><br><span class="line">+<span class="comment">------+------+</span></span><br><span class="line">|    1 |    3 |</span><br><span class="line">|    2 |    3 |</span><br><span class="line">|    3 |    3 |</span><br><span class="line">|    1 |    4 |</span><br><span class="line">|    2 |    4 |</span><br><span class="line">|    3 |    4 |</span><br><span class="line">|    1 |    5 |</span><br><span class="line">|    2 |    5 |</span><br><span class="line">|    3 |    5 |</span><br><span class="line">+<span class="comment">------+------+</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="等值连接"><a href="#等值连接" class="headerlink" title="等值连接"></a>等值连接</h3><figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> A <span class="keyword">join</span> B <span class="keyword">on</span> A.id = B.id;</span><br><span class="line">+<span class="comment">------+------+</span></span><br><span class="line">| id   | id   |</span><br><span class="line">+<span class="comment">------+------+</span></span><br><span class="line">|    3 |    3 |</span><br><span class="line">+<span class="comment">------+------+</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="自然连接"><a href="#自然连接" class="headerlink" title="自然连接"></a>自然连接</h3><figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> A nature <span class="keyword">join</span> A;</span><br><span class="line">+<span class="comment">------+------+</span></span><br><span class="line">| id   | id   |</span><br><span class="line">+<span class="comment">------+------+</span></span><br><span class="line">|    1 |    1 |</span><br><span class="line">|    2 |    1 |</span><br><span class="line">|    3 |    1 |</span><br><span class="line">|    1 |    2 |</span><br><span class="line">|    2 |    2 |</span><br><span class="line">|    3 |    2 |</span><br><span class="line">|    1 |    3 |</span><br><span class="line">|    2 |    3 |</span><br><span class="line">|    3 |    3 |</span><br><span class="line">+<span class="comment">------+------+</span></span><br></pre></td></tr></tbody></table></figure>
+<p>我们发现，无论是内连接还是外连接，无论是相同表还是不同表，相同字段并不会覆盖。</p>
+<h3 id="两个集合的交、并、差"><a href="#两个集合的交、并、差" class="headerlink" title="两个集合的交、并、差"></a>两个集合的交、并、差</h3><figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 并集</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> A <span class="keyword">union</span> <span class="keyword">select</span> * <span class="keyword">from</span> B;</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line">| id   |</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line">|    1 |</span><br><span class="line">|    2 |</span><br><span class="line">|    3 |</span><br><span class="line">|    4 |</span><br><span class="line">|    5 |</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 交集</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> A <span class="keyword">join</span> B <span class="keyword">on</span> A.id = B.id;</span><br><span class="line">+<span class="comment">------+------+</span></span><br><span class="line">| id   | id   |</span><br><span class="line">+<span class="comment">------+------+</span></span><br><span class="line">|    3 |    3 |</span><br><span class="line">+<span class="comment">------+------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 差集 A-B</span></span><br><span class="line"><span class="keyword">select</span> A.id <span class="keyword">from</span> A <span class="keyword">left</span> <span class="keyword">join</span> B <span class="keyword">on</span> A.id = B.id <span class="keyword">where</span> B.id <span class="keyword">is</span> <span class="literal">null</span>;</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line">| id   |</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line">|    1 |</span><br><span class="line">|    2 |</span><br><span class="line">+<span class="comment">------+</span></span><br></pre></td></tr></tbody></table></figure>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -283,6 +303,9 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SQL/" rel="tag"># SQL</a>
+          </div>
 
         
 
@@ -332,6 +355,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念性问题"><span class="nav-number">1.</span> <span class="nav-text">概念性问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实践性问题"><span class="nav-number">2.</span> <span class="nav-text">实践性问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不同表相同字段当进行关联操作时，会发生什么？"><span class="nav-number">3.</span> <span class="nav-text">不同表相同字段当进行关联操作时，会发生什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#笛卡尔积"><span class="nav-number">3.1.</span> <span class="nav-text">笛卡尔积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#等值连接"><span class="nav-number">3.2.</span> <span class="nav-text">等值连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自然连接"><span class="nav-number">3.3.</span> <span class="nav-text">自然连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个集合的交、并、差"><span class="nav-number">3.4.</span> <span class="nav-text">两个集合的交、并、差</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -354,13 +378,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
