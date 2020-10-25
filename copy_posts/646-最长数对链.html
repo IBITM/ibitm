@@ -47,14 +47,18 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="求索之心">
-<meta property="og:url" content="https:&#x2F;&#x2F;ibitm.github.io&#x2F;archives&#x2F;2020&#x2F;index.html">
+  <meta name="description" content="646. 最长数对链如何排列 pair 使得 pair 链最长，类似于👉贪心算法的经典问题-✍️活动选择问题 这类问题的贪心算法就是： 在现有的活动中选择「最早结束」的活动，对应到我们的这个问题，就是选择 pair 中第二位最小的数。">
+<meta name="keywords" content="Leetcode,数据结构与算法">
+<meta property="og:type" content="website">
+<meta property="og:title" content="646. 最长数对链">
+<meta property="og:url" content="https:&#x2F;&#x2F;ibitm.github.io&#x2F;copy_posts&#x2F;646-%E6%9C%80%E9%95%BF%E6%95%B0%E5%AF%B9%E9%93%BE.html">
 <meta property="og:site_name" content="求索之心">
+<meta property="og:description" content="646. 最长数对链如何排列 pair 使得 pair 链最长，类似于👉贪心算法的经典问题-✍️活动选择问题 这类问题的贪心算法就是： 在现有的活动中选择「最早结束」的活动，对应到我们的这个问题，就是选择 pair 中第二位最小的数。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-27T04:15:10.000Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://ibitm.github.io/archives/2020/">
+<link rel="canonical" href="https://ibitm.github.io/copy_posts/646-%E6%9C%80%E9%95%BF%E6%95%B0%E5%AF%B9%E9%93%BE">
 
 
 <script id="page-configurations">
@@ -63,12 +67,13 @@
     sidebar: "",
     isHome: false,
     isPost: false,
-    isPage: false,
-    isArchive: true
+    isPage: true,
+    isArchive: false
   };
 </script>
 
-  <title>归档 | 求索之心</title>
+  <title>646. 最长数对链 | 求索之心
+  </title>
   
 
 
@@ -194,77 +199,73 @@
       <div class="main-inner">
         <div class="content-wrap">
           
+  
+  
 
           <div class="content">
             
 
+  <div class="posts-expand">
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">646. 最长数对链
+</h1>
+
+<div class="post-meta">
   
-  
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 27 篇日志。 继续努力。</span>
-      </div>
+
+</div>
+
+</header>
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2020</h1>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-10-25T22:24:09+08:00"
-              content="2020-10-25">
-          10-25
-        </time>
+      
+      
+      <div class="post-body">
+          <h4 id="646-最长数对链"><a href="#646-最长数对链" class="headerlink" title="646. 最长数对链"></a><a href="https://leetcode-cn.com/problems/maximum-length-of-pair-chain/" target="_blank" rel="noopener">646. 最长数对链</a></h4><p>如何排列 pair 使得 pair 链最长，类似于👉<a href="https://zh.wikipedia.org/wiki/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">贪心算法</a>的经典问题-✍️<a href="https://en.wikipedia.org/wiki/Activity_selection_problem" target="_blank" rel="noopener">活动选择问题</a></p>
+<p>这类问题的贪心算法就是：</p>
+<p>在现有的活动中选择「最早结束」的活动，对应到我们的这个问题，就是选择 pair 中第二位最小的数。</p>
+<a id="more"></a>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findLongestChain</span><span class="params">(<span class="keyword">int</span>[][] pairs)</span> </span>{</span><br><span class="line">        <span class="keyword">if</span> (pairs == <span class="keyword">null</span> || pairs.length == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = pairs.length;</span><br><span class="line">        Arrays.sort(pairs, <span class="keyword">new</span> Comparator<<span class="keyword">int</span>[]>() {</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(<span class="keyword">int</span>[] o1, <span class="keyword">int</span>[] o2)</span> </span>{</span><br><span class="line">                <span class="keyword">if</span> (o1[<span class="number">0</span>] != o2[<span class="number">0</span>]) {</span><br><span class="line">                    <span class="keyword">return</span> o1[<span class="number">0</span>] - o2[<span class="number">0</span>];</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">return</span> o1[<span class="number">1</span>] - o2[<span class="number">1</span>];</span><br><span class="line">            }</span><br><span class="line">        });</span><br><span class="line">        <span class="keyword">int</span> a = Integer.MIN_VALUE;</span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] pair : pairs) {</span><br><span class="line">            <span class="keyword">if</span> (pair[<span class="number">0</span>] > a) {</span><br><span class="line">                a = pair[<span class="number">1</span>];</span><br><span class="line">                cnt++;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> cnt;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
       </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/10/25/Untitled/" itemprop="url">
-            <span itemprop="name">Untitled</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-10-25T21:18:20+08:00"
-              content="2020-10-25">
-          10-25
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/10/25/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Kafka%20%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E8%B7%B5%E5%8E%9F%E7%90%86/" itemprop="url">
-            <span itemprop="name">深入理解 Kafka 核心设计和实践原理</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-
+      
+      
+      
     </div>
+    
+
+    
+    
+    
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
           
+    <div class="comments" id="comments"></div>
 
         </div>
           
@@ -289,6 +290,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#646-最长数对链"><span class="nav-number">1.</span> <span class="nav-text">646. 最长数对链</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

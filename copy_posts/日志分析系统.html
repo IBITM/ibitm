@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="求索之心" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://ibitm.github.io').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="项目概述项目所用的组件版本ZookeeperZookeeper 两个最重要的系统模型：ZNode 和 Watcher ZNode在 Zookeeper 中节点有三种类型：  持久节点（persistent） 临时节点（ephemeral） 顺序节点  在节点创建过程中，通过组合使用，可是生成 4 种组合型节点 持久节点 持久节点是指数据节点创建后，就会一直存在 Zookeeper 服务器上，直到有">
+<meta name="keywords" content="大数据,面试,Zookeeper">
+<meta property="og:type" content="website">
+<meta property="og:title" content="日志分析系统">
+<meta property="og:url" content="https:&#x2F;&#x2F;ibitm.github.io&#x2F;copy_posts&#x2F;%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F.html">
+<meta property="og:site_name" content="求索之心">
+<meta property="og:description" content="项目概述项目所用的组件版本ZookeeperZookeeper 两个最重要的系统模型：ZNode 和 Watcher ZNode在 Zookeeper 中节点有三种类型：  持久节点（persistent） 临时节点（ephemeral） 顺序节点  在节点创建过程中，通过组合使用，可是生成 4 种组合型节点 持久节点 持久节点是指数据节点创建后，就会一直存在 Zookeeper 服务器上，直到有">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-08T07:30:41.000Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://ibitm.github.io/copy_posts/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: false,
+    isPage: true,
+    isArchive: false
+  };
+</script>
+
+  <title>日志分析系统 | 求索之心
+  </title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">求索之心</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">点滴琢磨</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">日志分析系统
+</h1>
+
+<div class="post-meta">
+  
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h2 id="项目概述"><a href="#项目概述" class="headerlink" title="项目概述"></a>项目概述</h2><h2 id="项目所用的组件版本"><a href="#项目所用的组件版本" class="headerlink" title="项目所用的组件版本"></a>项目所用的组件版本</h2><h2 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h2><p>Zookeeper 两个最重要的系统模型：ZNode 和 Watcher</p>
+<h3 id="ZNode"><a href="#ZNode" class="headerlink" title="ZNode"></a>ZNode</h3><p>在 Zookeeper 中节点有三种类型：</p>
+<ul>
+<li>持久节点（persistent）</li>
+<li>临时节点（ephemeral）</li>
+<li>顺序节点</li>
+</ul>
+<p>在节点创建过程中，通过组合使用，可是生成 4 种组合型节点</p>
+<p><strong>持久节点</strong></p>
+<p>持久节点是指数据节点创建后，就会一直存在 Zookeeper 服务器上，直到有删除操作删除这个节点。</p>
+<p><strong>临时节点</strong></p>
+<p>与持久节点不同，临时节点的生命周期与客户端的会话联系在一起。也就说，如果客户端会话失效，那么这个客户端创建的临时节点就会被删除。</p>
+<h3 id="Watcher-数据变更的通知"><a href="#Watcher-数据变更的通知" class="headerlink" title="Watcher - 数据变更的通知"></a>Watcher - 数据变更的通知</h3><p>Zookeeper 通过 Watcher 机制提供了一种分布式数据订阅/发布功能。Zookeeper 允许客户端在一个节点上注册一个 Watcher 事件监听，一旦一些事务对这个节点做一些操作，就会触发了这个 Watcher，客户端就会收到一个事件通知。</p>
+<p>理解了 ZNode 和 Watcher 基本上就能大致了解 Zookeeper 的运行机制。</p>
+<h2 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h2><h3 id="预分区"><a href="#预分区" class="headerlink" title="预分区"></a>预分区</h3><h3 id="RowKey-设计"><a href="#RowKey-设计" class="headerlink" title="RowKey 设计"></a>RowKey 设计</h3><p>在 HBase 中一条记录的唯一标识就是 rowkey ，那么这条数据存储于哪个 region，取决于 rowkey 处于哪个一个预分区的区间内。</p>
+<p><strong>设计 rowkey 的主要目的 ，就是让数据均匀的分布于所有的 region 中，在一定程度上防止数据倾斜。</strong></p>
+<h4 id="rowkey-长度原则"><a href="#rowkey-长度原则" class="headerlink" title="rowkey 长度原则"></a>rowkey 长度原则</h4><p>Rowkey 是一个二进制码流，Rowkey 的长度被很多开发者建议说设计在 10~100 个字节，不过建议是越短越好，不要超过 16 个字节，存为byte[]字节数组，<strong>一般设计成定长的</strong>。</p>
+<p>原因如下：</p>
+<ol>
+<li>数据的持久化文件 HFile 中是按照 KeyValue 存储的，如果 Rowkey 过长比如 100 个字 节，1000 万列数据光 Rowkey 就要占用 100*1000 万=10 亿个字节，将近 1G 数据，这会极大 影响 HFile 的存储效率；</li>
+<li>MemStore 将缓存部分数据到内存，如果 Rowkey 字段过长内存的有效利用率会降低， 系统将无法缓存更多的数据，这会降低检索效率。因此 Rowkey 的字节长度越短越好。</li>
+<li>目前操作系统是都是 64 位系统，内存 8 字节对齐。控制在 16 个字节，8 字节的整数 倍利用操作系统的最佳特性。</li>
+</ol>
+<h4 id="rowkey-散列原则"><a href="#rowkey-散列原则" class="headerlink" title="rowkey 散列原则"></a>rowkey 散列原则</h4><p>如果 Rowkey 是按时间戳的方式递增，不要将时间放在二进制码的前面，建议将 Rowkey 的高位作为散列字段，由程序循环生成，低位放时间字段，这样将提高数据均衡分布在每个 RegionServer 实现负载均衡的几率。</p>
+<p>如果没有散列字段，首字段直接是时间信息将产生所有 新数据都在一个 RegionServer 上堆积的热点现象，这样在做数据检索的时候负载将会集中 在个别 RegionServer，降低查询效率。</p>
+<p>row key是按照<strong>字典序</strong>存储，因此，设计row key时，要充分利用这个排序特点，将经常一起读取的数据存储到一块，将最近可能会被访问的数据放在一块。</p>
+<p>举个例子：如果最近写入HBase表中的数据是最可能被访问的，可以考虑将时间戳作为row key的一部分，由于是字典序排序，所以可以使用 <code>Long.MAX_VALUE - timestamp</code> 作为rowkey，这样能保证新写入的数据在读取时可以被快速命中。</p>
+<h4 id="rowkey-唯一原则"><a href="#rowkey-唯一原则" class="headerlink" title="rowkey 唯一原则"></a>rowkey 唯一原则</h4><p>必须在设计上保证其唯一性。rowkey 是按照字典顺序排序存储的，因此，设计 rowkey 的时候，要充分利用这个排序的特点，将经常读取的数据存储到一块，将最近可能会被访问 的数据放到一块。</p>
+<p>在日志数据中，用户 id 有 16 位左右，时间是 8 位，当前时间是 <code>System.currentTimeMillis()</code>不足16位，补 0. </p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleRowKeyGenerator</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] getUUIDKey(String prefix) <span class="keyword">throws</span> UnsupportedEncodingException {</span><br><span class="line">        <span class="keyword">return</span> (prefix + UUID.randomUUID().toString()).getBytes(<span class="string">"UTF8"</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] getRandomKey(String prefix) <span class="keyword">throws</span> UnsupportedEncodingException {</span><br><span class="line">        <span class="keyword">return</span> (prefix + String.valueOf(<span class="keyword">new</span> Random().nextLong())).getBytes(<span class="string">"UTF8"</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] getTimestampKey(String prefix) <span class="keyword">throws</span> UnsupportedEncodingException {</span><br><span class="line">        <span class="keyword">return</span> (prefix + String.valueOf(System.currentTimeMillis())).getBytes(<span class="string">"UTF8"</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] getNanoTimestampKey(String prefix) <span class="keyword">throws</span> UnsupportedEncodingException {</span><br><span class="line">        <span class="keyword">return</span> (prefix + String.valueOf(System.nanoTime())).getBytes(<span class="string">"UTF8"</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// 自定义 RowKey</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] getKfkRowKey(String userid,String datetime)<span class="keyword">throws</span> UnsupportedEncodingException {</span><br><span class="line">        <span class="keyword">return</span> (userid + datetime + String.valueOf(System.currentTimeMillis())).getBytes(<span class="string">"UTF8"</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      </div>
+      
+      
+      
+    </div>
+    
+
+    
+    
+    
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目概述"><span class="nav-number">1.</span> <span class="nav-text">项目概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目所用的组件版本"><span class="nav-number">2.</span> <span class="nav-text">项目所用的组件版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Zookeeper"><span class="nav-number">3.</span> <span class="nav-text">Zookeeper</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ZNode"><span class="nav-number">3.1.</span> <span class="nav-text">ZNode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Watcher-数据变更的通知"><span class="nav-number">3.2.</span> <span class="nav-text">Watcher - 数据变更的通知</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HBase"><span class="nav-number">4.</span> <span class="nav-text">HBase</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#预分区"><span class="nav-number">4.1.</span> <span class="nav-text">预分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RowKey-设计"><span class="nav-number">4.2.</span> <span class="nav-text">RowKey 设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rowkey-长度原则"><span class="nav-number">4.2.1.</span> <span class="nav-text">rowkey 长度原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rowkey-散列原则"><span class="nav-number">4.2.2.</span> <span class="nav-text">rowkey 散列原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rowkey-唯一原则"><span class="nav-number">4.2.3.</span> <span class="nav-text">rowkey 唯一原则</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="张潇"
+      src="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
+  <p class="site-author-name" itemprop="name">张潇</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ibitm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ibitm" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/mailto:875080958@qq.com" title="E-Mail → mailto:875080958@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.zhihu.com/people/zhang-xiao-61-53/activities" title="zhihu → http:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;zhang-xiao-61-53&#x2F;activities" rel="noopener" target="_blank"><i class="fa fa-fw fa-zhihu"></i>zhihu</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张潇</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: '59jSyrRz5vygBBEppvd4Inud-MdYXbMMI',
+    appKey: '14TLHCXpYXedwKjmamiT2knn',
+    placeholder: "Just go go",
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

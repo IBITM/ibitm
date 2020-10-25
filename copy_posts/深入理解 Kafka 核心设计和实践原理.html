@@ -49,9 +49,9 @@
 
   <meta name="description" content="第 4 章 - 主题和分区4.1 主题的管理主题的管理主要是包括主题的创建、修改、删除以及查看主题的元数据，都可以通过 Kafka 提供的 kafka-topics.sh 脚本执行这一些操作。 这个脚本本质上是调用了 kafka.admin.TopicCommand 类来执行主题管理的操作。 一般来说，还有 2 种办法可以实现主题的管理  通过 KafkaAdminClient 的方式（通过发送">
 <meta name="keywords" content="Kafka,读书笔记">
-<meta property="og:type" content="article">
+<meta property="og:type" content="website">
 <meta property="og:title" content="深入理解 Kafka 核心设计和实践原理">
-<meta property="og:url" content="https:&#x2F;&#x2F;ibitm.github.io&#x2F;2020&#x2F;10&#x2F;25&#x2F;%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Kafka%20%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E8%B7%B5%E5%8E%9F%E7%90%86&#x2F;index.html">
+<meta property="og:url" content="https:&#x2F;&#x2F;ibitm.github.io&#x2F;copy_posts&#x2F;%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Kafka%20%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E8%B7%B5%E5%8E%9F%E7%90%86.html">
 <meta property="og:site_name" content="求索之心">
 <meta property="og:description" content="第 4 章 - 主题和分区4.1 主题的管理主题的管理主要是包括主题的创建、修改、删除以及查看主题的元数据，都可以通过 Kafka 提供的 kafka-topics.sh 脚本执行这一些操作。 这个脚本本质上是调用了 kafka.admin.TopicCommand 类来执行主题管理的操作。 一般来说，还有 2 种办法可以实现主题的管理  通过 KafkaAdminClient 的方式（通过发送">
 <meta property="og:locale" content="zh-CN">
@@ -60,7 +60,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;github.com&#x2F;IBITM&#x2F;ibitm.github.io&#x2F;blob&#x2F;master&#x2F;img&#x2F;主题、分区、副本和 Log 之间的关系.png?raw=true">
 
-<link rel="canonical" href="https://ibitm.github.io/2020/10/25/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Kafka%20%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E8%B7%B5%E5%8E%9F%E7%90%86/">
+<link rel="canonical" href="https://ibitm.github.io/copy_posts/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Kafka%20%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E8%B7%B5%E5%8E%9F%E7%90%86">
 
 
 <script id="page-configurations">
@@ -68,13 +68,14 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: true,
-    isPage: false,
+    isPost: false,
+    isPage: true,
     isArchive: false
   };
 </script>
 
-  <title>深入理解 Kafka 核心设计和实践原理 | 求索之心</title>
+  <title>深入理解 Kafka 核心设计和实践原理 | 求索之心
+  </title>
   
 
 
@@ -200,78 +201,34 @@
       <div class="main-inner">
         <div class="content-wrap">
           
+  
+  
 
           <div class="content">
             
 
   <div class="posts-expand">
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2020/10/25/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Kafka%20%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E8%B7%B5%E5%8E%9F%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
-      <meta itemprop="name" content="张潇">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="求索之心">
-    </span>
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          深入理解 Kafka 核心设计和实践原理
-        </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+<h1 class="post-title" itemprop="name headline">深入理解 Kafka 核心设计和实践原理
+</h1>
 
-              <time title="创建时间：2020-10-25 21:18:20" itemprop="dateCreated datePublished" datetime="2020-10-25T21:18:20+08:00">2020-10-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/10/25/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Kafka%20%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E8%B7%B5%E5%8E%9F%E7%90%86/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/25/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Kafka%20%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E8%B7%B5%E5%8E%9F%E7%90%86/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
+<div class="post-meta">
   
 
-        </div>
-      </header>
+</div>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+</header>
 
       
-        <h1 id="第-4-章-主题和分区"><a href="#第-4-章-主题和分区" class="headerlink" title="第 4 章 - 主题和分区"></a>第 4 章 - 主题和分区</h1><h2 id="4-1-主题的管理"><a href="#4-1-主题的管理" class="headerlink" title="4.1 主题的管理"></a>4.1 主题的管理</h2><p>主题的管理主要是包括主题的创建、修改、删除以及查看主题的元数据，都可以通过 Kafka 提供的 kafka-topics.sh 脚本执行这一些操作。</p>
+      
+      
+      <div class="post-body">
+          <h1 id="第-4-章-主题和分区"><a href="#第-4-章-主题和分区" class="headerlink" title="第 4 章 - 主题和分区"></a>第 4 章 - 主题和分区</h1><h2 id="4-1-主题的管理"><a href="#4-1-主题的管理" class="headerlink" title="4.1 主题的管理"></a>4.1 主题的管理</h2><p>主题的管理主要是包括主题的创建、修改、删除以及查看主题的元数据，都可以通过 Kafka 提供的 kafka-topics.sh 脚本执行这一些操作。</p>
 <p>这个脚本本质上是调用了 kafka.admin.TopicCommand 类来执行主题管理的操作。</p>
 <p>一般来说，还有 2 种办法可以实现主题的管理</p>
 <ul>
@@ -405,39 +362,16 @@
             document.body.appendChild(img);
           });
       </script>
+      </div>
+      
+      
+      
     </div>
+    
 
     
     
     
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Kafka/" rel="tag"># Kafka</a>
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag"># 读书笔记</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2019/12/22/Linux-%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/" rel="prev" title="Linux 包管理基础">
-      <i class="fa fa-chevron-left"></i> Linux 包管理基础
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/10/25/Untitled/" rel="next" title="Untitled">
-      Untitled <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
   </div>
 
 
