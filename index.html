@@ -203,6 +203,273 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2020/10/26/LeetCode%20564.%20%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E5%9B%9E%E6%96%87%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
+      <meta itemprop="name" content="张潇">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="求索之心">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/26/LeetCode%20564.%20%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E5%9B%9E%E6%96%87%E6%95%B0/" class="post-title-link" itemprop="url">寻找最近的回文数</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-26 09:18:59" itemprop="dateCreated datePublished" datetime="2020-10-26T09:18:59+08:00">2020-10-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
+                    <span itemprop="name">LeetCode</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/10/26/LeetCode%20564.%20%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E5%9B%9E%E6%96%87%E6%95%B0/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/26/LeetCode%20564.%20%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E5%9B%9E%E6%96%87%E6%95%B0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="564-寻找最近的回文数"><a href="#564-寻找最近的回文数" class="headerlink" title="564. 寻找最近的回文数"></a><a href="https://leetcode-cn.com/problems/find-the-closest-palindrome/" target="_blank" rel="noopener">564. 寻找最近的回文数</a></h1><blockquote>
+<p>给定一个整数 n ，你需要找到与它最近的回文数（不包括自身）。</p>
+<p>“最近的”定义为两个整数<strong>差的绝对值</strong>最小。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: "123"</span><br><span class="line">输出: "121"</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>注意:</strong></p>
+<ol>
+<li><strong>n</strong> 是由字符串表示的正整数，其长度不超过18。</li>
+<li>如果有多个结果，返回最小的那个。</li>
+</ol>
+</blockquote>
+<h2 id="拓展知识点-Java-基本数据结构的表示范围"><a href="#拓展知识点-Java-基本数据结构的表示范围" class="headerlink" title="拓展知识点-Java 基本数据结构的表示范围"></a>拓展知识点-Java 基本数据结构的表示范围</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>存储</th>
+<th>表示范围</th>
+<th>定义变量时的特殊处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>byte</td>
+<td>1B</td>
+<td>[-128 ,127]</td>
+<td>末尾加B</td>
+</tr>
+<tr>
+<td>short</td>
+<td>2B</td>
+<td>[-32768,32767]</td>
+<td>末尾加S</td>
+</tr>
+<tr>
+<td>int</td>
+<td>4B</td>
+<td>[-2147483648,2147483647]（20亿左右，10位十进制数）</td>
+<td>无</td>
+</tr>
+<tr>
+<td>long</td>
+<td>8B</td>
+<td>[-9223372036854774808,9223372036854774807]（19位十进制数）</td>
+<td>末尾加L</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>最近的回文数可能比当前的数 n 大或者小，所以这个题目需要比较比 n 大的最小回文数和比 n 小的最大回文数到 n 的距离来确定最近的回文数是哪一个。</p>
+<p>我们再考虑如何从 n 如何得到这 2 个回文数。</p>
+<p>我们观察 n = 123，当我们从中间位置反转时我们可以直接得到一个回文数 121，121 就是比 123 小的最大回文数。</p>
+<p>当时 n  = 12312 的时候，我们从中间位置反转可以得到 12321 ，这时候 12321 就是比 12312 大的最小回文数。</p>
+<p>当 n 的位数为偶数时，同样可以得到类似的结论。</p>
+<p>以上的规律并不能实质性的帮我们解决问题，我们还是需要想出从 n 得到这两个回文数的办法。</p>
+<p>我们再回到 n = 12312，我们可以知道距离它最近的 2 个回文是 12321 和 12221</p>
+<p>12321 可以由反转直接得到，12221 可以由 12312 中间位 -1 之后在反转得到。</p>
+<p>当我们 + 或者 - 的时候一定要考虑溢出和结尾的情况</p>
+<p>当 n = 101 时，99 可以由 91 反转得到</p>
+<p>当 n = 12345 的时候，12421 可以由 12445 反转得到</p>
+<p>当 n = 99 的时候，101 可以由 100 反转得到</p>
+<p>这时候知道为什么题目里面会规定 n  的长度不会超过 18 了吧，因为 long 能表示 19 位，我们在计算过程中会出现进位的情况。</p>
+<p>如何处理 n 的位数奇偶和一些边界情况的处理，就只能细扣代码了。</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">nearestPalindromic</span><span class="params">(String n)</span> </span>{</span><br><span class="line">		Long num = Long.valueOf(n);</span><br><span class="line">		Long raw = getRawPalindrome(n);</span><br><span class="line">		Long big = raw > num ? raw : getBigPalindrome(raw);</span><br><span class="line">		Long small = raw < num ? raw : getSmallPalindrome(raw);</span><br><span class="line">		<span class="keyword">return</span> String.valueOf(big - num >= num - small ? small : big);</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title">getRawPalindrome</span><span class="params">(String n)</span> </span>{</span><br><span class="line">		<span class="keyword">char</span>[] chs = n.toCharArray();</span><br><span class="line">		<span class="keyword">int</span> len = chs.length;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < len / <span class="number">2</span>; i++) {</span><br><span class="line">			chs[len - <span class="number">1</span> - i] = chs[i];</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">return</span> Long.valueOf(String.valueOf(chs));</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title">getBigPalindrome</span><span class="params">(Long raw)</span> </span>{</span><br><span class="line">		<span class="keyword">char</span>[] chs = String.valueOf(raw).toCharArray();</span><br><span class="line">		<span class="keyword">char</span>[] res = <span class="keyword">new</span> <span class="keyword">char</span>[chs.length + <span class="number">1</span>];</span><br><span class="line">		res[<span class="number">0</span>] = <span class="string">'0'</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < chs.length; i++) {</span><br><span class="line">			res[i + <span class="number">1</span>] = chs[i];</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">int</span> size = chs.length;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = (size - <span class="number">1</span>) / <span class="number">2</span> + <span class="number">1</span>; j >= <span class="number">0</span>; j--) {</span><br><span class="line">			<span class="keyword">if</span> (++res[j] > <span class="string">'9'</span>) {</span><br><span class="line">				res[j] = <span class="string">'0'</span>;</span><br><span class="line">			} <span class="keyword">else</span> {</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">int</span> offset = res[<span class="number">0</span>] == <span class="string">'1'</span> ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">		size = res.length;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = size - <span class="number">1</span>; i >= (size + offset) / <span class="number">2</span>; i--) {</span><br><span class="line">			res[i] = res[size - i - offset];</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">return</span> Long.valueOf(String.valueOf(res));</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title">getSmallPalindrome</span><span class="params">(Long raw)</span> </span>{</span><br><span class="line">		<span class="keyword">char</span>[] chs = String.valueOf(raw).toCharArray();</span><br><span class="line">		<span class="keyword">char</span>[] res = <span class="keyword">new</span> <span class="keyword">char</span>[chs.length];</span><br><span class="line">		<span class="keyword">int</span> size = res.length;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < size; i++) {</span><br><span class="line">			res[i] = chs[i];</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = (size - <span class="number">1</span>) / <span class="number">2</span>; j >= <span class="number">0</span>; j--) {</span><br><span class="line">			<span class="keyword">if</span> (--res[j] < <span class="string">'0'</span>) {</span><br><span class="line">				res[j] = <span class="string">'9'</span>;</span><br><span class="line">			} <span class="keyword">else</span> {</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">if</span> (res[<span class="number">0</span>] == <span class="string">'0'</span>) {</span><br><span class="line">			res = <span class="keyword">new</span> <span class="keyword">char</span>[size - <span class="number">1</span>];</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < res.length; i++) {</span><br><span class="line">				res[i] = <span class="string">'9'</span>;</span><br><span class="line">			}</span><br><span class="line">			<span class="keyword">return</span> size == <span class="number">1</span> ? <span class="number">0</span> : Long.parseLong(String.valueOf(res));</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k < size / <span class="number">2</span>; k++) {</span><br><span class="line">			res[size - <span class="number">1</span> - k] = res[k];</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">return</span> Long.valueOf(String.valueOf(res));</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2020/10/26/%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E5%9B%9E%E6%96%87%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
+      <meta itemprop="name" content="张潇">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="求索之心">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/26/%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E5%9B%9E%E6%96%87%E6%95%B0/" class="post-title-link" itemprop="url">寻找最近的回文数</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-26 09:18:59" itemprop="dateCreated datePublished" datetime="2020-10-26T09:18:59+08:00">2020-10-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">算法和数据结构</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/10/26/%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E5%9B%9E%E6%96%87%E6%95%B0/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/26/%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E5%9B%9E%E6%96%87%E6%95%B0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="寻找最近的回文数"><a href="#寻找最近的回文数" class="headerlink" title="寻找最近的回文数"></a>寻找最近的回文数</h1><blockquote>
+<p>给一个字符串 str，代表一个整数，找到除了这个数之外，绝对值和这个数相差最小的回文数。<br>例如：<br>str = “123”<br>返回“121”<br>注意：<br>假设字符串 str 一定能变成 long 类型</p>
+</blockquote>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2020/10/25/Untitled/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -507,7 +774,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/12/22/Linux-%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/">
+    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/12/22/Linux%20%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
@@ -521,7 +788,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/12/22/Linux-%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Linux 包管理基础</a>
+            <a href="/2019/12/22/Linux%20%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Linux 包管理基础</a>
         </h1>
 
         <div class="post-meta">
@@ -554,8 +821,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/12/22/Linux-%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/22/Linux-%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/12/22/Linux%20%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/22/Linux%20%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1287,7 +1554,7 @@ https://www.zhihu.com/question/24192778/answer/631081857">HR通常提的一些�
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/12/15/Maven-%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/">
+    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/12/15/Maven%20%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
@@ -1301,7 +1568,7 @@ https://www.zhihu.com/question/24192778/answer/631081857">HR通常提的一些�
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/12/15/Maven-%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">Maven 相关问题的总结</a>
+            <a href="/2019/12/15/Maven%20%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">Maven 相关问题的总结</a>
         </h1>
 
         <div class="post-meta">
@@ -1323,8 +1590,8 @@ https://www.zhihu.com/question/24192778/answer/631081857">HR通常提的一些�
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/12/15/Maven-%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/15/Maven-%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/12/15/Maven%20%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/15/Maven%20%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1341,229 +1608,6 @@ https://www.zhihu.com/question/24192778/answer/631081857">HR通常提的一些�
       
           <p>Maven中建立的依赖管理方式基本已成为Java语言依赖管理的事实标准，Maven的替代者Gradle也基本沿用了Maven的依赖管理机制。在Maven依赖管理中，唯一标识一个依赖项是由该依赖项的三个属性构成的，分别是groupId、artifactId以及version。这三个属性可以唯一确定一个组件（Jar包或者War包）。</p>
 <p>其实在Nexus仓库中，一个仓库一般分为public(Release)仓和SNAPSHOT仓，前者存放正式版本，后者存放快照版本。如果在项目配置文件中（无论是build.gradle还是pom.xml）指定的版本号带有’-SNAPSHOT’后缀，比如版本号为’Junit-4.10-SNAPSHOT’，那么打出的包就是一个快照版本。</p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/12/15/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
-      <meta itemprop="name" content="张潇">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="求索之心">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/15/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">秒杀系统学习笔记</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-15 15:19:07" itemprop="dateCreated datePublished" datetime="2019-12-15T15:19:07+08:00">2019-12-15</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/12/15/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/15/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="环境的搭建"><a href="#环境的搭建" class="headerlink" title="环境的搭建"></a>环境的搭建</h2><h3 id="Spring-Boot"><a href="#Spring-Boot" class="headerlink" title="Spring Boot"></a>Spring Boot</h3><p><a href="https://spring.io/projects/spring-boot/" target="_blank" rel="noopener">Spring Boot 官网</a></p>
-<p><a href="https://spring.io/guides/gs/rest-service/" target="_blank" rel="noopener">Spring Boot 构建一个 RESTFUL 风格的 Web 服务</a></p>
-<p>互不 通信 的 分布式 架构 方式。 缓存 与 应用 分离 部署， 缓存 系统 部署 在 一组 专门 的 服务器 上， 应用 程序 通过 一致性 Hash 等 路 由 算法 选择 缓存 服务器 远程 访问 缓存 数据， 缓存 服务器 之间 不 通信， 缓存 集群 的 规模 可以 很容易 地 实现 扩容， 具有 良好 的 可 伸缩性。</p>
-<p>李智慧. 大型网站技术架构:核心原理与案例分析 (p. 49). 电子工业出版社. Kindle 版本. </p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/12/14/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9%E5%A4%8D%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
-      <meta itemprop="name" content="张潇">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="求索之心">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/14/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9%E5%A4%8D%E4%B9%A0/" class="post-title-link" itemprop="url">关于计算机网络的知识点复习...</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-14 15:03:18" itemprop="dateCreated datePublished" datetime="2019-12-14T15:03:18+08:00">2019-12-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/12/14/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9%E5%A4%8D%E4%B9%A0/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/14/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9%E5%A4%8D%E4%B9%A0/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>既然已经决定要做开发了，就把之间放下的东西捡起来好好看看吧😝</p>
-<h2 id="ISO-OSI-参考模型和-TCP-IP-模型"><a href="#ISO-OSI-参考模型和-TCP-IP-模型" class="headerlink" title="ISO/OSI 参考模型和 TCP/IP 模型"></a>ISO/OSI 参考模型和 TCP/IP 模型</h2><p>国际标准化组织 (ISO)提出了网络体系结构模型，称为<strong>开放互连参考模型</strong>（OSI/RM），简称为 <strong>OSI 参考模型</strong>。</p>
-<p>共有七层</p>
-<h2 id="数据交换的方式"><a href="#数据交换的方式" class="headerlink" title="数据交换的方式"></a>数据交换的方式</h2><ol>
-<li><p>电路交换</p>
-<p>在源节点和目的节点之间建立一条专用（双方独占）的通路用于传送数据，通常分为三个阶段：建立连接，传输数据和断开连接。最典型的电路交换网就是传统电话网络。</p>
-<p>主要特点是整个报文的比特流连续的从源点到达终点，好像在一个管道中传输。优点是数据直接传送、延迟小。缺点是线路利用率低、不能充分利用线路容量。</p>
-</li>
-<li><p>报文交换</p>
-<p>将用户数据附加上源地址、目的地址、校验码等辅助信息，封装成报文。整个报文传送到相邻节点，全部存储袭来后，再转发给下一个节点，重复上述过程直到到达目的节点。</p>
-<p>报文交换也称为存储-转发。主要特点是整个报文先传送到相邻结点，全部存储下来后查找转发表，转发到下一个结点。</p>
-<p>优点是可以较为充分线路容量；可以实现不同链路之间不同数据率的转换；可以实现格式转换；可以实现一对多、多对一的访间；可以实现差错控制。其缺点是增加了资源开销（如辅助信息导致处理时间和存储资源的开销）：增加缓冲延迟；额外的控制机制来保证多个报文的顺序不会乱序；缓冲区难以管理，因为报文的大小不确定，接收方在接收到报文之前不能预知报文的大小。</p>
-</li>
-<li><p>分组交换<br>分组交换网络，也称为包交换网络。其原理是将用户数据分成较短的固定长度的数据块，在每个数据块中加上目的地址、源地址等辅助信息组成分组（包），以存储-转发方式传输。</p>
-<p>除了具备报文交换网络的优点外，分组交换网络还具有自身的优点：缓冲易于管理；包的平均延迟更小，网络中占用的平均缓冲区更少；更易于标准化；更适合应用。</p>
-</li>
-</ol>
-<p>现在的主流网络基本上都可以看成是<strong>分组交换</strong>网络。</p>
-<h2 id="端到端的通信和点到点的通信的区别？"><a href="#端到端的通信和点到点的通信的区别？" class="headerlink" title="端到端的通信和点到点的通信的区别？"></a>端到端的通信和点到点的通信的区别？</h2><p> 三点不同：</p>
-<ul>
-<li>实体不同</li>
-<li>发生的层不同</li>
-<li>点到点不支持可靠传输，而端到端支持</li>
-</ul>
-<p>从本质上说，由物理层、数据链路层和网络层组成的通信子网为网络环境中的主机提供点到点的服务，而传输层为网络中的主机提供端到端的通信。</p>
-<p>直接相连的结点之间的通信叫点到点通信。它只提件一合却票到另一台机器之间的通信，不会涉及程序或进程的概念。同时点到点通信并不能保证数据传输的可靠性，也不能说明源主机与目的主机之间是哪两个进程在通信，这些工作都是由传输层来完成的。</p>
-<p>端到端通信建立在点到点通信的基础上，它是由一段段的点到点通信信道构成的，是比点到点通信更高一级的通信方式，以完成应用程序（进程）之间的通信。“端”是指用户程序的端口，端口号标识了应用层中不同的进程。</p>
-<h2 id="通信方式"><a href="#通信方式" class="headerlink" title="通信方式"></a>通信方式</h2><h3 id="单工通信"><a href="#单工通信" class="headerlink" title="单工通信"></a>单工通信</h3><p>只能有一个方向的通信，没有反方向的交互，只需要一个信道。</p>
-<h3 id="半双工"><a href="#半双工" class="headerlink" title="半双工"></a>半双工</h3><p>通信的双方都可以发送或者接受消息，但是任何一方不能同时发送和接收消息，需要两个信道。</p>
-<h3 id="全双工"><a href="#全双工" class="headerlink" title="全双工"></a>全双工</h3><p>通信的双方都可以同时发送和接收消息，需要两个信道。</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -1647,20 +1691,20 @@ https://www.zhihu.com/question/24192778/answer/631081857">HR通常提的一些�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

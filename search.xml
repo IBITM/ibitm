@@ -1,6 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>寻找最近的回文数</title>
+    <url>/2020/10/26/LeetCode%20564.%20%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E5%9B%9E%E6%96%87%E6%95%B0/</url>
+    <content><![CDATA[<h1 id="564-寻找最近的回文数"><a href="#564-寻找最近的回文数" class="headerlink" title="564. 寻找最近的回文数"></a><a href="https://leetcode-cn.com/problems/find-the-closest-palindrome/" target="_blank" rel="noopener">564. 寻找最近的回文数</a></h1><blockquote>
+<p>给定一个整数 n ，你需要找到与它最近的回文数（不包括自身）。</p>
+<p>“最近的”定义为两个整数<strong>差的绝对值</strong>最小。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">输入: "123"</span><br><span class="line">输出: "121"</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>注意:</strong></p>
+<ol>
+<li><strong>n</strong> 是由字符串表示的正整数，其长度不超过18。</li>
+<li>如果有多个结果，返回最小的那个。</li>
+</ol>
+</blockquote>
+<h2 id="拓展知识点-Java-基本数据结构的表示范围"><a href="#拓展知识点-Java-基本数据结构的表示范围" class="headerlink" title="拓展知识点-Java 基本数据结构的表示范围"></a>拓展知识点-Java 基本数据结构的表示范围</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>存储</th>
+<th>表示范围</th>
+<th>定义变量时的特殊处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>byte</td>
+<td>1B</td>
+<td>[-128 ,127]</td>
+<td>末尾加B</td>
+</tr>
+<tr>
+<td>short</td>
+<td>2B</td>
+<td>[-32768,32767]</td>
+<td>末尾加S</td>
+</tr>
+<tr>
+<td>int</td>
+<td>4B</td>
+<td>[-2147483648,2147483647]（20亿左右，10位十进制数）</td>
+<td>无</td>
+</tr>
+<tr>
+<td>long</td>
+<td>8B</td>
+<td>[-9223372036854774808,9223372036854774807]（19位十进制数）</td>
+<td>末尾加L</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>最近的回文数可能比当前的数 n 大或者小，所以这个题目需要比较比 n 大的最小回文数和比 n 小的最大回文数到 n 的距离来确定最近的回文数是哪一个。</p>
+<p>我们再考虑如何从 n 如何得到这 2 个回文数。</p>
+<p>我们观察 n = 123，当我们从中间位置反转时我们可以直接得到一个回文数 121，121 就是比 123 小的最大回文数。</p>
+<p>当时 n  = 12312 的时候，我们从中间位置反转可以得到 12321 ，这时候 12321 就是比 12312 大的最小回文数。</p>
+<p>当 n 的位数为偶数时，同样可以得到类似的结论。</p>
+<p>以上的规律并不能实质性的帮我们解决问题，我们还是需要想出从 n 得到这两个回文数的办法。</p>
+<p>我们再回到 n = 12312，我们可以知道距离它最近的 2 个回文是 12321 和 12221</p>
+<p>12321 可以由反转直接得到，12221 可以由 12312 中间位 -1 之后在反转得到。</p>
+<p>当我们 + 或者 - 的时候一定要考虑溢出和结尾的情况</p>
+<p>当 n = 101 时，99 可以由 91 反转得到</p>
+<p>当 n = 12345 的时候，12421 可以由 12445 反转得到</p>
+<p>当 n = 99 的时候，101 可以由 100 反转得到</p>
+<p>这时候知道为什么题目里面会规定 n  的长度不会超过 18 了吧，因为 long 能表示 19 位，我们在计算过程中会出现进位的情况。</p>
+<p>如何处理 n 的位数奇偶和一些边界情况的处理，就只能细扣代码了。</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">nearestPalindromic</span><span class="params">(String n)</span> </span>{</span><br><span class="line">		Long num = Long.valueOf(n);</span><br><span class="line">		Long raw = getRawPalindrome(n);</span><br><span class="line">		Long big = raw > num ? raw : getBigPalindrome(raw);</span><br><span class="line">		Long small = raw < num ? raw : getSmallPalindrome(raw);</span><br><span class="line">		<span class="keyword">return</span> String.valueOf(big - num >= num - small ? small : big);</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title">getRawPalindrome</span><span class="params">(String n)</span> </span>{</span><br><span class="line">		<span class="keyword">char</span>[] chs = n.toCharArray();</span><br><span class="line">		<span class="keyword">int</span> len = chs.length;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < len / <span class="number">2</span>; i++) {</span><br><span class="line">			chs[len - <span class="number">1</span> - i] = chs[i];</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">return</span> Long.valueOf(String.valueOf(chs));</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title">getBigPalindrome</span><span class="params">(Long raw)</span> </span>{</span><br><span class="line">		<span class="keyword">char</span>[] chs = String.valueOf(raw).toCharArray();</span><br><span class="line">		<span class="keyword">char</span>[] res = <span class="keyword">new</span> <span class="keyword">char</span>[chs.length + <span class="number">1</span>];</span><br><span class="line">		res[<span class="number">0</span>] = <span class="string">'0'</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < chs.length; i++) {</span><br><span class="line">			res[i + <span class="number">1</span>] = chs[i];</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">int</span> size = chs.length;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = (size - <span class="number">1</span>) / <span class="number">2</span> + <span class="number">1</span>; j >= <span class="number">0</span>; j--) {</span><br><span class="line">			<span class="keyword">if</span> (++res[j] > <span class="string">'9'</span>) {</span><br><span class="line">				res[j] = <span class="string">'0'</span>;</span><br><span class="line">			} <span class="keyword">else</span> {</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">int</span> offset = res[<span class="number">0</span>] == <span class="string">'1'</span> ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">		size = res.length;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = size - <span class="number">1</span>; i >= (size + offset) / <span class="number">2</span>; i--) {</span><br><span class="line">			res[i] = res[size - i - offset];</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">return</span> Long.valueOf(String.valueOf(res));</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title">getSmallPalindrome</span><span class="params">(Long raw)</span> </span>{</span><br><span class="line">		<span class="keyword">char</span>[] chs = String.valueOf(raw).toCharArray();</span><br><span class="line">		<span class="keyword">char</span>[] res = <span class="keyword">new</span> <span class="keyword">char</span>[chs.length];</span><br><span class="line">		<span class="keyword">int</span> size = res.length;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < size; i++) {</span><br><span class="line">			res[i] = chs[i];</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = (size - <span class="number">1</span>) / <span class="number">2</span>; j >= <span class="number">0</span>; j--) {</span><br><span class="line">			<span class="keyword">if</span> (--res[j] < <span class="string">'0'</span>) {</span><br><span class="line">				res[j] = <span class="string">'9'</span>;</span><br><span class="line">			} <span class="keyword">else</span> {</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">if</span> (res[<span class="number">0</span>] == <span class="string">'0'</span>) {</span><br><span class="line">			res = <span class="keyword">new</span> <span class="keyword">char</span>[size - <span class="number">1</span>];</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < res.length; i++) {</span><br><span class="line">				res[i] = <span class="string">'9'</span>;</span><br><span class="line">			}</span><br><span class="line">			<span class="keyword">return</span> size == <span class="number">1</span> ? <span class="number">0</span> : Long.parseLong(String.valueOf(res));</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k < size / <span class="number">2</span>; k++) {</span><br><span class="line">			res[size - <span class="number">1</span> - k] = res[k];</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">return</span> Long.valueOf(String.valueOf(res));</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>算法和数据结构</tag>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>寻找最近的回文数</title>
+    <url>/2020/10/26/%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E5%9B%9E%E6%96%87%E6%95%B0/</url>
+    <content><![CDATA[<h1 id="寻找最近的回文数"><a href="#寻找最近的回文数" class="headerlink" title="寻找最近的回文数"></a>寻找最近的回文数</h1><blockquote>
+<p>给一个字符串 str，代表一个整数，找到除了这个数之外，绝对值和这个数相差最小的回文数。<br>例如：<br>str = “123”<br>返回“121”<br>注意：<br>假设字符串 str 一定能变成 long 类型</p>
+</blockquote>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>算法和数据结构</category>
+      </categories>
+      <tags>
+        <tag>算法和数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Untitled</title>
     <url>/2020/10/25/Untitled/</url>
     <content><![CDATA[<script>
@@ -170,7 +296,7 @@
   </entry>
   <entry>
     <title>Linux 包管理基础</title>
-    <url>/2019/12/22/Linux-%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/</url>
+    <url>/2019/12/22/Linux%20%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<p>内容参考自 <a href="https://linux.cn/article-8782-1.html" target="_blank" rel="noopener">Linux 包管理基础：apt、yum、dnf 和 pkg</a></p>
 <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>大多数现代的类 Unix 操作系统都提供了一种<strong>中心化</strong>的机制用来搜索和安装软件。软件通常都是存放在存储库中，并通过包的形式进行分发。处理包的工作被称为包管理。包提供了操作系统的基本组件，以及共享的库、应用程序、服务和文档。</p>
 <p>包管理系统除了安装软件外，它还提供了工具来更新已经安装的包。包存储库有助于确保你的系统中使用的代码是经过审查的，并且软件的安装版本已经得到了开发人员和包维护人员的认可。</p>
@@ -613,7 +739,7 @@ https://www.zhihu.com/question/24192778/answer/631081857">HR通常提的一些�
   </entry>
   <entry>
     <title>Maven 相关问题的总结</title>
-    <url>/2019/12/15/Maven-%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/</url>
+    <url>/2019/12/15/Maven%20%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<p>Maven中建立的依赖管理方式基本已成为Java语言依赖管理的事实标准，Maven的替代者Gradle也基本沿用了Maven的依赖管理机制。在Maven依赖管理中，唯一标识一个依赖项是由该依赖项的三个属性构成的，分别是groupId、artifactId以及version。这三个属性可以唯一确定一个组件（Jar包或者War包）。</p>
 <p>其实在Nexus仓库中，一个仓库一般分为public(Release)仓和SNAPSHOT仓，前者存放正式版本，后者存放快照版本。如果在项目配置文件中（无论是build.gradle还是pom.xml）指定的版本号带有’-SNAPSHOT’后缀，比如版本号为’Junit-4.10-SNAPSHOT’，那么打出的包就是一个快照版本。</p>
 <script>
@@ -725,7 +851,7 @@ https://www.zhihu.com/question/24192778/answer/631081857">HR通常提的一些�
   </entry>
   <entry>
     <title>2019 年年底，关于面试的一些总结</title>
-    <url>/2019/12/14/2019-%E5%B9%B4%E5%B9%B4%E5%BA%95%EF%BC%8C%E5%85%B3%E4%BA%8E%E9%9D%A2%E8%AF%95%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%E5%92%8C%E4%B8%AA%E4%BA%BA%E5%8F%91%E5%B1%95/</url>
+    <url>/2019/12/14/2019%20%E5%B9%B4%E5%B9%B4%E5%BA%95%EF%BC%8C%E5%85%B3%E4%BA%8E%E9%9D%A2%E8%AF%95%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%E5%92%8C%E4%B8%AA%E4%BA%BA%E5%8F%91%E5%B1%95/</url>
     <content><![CDATA[<p>这一周面试了腾讯和百度的「数据开发」岗，对这个岗位有了更加清楚的认识和定位，数据开发岗就是为大数据的全生命周期提供服务，包括数据产生，传输，建模，统计</p>
 <p>分析，实验评估，可视化的全流程。</p>
 <p>负责的工作主要包括：</p>
@@ -1391,30 +1517,6 @@ dp[j] = min(dp[j], dp[j-c] + 1)</script><p>在这里我们可以完全背包和0
         <tag>Leetcode</tag>
         <tag>数据结构与算法</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Leetcode 题解</title>
-    <url>/2019/11/26/Leetcode-%E9%A2%98%E8%A7%A3/</url>
-    <content><![CDATA[<p><span class="github-emoji" style="color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/1f389.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/1f389.png?v8">🎉</span> still works.</p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>]]></content>
   </entry>
   <entry>
     <title>二分查找的各种变形</title>
