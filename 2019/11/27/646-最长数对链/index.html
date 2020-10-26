@@ -37,9 +37,13 @@
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
+
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
+
+
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
 
 <link  rel="stylesheet" href="/css/main.css" />
 
@@ -48,15 +52,15 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-</head>
+<meta name="generator" content="Hexo 5.2.0"></head>
 
 
 <body>
-  <header style="height: 70vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>点滴琢磨</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -136,7 +140,7 @@
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:" target="_blank" rel="noopener">&nbsp;<i
+            <a class="nav-link" href="javascript:">&nbsp;<i
                 class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
@@ -146,7 +150,7 @@
 </nav>
 
     <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/img/banner_img.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -173,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      213 字
+      179 字
     </span>
   
 
@@ -183,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      2
        分钟
     </span>
   
@@ -216,57 +220,39 @@
             <h1 style="display: none">646. 最长数对链</h1>
             
             <div class="markdown-body" id="post-body">
-              <h4 id="646-最长数对链"><a href="#646-最长数对链" class="headerlink" title="646. 最长数对链"></a><a href="https://leetcode-cn.com/problems/maximum-length-of-pair-chain/" target="_blank" rel="noopener">646. 最长数对链</a></h4><p>如何排列 pair 使得 pair 链最长，类似于👉<a href="https://zh.wikipedia.org/wiki/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">贪心算法</a>的经典问题-✍️<a href="https://en.wikipedia.org/wiki/Activity_selection_problem" target="_blank" rel="noopener">活动选择问题</a></p>
+              <h4 id="646-最长数对链"><a href="#646-最长数对链" class="headerlink" title="646. 最长数对链"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-length-of-pair-chain/">646. 最长数对链</a></h4><p>如何排列 pair 使得 pair 链最长，类似于👉<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95">贪心算法</a>的经典问题-✍️<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Activity_selection_problem">活动选择问题</a></p>
 <p>这类问题的贪心算法就是：</p>
 <p>在现有的活动中选择「最早结束」的活动，对应到我们的这个问题，就是选择 pair 中第二位最小的数。</p>
 <a id="more"></a>
 <pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.Arrays;
 <span class="hljs-keyword">import</span> java.util.Comparator;
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findLongestChain</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] pairs)</span> </span>{
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findLongestChain</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] pairs)</span> </span>&#123;
         <span class="hljs-keyword">if</span> (pairs == <span class="hljs-keyword">null</span> || pairs.length == <span class="hljs-number">0</span>)
             <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
         <span class="hljs-keyword">int</span> n = pairs.length;
-        Arrays.sort(pairs, <span class="hljs-keyword">new</span> Comparator<<span class="hljs-keyword">int</span>[]>() {
+        Arrays.sort(pairs, <span class="hljs-keyword">new</span> Comparator&lt;<span class="hljs-keyword">int</span>[]&gt;() &#123;
             <span class="hljs-meta">@Override</span>
-            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">compare</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] o1, <span class="hljs-keyword">int</span>[] o2)</span> </span>{
-                <span class="hljs-keyword">if</span> (o1[<span class="hljs-number">0</span>] != o2[<span class="hljs-number">0</span>]) {
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">compare</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] o1, <span class="hljs-keyword">int</span>[] o2)</span> </span>&#123;
+                <span class="hljs-keyword">if</span> (o1[<span class="hljs-number">0</span>] != o2[<span class="hljs-number">0</span>]) &#123;
                     <span class="hljs-keyword">return</span> o1[<span class="hljs-number">0</span>] - o2[<span class="hljs-number">0</span>];
-                }
+                &#125;
                 <span class="hljs-keyword">return</span> o1[<span class="hljs-number">1</span>] - o2[<span class="hljs-number">1</span>];
-            }
-        });
+            &#125;
+        &#125;);
         <span class="hljs-keyword">int</span> a = Integer.MIN_VALUE;
         <span class="hljs-keyword">int</span> cnt = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] pair : pairs) {
-            <span class="hljs-keyword">if</span> (pair[<span class="hljs-number">0</span>] > a) {
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] pair : pairs) &#123;
+            <span class="hljs-keyword">if</span> (pair[<span class="hljs-number">0</span>] &gt; a) &#123;
                 a = pair[<span class="hljs-number">1</span>];
                 cnt++;
-            }
-        }
+            &#125;
+        &#125;
         <span class="hljs-keyword">return</span> cnt;
-    }
-}</code></pre>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+    &#125;
+&#125;</code></pre>
+
             </div>
             <hr>
             <div>
@@ -291,7 +277,7 @@
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

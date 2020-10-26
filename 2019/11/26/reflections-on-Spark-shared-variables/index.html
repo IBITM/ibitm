@@ -37,9 +37,13 @@
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
+
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
+
+
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
 
 <link  rel="stylesheet" href="/css/main.css" />
 
@@ -48,15 +52,15 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-</head>
+<meta name="generator" content="Hexo 5.2.0"></head>
 
 
 <body>
-  <header style="height: 70vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>点滴琢磨</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -136,7 +140,7 @@
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:" target="_blank" rel="noopener">&nbsp;<i
+            <a class="nav-link" href="javascript:">&nbsp;<i
                 class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
@@ -146,7 +150,7 @@
 </nav>
 
     <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/img/banner_img.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -183,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      13
+      12
        分钟
     </span>
   
@@ -220,14 +224,14 @@
 <p>Spark 的两个共享变量，累加器与广播变量，使用结果聚合与广播这两种常见的通信模式突破了这一限制。<br><a id="more"></a></p>
 <h2 id="Accumulator"><a href="#Accumulator" class="headerlink" title="Accumulator"></a>Accumulator</h2><h3 id="基本使用方法"><a href="#基本使用方法" class="headerlink" title="基本使用方法"></a>基本使用方法</h3><p>第一种共享变量，即累加器，提供了将 worker node 中的值聚合到 driver programme 中的简单语法。</p>
 <p>下面的代码展示了一个 accumulator 被用于对一个数组中的元素求和:</p>
-<pre><code class="hljs scala">scala> <span class="hljs-keyword">val</span> accum = sc.longAccumulator(<span class="hljs-string">"My Accumulator"</span>)
+<pre><code class="hljs scala">scala&gt; <span class="hljs-keyword">val</span> accum = sc.longAccumulator(<span class="hljs-string">&quot;My Accumulator&quot;</span>)
 accum: org.apache.spark.util.<span class="hljs-type">LongAccumulator</span> = <span class="hljs-type">LongAccumulator</span>(id: <span class="hljs-number">0</span>, name: <span class="hljs-type">Some</span>(<span class="hljs-type">My</span> <span class="hljs-type">Accumulator</span>), value: <span class="hljs-number">0</span>)
 
-scala> sc.parallelize(<span class="hljs-type">Array</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>)).foreach(x => accum.add(x))
+scala&gt; sc.parallelize(<span class="hljs-type">Array</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>)).foreach(x =&gt; accum.add(x))
 ...
 <span class="hljs-number">10</span>/<span class="hljs-number">09</span>/<span class="hljs-number">29</span> <span class="hljs-number">18</span>:<span class="hljs-number">41</span>:<span class="hljs-number">08</span> <span class="hljs-type">INFO</span> <span class="hljs-type">SparkContext</span>: <span class="hljs-type">Tasks</span> finished in <span class="hljs-number">0.317106</span> s
 
-scala> accum.value
+scala&gt; accum.value
 res2: <span class="hljs-type">Long</span> = <span class="hljs-number">10</span></code></pre>
 <p>可以通过调用 <code>SparkContext.longAccumulator()</code> 或 <code>SparkContext.doubleAccumulator()</code> 方法创建数值类型的 <code>accumulator</code>（累加器）以分别累加 Long 或 Double 类型的值。集群上正在运行的任务就可以使用 <code>add</code> 方法来累计数值。</p>
 <p>注意，worker node 上的 tusk 不能访问累加器的值。从这些任务的角度来看，累加器是一个只写变量。只有 driver program 才可以使用 <code>value</code> 方法读取累加器的值。</p>
@@ -245,29 +249,11 @@ res2: <span class="hljs-type">Long</span> = <span class="hljs-number">10</span><
 </ul>
 <p>广播变量通过在一个变量 <code>v</code> 上调用 <code>SparkContext.broadcast(v)</code> 方法来进行创建。广播变量是 <code>v</code> 的一个 wrapper（包装器），可以通过调用 <code>value</code> 方法来访问它的值。代码示例如下:</p>
 <pre><code class="hljs scala"><span class="hljs-comment">// 这里的 v 指的是 Array(1, 2, 3)</span>
-scala> <span class="hljs-keyword">val</span> broadcastVar = sc.broadcast(<span class="hljs-type">Array</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>))
+scala&gt; <span class="hljs-keyword">val</span> broadcastVar = sc.broadcast(<span class="hljs-type">Array</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>))
 broadcastVar: org.apache.spark.broadcast.<span class="hljs-type">Broadcast</span>[<span class="hljs-type">Array</span>[<span class="hljs-type">Int</span>]] = <span class="hljs-type">Broadcast</span>(<span class="hljs-number">0</span>)
 
-scala> broadcastVar.value
-res0: <span class="hljs-type">Array</span>[<span class="hljs-type">Int</span>] = <span class="hljs-type">Array</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)</code></pre><script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+scala&gt; broadcastVar.value
+res0: <span class="hljs-type">Array</span>[<span class="hljs-type">Int</span>] = <span class="hljs-type">Array</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)</code></pre>
             </div>
             <hr>
             <div>
@@ -283,7 +269,7 @@ res0: <span class="hljs-type">Array</span>[<span class="hljs-type">Int</span>] =
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

@@ -37,9 +37,13 @@
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
+
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
+
+
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
 
 <link  rel="stylesheet" href="/css/main.css" />
 
@@ -48,15 +52,15 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-</head>
+<meta name="generator" content="Hexo 5.2.0"></head>
 
 
 <body>
-  <header style="height: 70vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>点滴琢磨</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -136,7 +140,7 @@
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:" target="_blank" rel="noopener">&nbsp;<i
+            <a class="nav-link" href="javascript:">&nbsp;<i
                 class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
@@ -146,7 +150,7 @@
 </nav>
 
     <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/img/banner_img.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -173,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      632 字
+      892 字
     </span>
   
 
@@ -183,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10
+      16
        分钟
     </span>
   
@@ -219,131 +223,114 @@
               <p>在Windows环境下, 使用IDEA进行Spark程序开发所需的环境配置, 主要是Maven pom文件的配置和Scala SDK的配置。<br><a id="more"></a></p>
 <h3 id="Maven的安装与配置"><a href="#Maven的安装与配置" class="headerlink" title="Maven的安装与配置"></a>Maven的安装与配置</h3><p>需要配置<code>Maven home directory</code>、<code>User settings file</code>、<code>Local repository</code>、 <code>Import Maven projects automatically</code></p>
 <h2 id="IDEA-Maven工程创建与配置"><a href="#IDEA-Maven工程创建与配置" class="headerlink" title="IDEA Maven工程创建与配置"></a>IDEA Maven工程创建与配置</h2><h3 id="配置pom-xml文件"><a href="#配置pom-xml文件" class="headerlink" title="配置pom.xml文件"></a>配置<code>pom.xml</code>文件</h3><p><strong>spark精简版的pom.xml</strong></p>
-<p><a href="https://github.com/apache/spark/blob/master/examples/pom.xml" target="_blank" rel="noopener">https://github.com/apache/spark/blob/master/examples/pom.xml</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/apache/spark/blob/master/examples/pom.xml">https://github.com/apache/spark/blob/master/examples/pom.xml</a></p>
 <p><strong>spark最全版的pom.xml</strong></p>
-<p><a href="https://github.com/apache/spark/blob/master/pom.xml" target="_blank" rel="noopener">https://github.com/apache/spark/blob/master/pom.xml</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/apache/spark/blob/master/pom.xml">https://github.com/apache/spark/blob/master/pom.xml</a></p>
 <p><strong>maven repository</strong></p>
-<p><a href="https://mvnrepository.com/search?q=spark" target="_blank" rel="noopener">https://mvnrepository.com/search?q=spark</a></p>
-<pre><code class="hljs xml"><span class="hljs-meta"><?xml version="1.0" encoding="UTF-8"?></span>
+<p><a target="_blank" rel="noopener" href="https://mvnrepository.com/search?q=spark">https://mvnrepository.com/search?q=spark</a></p>
+<pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
 
-<span class="hljs-tag"><<span class="hljs-name">project</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://maven.apache.org/POM/4.0.0"</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"</span>></span>
+<span class="hljs-tag">&lt;<span class="hljs-name">project</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;</span>&gt;</span>
 
-  <span class="hljs-tag"><<span class="hljs-name">modelVersion</span>></span>4.0.0<span class="hljs-tag">modelVersion</span>>
-  <span class="hljs-tag"><<span class="hljs-name">packaging</span>></span>war<span class="hljs-tag">packaging</span>>
+  <span class="hljs-tag">&lt;<span class="hljs-name">modelVersion</span>&gt;</span>4.0.0<span class="hljs-tag">&lt;/<span class="hljs-name">modelVersion</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">packaging</span>&gt;</span>war<span class="hljs-tag">&lt;/<span class="hljs-name">packaging</span>&gt;</span>
 
-  <span class="hljs-tag"><<span class="hljs-name">name</span>></span>TestSpark<span class="hljs-tag">name</span>>
-  <span class="hljs-tag"><<span class="hljs-name">groupId</span>></span>com.kfk.spark<span class="hljs-tag">groupId</span>>
-  <span class="hljs-tag"><<span class="hljs-name">artifactId</span>></span>TestSpark<span class="hljs-tag">artifactId</span>>
-  <span class="hljs-tag"><<span class="hljs-name">version</span>></span>1.0-SNAPSHOT<span class="hljs-tag">version</span>>
+  <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>TestSpark<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.kfk.spark<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>TestSpark<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.0-SNAPSHOT<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
 
 
-  <span class="hljs-tag"><<span class="hljs-name">properties</span>></span>
-    <span class="hljs-tag"><<span class="hljs-name">scala.version</span>></span>2.11.12<span class="hljs-tag">scala.version</span>>
-    <span class="hljs-tag"><<span class="hljs-name">scala.binary.version</span>></span>2.11<span class="hljs-tag">scala.binary.version</span>>
-    <span class="hljs-tag"><<span class="hljs-name">spark.version</span>></span>2.2.0<span class="hljs-tag">spark.version</span>>
-  <span class="hljs-tag">properties</span>>
+  <span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">scala.version</span>&gt;</span>2.11.12<span class="hljs-tag">&lt;/<span class="hljs-name">scala.version</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">scala.binary.version</span>&gt;</span>2.11<span class="hljs-tag">&lt;/<span class="hljs-name">scala.binary.version</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">spark.version</span>&gt;</span>2.2.0<span class="hljs-tag">&lt;/<span class="hljs-name">spark.version</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span>
 
-  <span class="hljs-tag"><<span class="hljs-name">dependencies</span>></span>
-    <span class="hljs-tag"><<span class="hljs-name">dependency</span>></span>
-      <span class="hljs-tag"><<span class="hljs-name">groupId</span>></span>org.apache.spark<span class="hljs-tag">groupId</span>>
-      <span class="hljs-tag"><<span class="hljs-name">artifactId</span>></span>spark-core_${scala.binary.version}<span class="hljs-tag">artifactId</span>>
-      <span class="hljs-tag"><<span class="hljs-name">version</span>></span>${spark.version}<span class="hljs-tag">version</span>>
-    <span class="hljs-tag">dependency</span>>
-    <span class="hljs-tag"><<span class="hljs-name">dependency</span>></span>
-      <span class="hljs-tag"><<span class="hljs-name">groupId</span>></span>org.apache.spark<span class="hljs-tag">groupId</span>>
-      <span class="hljs-tag"><<span class="hljs-name">artifactId</span>></span>spark-streaming_${scala.binary.version}<span class="hljs-tag">artifactId</span>>
-      <span class="hljs-tag"><<span class="hljs-name">version</span>></span>${spark.version}<span class="hljs-tag">version</span>>
-    <span class="hljs-tag">dependency</span>>
-    <span class="hljs-tag"><<span class="hljs-name">dependency</span>></span>
-      <span class="hljs-tag"><<span class="hljs-name">groupId</span>></span>org.apache.spark<span class="hljs-tag">groupId</span>>
-      <span class="hljs-tag"><<span class="hljs-name">artifactId</span>></span>spark-sql_${scala.binary.version}<span class="hljs-tag">artifactId</span>>
-      <span class="hljs-tag"><<span class="hljs-name">version</span>></span>${spark.version}<span class="hljs-tag">version</span>>
-    <span class="hljs-tag">dependency</span>>
-    <span class="hljs-tag"><<span class="hljs-name">dependency</span>></span>
-      <span class="hljs-tag"><<span class="hljs-name">groupId</span>></span>org.apache.spark<span class="hljs-tag">groupId</span>>
-      <span class="hljs-tag"><<span class="hljs-name">artifactId</span>></span>spark-hive_${scala.binary.version}<span class="hljs-tag">artifactId</span>>
-      <span class="hljs-tag"><<span class="hljs-name">version</span>></span>${spark.version}<span class="hljs-tag">version</span>>
-    <span class="hljs-tag">dependency</span>>
-    <span class="hljs-tag"><<span class="hljs-name">dependency</span>></span>
-      <span class="hljs-tag"><<span class="hljs-name">groupId</span>></span>org.apache.spark<span class="hljs-tag">groupId</span>>
-      <span class="hljs-tag"><<span class="hljs-name">artifactId</span>></span>spark-streaming-kafka-0-10_${scala.binary.version}<span class="hljs-tag">artifactId</span>>
-      <span class="hljs-tag"><<span class="hljs-name">version</span>></span>${spark.version}<span class="hljs-tag">version</span>>
-    <span class="hljs-tag">dependency</span>>
-    <span class="hljs-tag"><<span class="hljs-name">dependency</span>></span>
-      <span class="hljs-tag"><<span class="hljs-name">groupId</span>></span>org.apache.hadoop<span class="hljs-tag">groupId</span>>
-      <span class="hljs-tag"><<span class="hljs-name">artifactId</span>></span>hadoop-client<span class="hljs-tag">artifactId</span>>
-      <span class="hljs-tag"><<span class="hljs-name">version</span>></span>2.6.0<span class="hljs-tag">version</span>>
-    <span class="hljs-tag">dependency</span>>
-  <span class="hljs-tag">dependencies</span>>
+  <span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.spark<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spark-core_$&#123;scala.binary.version&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>$&#123;spark.version&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.spark<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spark-streaming_$&#123;scala.binary.version&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>$&#123;spark.version&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.spark<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spark-sql_$&#123;scala.binary.version&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>$&#123;spark.version&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.spark<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spark-hive_$&#123;scala.binary.version&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>$&#123;spark.version&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.spark<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spark-streaming-kafka-0-10_$&#123;scala.binary.version&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>$&#123;spark.version&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.hadoop<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>hadoop-client<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.6.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span>
 
-<span class="hljs-tag">project</span>></code></pre>
+<span class="hljs-tag">&lt;/<span class="hljs-name">project</span>&gt;</span></code></pre>
 <h3 id="导入Scala-SDK"><a href="#导入Scala-SDK" class="headerlink" title="导入Scala SDK"></a>导入<code>Scala SDK</code></h3><p><code>groupId</code>和<code>artifactId</code>被统称为“坐标”是为了保证项目唯一性而提出的</p>
 <p><code>groupId</code>一般分为多个段，这里我只说两段，第一段为域，第二段为公司名称。举个apache公司的tomcat项目例子：这个项目的<code>groupId</code>是org.apache</p>
 <p>artifactId表示这个项目的名称</p>
 <p>包结构最好是<code>groupId.artifactId.xxx</code></p>
 <h2 id="编写spark程序"><a href="#编写spark程序" class="headerlink" title="编写spark程序"></a>编写spark程序</h2><pre><code class="hljs scala"><span class="hljs-keyword">package</span> com.spark.test
-<span class="hljs-keyword">import</span> org.apache.spark.{<span class="hljs-type">SparkConf</span>, <span class="hljs-type">SparkContext</span>}
-<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">MyScalaWordCout</span> </span>{
-  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span></span>(args: <span class="hljs-type">Array</span>[<span class="hljs-type">String</span>]): <span class="hljs-type">Unit</span> = {
+<span class="hljs-keyword">import</span> org.apache.spark.&#123;<span class="hljs-type">SparkConf</span>, <span class="hljs-type">SparkContext</span>&#125;
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">MyScalaWordCout</span> </span>&#123;
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span></span>(args: <span class="hljs-type">Array</span>[<span class="hljs-type">String</span>]): <span class="hljs-type">Unit</span> = &#123;
     <span class="hljs-comment">//参数检查</span>
-    <span class="hljs-keyword">if</span> (args.length < <span class="hljs-number">2</span>) {
-      <span class="hljs-type">System</span>.err.println(<span class="hljs-string">"Usage: MyWordCout    "</span>)
+    <span class="hljs-keyword">if</span> (args.length &lt; <span class="hljs-number">2</span>) &#123;
+      <span class="hljs-type">System</span>.err.println(<span class="hljs-string">&quot;Usage: MyWordCout    &quot;</span>)
       <span class="hljs-type">System</span>.exit(<span class="hljs-number">1</span>)
-    }
+    &#125;
     <span class="hljs-comment">//获取参数</span>
     <span class="hljs-keyword">val</span> input=args(<span class="hljs-number">0</span>)
     <span class="hljs-keyword">val</span> output=args(<span class="hljs-number">1</span>)
     <span class="hljs-comment">//创建scala版本的SparkContext</span>
-    <span class="hljs-keyword">val</span> conf=<span class="hljs-keyword">new</span> <span class="hljs-type">SparkConf</span>().setAppName(<span class="hljs-string">"myWordCount"</span>)
+    <span class="hljs-keyword">val</span> conf=<span class="hljs-keyword">new</span> <span class="hljs-type">SparkConf</span>().setAppName(<span class="hljs-string">&quot;myWordCount&quot;</span>)
     <span class="hljs-keyword">val</span> sc=<span class="hljs-keyword">new</span> <span class="hljs-type">SparkContext</span>(conf)
     <span class="hljs-comment">//读取数据</span>
     <span class="hljs-keyword">val</span> lines=sc.textFile(input)
     <span class="hljs-comment">//进行相关计算</span>
-    <span class="hljs-keyword">val</span> resultRdd=lines.flatMap(_.split(<span class="hljs-string">" "</span>)).map((_,<span class="hljs-number">1</span>)).reduceByKey(_+_)
+    <span class="hljs-keyword">val</span> resultRdd=lines.flatMap(_.split(<span class="hljs-string">&quot; &quot;</span>)).map((_,<span class="hljs-number">1</span>)).reduceByKey(_+_)
     <span class="hljs-comment">//保存结果</span>
     resultRdd.saveAsTextFile(output)
     sc.stop()
-  }
-}</code></pre>
+  &#125;
+&#125;
+</code></pre>
 <h2 id="打成jar包然后上传到服务器"><a href="#打成jar包然后上传到服务器" class="headerlink" title="打成jar包然后上传到服务器"></a>打成jar包然后上传到服务器</h2><pre><code class="hljs bash">bin/spark-submit --master <span class="hljs-built_in">local</span>[2] /opt/jars/sparkStu.jar hdfs://bigdata-pro01.kfk.com:9000/user/data/stu.txt</code></pre>
 <pre><code class="hljs bash">./bin/spark-submit \
-  --class <main-class> \
-  --master <master-url> \
-  --deploy-mode <deploy-mode> \
-  --conf <key>=<value> \
+  --class &lt;main-class&gt; \
+  --master &lt;master-url&gt; \
+  --deploy-mode &lt;deploy-mode&gt; \
+  --conf &lt;key&gt;=&lt;value&gt; \
   ... <span class="hljs-comment"># other options</span>
-  <application-jar> \
-  [application-arguments]</application-jar></value></key></deploy-mode></master-url></main-class></code></pre>
+  &lt;application-jar&gt; \
+  [application-arguments]</code></pre>
 <p>Some of the commonly used options are:</p>
 <blockquote>
 <ul>
 <li><code>--class</code>: The entry point for your application (e.g. <code>org.apache.spark.examples.SparkPi</code>)</li>
-<li><code>--master</code>: The <a href="https://spark.apache.org/docs/latest/submitting-applications.html#master-urls" target="_blank" rel="noopener">master URL</a> for the cluster (e.g. <code>spark://23.195.26.187:7077</code>)</li>
+<li><code>--master</code>: The <a target="_blank" rel="noopener" href="https://spark.apache.org/docs/latest/submitting-applications.html#master-urls">master URL</a> for the cluster (e.g. <code>spark://23.195.26.187:7077</code>)</li>
 <li><code>--deploy-mode</code>: Whether to deploy your driver on the worker nodes (<code>cluster</code>) or locally as an external client (<code>client</code>) (default: <code>client</code>) <strong>†</strong></li>
 <li><code>--conf</code>: Arbitrary Spark configuration property in key=value format. For values that contain spaces wrap “key=value” in quotes (as shown).</li>
 <li><code>application-jar</code>: Path to a bundled jar including your application and all dependencies. The URL must be globally visible inside of your cluster, for instance, an <code>hdfs://</code> path or a <code>file://</code> path that is present on all nodes.</li>
 <li><code>application-arguments</code>: Arguments passed to the main method of your main class, if any</li>
 </ul>
 </blockquote>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+
             </div>
             <hr>
             <div>
@@ -359,7 +346,7 @@
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

@@ -37,9 +37,13 @@
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
+
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
+
+
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
 
 <link  rel="stylesheet" href="/css/main.css" />
 
@@ -48,15 +52,15 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-</head>
+<meta name="generator" content="Hexo 5.2.0"></head>
 
 
 <body>
-  <header style="height: 70vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>点滴琢磨</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -136,7 +140,7 @@
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:" target="_blank" rel="noopener">&nbsp;<i
+            <a class="nav-link" href="javascript:">&nbsp;<i
                 class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
@@ -146,7 +150,7 @@
 </nav>
 
     <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/img/banner_img.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -173,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      916 字
+      933 字
     </span>
   
 
@@ -216,12 +220,12 @@
             <h1 style="display: none">寻找最近的回文数</h1>
             
             <div class="markdown-body" id="post-body">
-              <h1 id="564-寻找最近的回文数"><a href="#564-寻找最近的回文数" class="headerlink" title="564. 寻找最近的回文数"></a><a href="https://leetcode-cn.com/problems/find-the-closest-palindrome/" target="_blank" rel="noopener">564. 寻找最近的回文数</a></h1><blockquote>
+              <h1 id="564-寻找最近的回文数"><a href="#564-寻找最近的回文数" class="headerlink" title="564. 寻找最近的回文数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/find-the-closest-palindrome/">564. 寻找最近的回文数</a></h1><blockquote>
 <p>给定一个整数 n ，你需要找到与它最近的回文数（不包括自身）。</p>
 <p>“最近的”定义为两个整数<strong>差的绝对值</strong>最小。</p>
 <p><strong>示例 1:</strong></p>
-<pre><code class="hljs 1c">输入: <span class="hljs-string">"123"</span>
-输出: <span class="hljs-string">"121"</span></code></pre>
+<pre><code class="hljs 1c">输入: <span class="hljs-string">&quot;123&quot;</span>
+输出: <span class="hljs-string">&quot;121&quot;</span></code></pre>
 <p><strong>注意:</strong></p>
 <ol>
 <li><strong>n</strong> 是由字符串表示的正整数，其长度不超过18。</li>
@@ -280,94 +284,77 @@
 <p>当 n = 99 的时候，101 可以由 100 反转得到</p>
 <p>这时候知道为什么题目里面会规定 n  的长度不会超过 18 了吧，因为 long 能表示 19 位，我们在计算过程中会出现进位的情况。</p>
 <p>如何处理 n 的位数奇偶和一些边界情况的处理，就只能细扣代码了。</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
 
-	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">nearestPalindromic</span><span class="hljs-params">(String n)</span> </span>{
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">nearestPalindromic</span><span class="hljs-params">(String n)</span> </span>&#123;
 		Long num = Long.valueOf(n);
 		Long raw = getRawPalindrome(n);
-		Long big = raw > num ? raw : getBigPalindrome(raw);
-		Long small = raw < num ? raw : getSmallPalindrome(raw);
-		<span class="hljs-keyword">return</span> String.valueOf(big - num >= num - small ? small : big);
-	}
+		Long big = raw &gt; num ? raw : getBigPalindrome(raw);
+		Long small = raw &lt; num ? raw : getSmallPalindrome(raw);
+		<span class="hljs-keyword">return</span> String.valueOf(big - num &gt;= num - small ? small : big);
+	&#125;
 
-	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Long <span class="hljs-title">getRawPalindrome</span><span class="hljs-params">(String n)</span> </span>{
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Long <span class="hljs-title">getRawPalindrome</span><span class="hljs-params">(String n)</span> </span>&#123;
 		<span class="hljs-keyword">char</span>[] chs = n.toCharArray();
 		<span class="hljs-keyword">int</span> len = chs.length;
-		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i < len / <span class="hljs-number">2</span>; i++) {
+		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len / <span class="hljs-number">2</span>; i++) &#123;
 			chs[len - <span class="hljs-number">1</span> - i] = chs[i];
-		}
+		&#125;
 		<span class="hljs-keyword">return</span> Long.valueOf(String.valueOf(chs));
-	}
+	&#125;
 
-	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Long <span class="hljs-title">getBigPalindrome</span><span class="hljs-params">(Long raw)</span> </span>{
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Long <span class="hljs-title">getBigPalindrome</span><span class="hljs-params">(Long raw)</span> </span>&#123;
 		<span class="hljs-keyword">char</span>[] chs = String.valueOf(raw).toCharArray();
 		<span class="hljs-keyword">char</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">char</span>[chs.length + <span class="hljs-number">1</span>];
-		res[<span class="hljs-number">0</span>] = <span class="hljs-string">'0'</span>;
-		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i < chs.length; i++) {
+		res[<span class="hljs-number">0</span>] = <span class="hljs-string">&#x27;0&#x27;</span>;
+		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; chs.length; i++) &#123;
 			res[i + <span class="hljs-number">1</span>] = chs[i];
-		}
+		&#125;
 		<span class="hljs-keyword">int</span> size = chs.length;
-		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = (size - <span class="hljs-number">1</span>) / <span class="hljs-number">2</span> + <span class="hljs-number">1</span>; j >= <span class="hljs-number">0</span>; j--) {
-			<span class="hljs-keyword">if</span> (++res[j] > <span class="hljs-string">'9'</span>) {
-				res[j] = <span class="hljs-string">'0'</span>;
-			} <span class="hljs-keyword">else</span> {
+		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = (size - <span class="hljs-number">1</span>) / <span class="hljs-number">2</span> + <span class="hljs-number">1</span>; j &gt;= <span class="hljs-number">0</span>; j--) &#123;
+			<span class="hljs-keyword">if</span> (++res[j] &gt; <span class="hljs-string">&#x27;9&#x27;</span>) &#123;
+				res[j] = <span class="hljs-string">&#x27;0&#x27;</span>;
+			&#125; <span class="hljs-keyword">else</span> &#123;
 				<span class="hljs-keyword">break</span>;
-			}
-		}
-		<span class="hljs-keyword">int</span> offset = res[<span class="hljs-number">0</span>] == <span class="hljs-string">'1'</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;
+			&#125;
+		&#125;
+		<span class="hljs-keyword">int</span> offset = res[<span class="hljs-number">0</span>] == <span class="hljs-string">&#x27;1&#x27;</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;
 		size = res.length;
-		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = size - <span class="hljs-number">1</span>; i >= (size + offset) / <span class="hljs-number">2</span>; i--) {
+		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = size - <span class="hljs-number">1</span>; i &gt;= (size + offset) / <span class="hljs-number">2</span>; i--) &#123;
 			res[i] = res[size - i - offset];
-		}
+		&#125;
 		<span class="hljs-keyword">return</span> Long.valueOf(String.valueOf(res));
-	}
+	&#125;
 
-	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Long <span class="hljs-title">getSmallPalindrome</span><span class="hljs-params">(Long raw)</span> </span>{
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Long <span class="hljs-title">getSmallPalindrome</span><span class="hljs-params">(Long raw)</span> </span>&#123;
 		<span class="hljs-keyword">char</span>[] chs = String.valueOf(raw).toCharArray();
 		<span class="hljs-keyword">char</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">char</span>[chs.length];
 		<span class="hljs-keyword">int</span> size = res.length;
-		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i < size; i++) {
+		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++) &#123;
 			res[i] = chs[i];
-		}
-		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = (size - <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>; j >= <span class="hljs-number">0</span>; j--) {
-			<span class="hljs-keyword">if</span> (--res[j] < <span class="hljs-string">'0'</span>) {
-				res[j] = <span class="hljs-string">'9'</span>;
-			} <span class="hljs-keyword">else</span> {
+		&#125;
+		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = (size - <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>; j &gt;= <span class="hljs-number">0</span>; j--) &#123;
+			<span class="hljs-keyword">if</span> (--res[j] &lt; <span class="hljs-string">&#x27;0&#x27;</span>) &#123;
+				res[j] = <span class="hljs-string">&#x27;9&#x27;</span>;
+			&#125; <span class="hljs-keyword">else</span> &#123;
 				<span class="hljs-keyword">break</span>;
-			}
-		}
-		<span class="hljs-keyword">if</span> (res[<span class="hljs-number">0</span>] == <span class="hljs-string">'0'</span>) {
+			&#125;
+		&#125;
+		<span class="hljs-keyword">if</span> (res[<span class="hljs-number">0</span>] == <span class="hljs-string">&#x27;0&#x27;</span>) &#123;
 			res = <span class="hljs-keyword">new</span> <span class="hljs-keyword">char</span>[size - <span class="hljs-number">1</span>];
-			<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i < res.length; i++) {
-				res[i] = <span class="hljs-string">'9'</span>;
-			}
+			<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; res.length; i++) &#123;
+				res[i] = <span class="hljs-string">&#x27;9&#x27;</span>;
+			&#125;
 			<span class="hljs-keyword">return</span> size == <span class="hljs-number">1</span> ? <span class="hljs-number">0</span> : Long.parseLong(String.valueOf(res));
-		}
-		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k < size / <span class="hljs-number">2</span>; k++) {
+		&#125;
+		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &lt; size / <span class="hljs-number">2</span>; k++) &#123;
 			res[size - <span class="hljs-number">1</span> - k] = res[k];
-		}
+		&#125;
 		<span class="hljs-keyword">return</span> Long.valueOf(String.valueOf(res));
-	}
-}</code></pre>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+	&#125;
+&#125;
+</code></pre>
+
             </div>
             <hr>
             <div>
@@ -392,7 +379,7 @@
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

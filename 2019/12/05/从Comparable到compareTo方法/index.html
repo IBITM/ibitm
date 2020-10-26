@@ -37,9 +37,13 @@
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
+
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
+
+
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
 
 <link  rel="stylesheet" href="/css/main.css" />
 
@@ -48,15 +52,15 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-</head>
+<meta name="generator" content="Hexo 5.2.0"></head>
 
 
 <body>
-  <header style="height: 70vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>点滴琢磨</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -136,7 +140,7 @@
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:" target="_blank" rel="noopener">&nbsp;<i
+            <a class="nav-link" href="javascript:">&nbsp;<i
                 class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
@@ -146,7 +150,7 @@
 </nav>
 
     <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/img/banner_img.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -173,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      419 字
+      376 字
     </span>
   
 
@@ -183,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      4
        分钟
     </span>
   
@@ -216,9 +220,9 @@
             <h1 style="display: none">从Comparable到compareTo方法</h1>
             
             <div class="markdown-body" id="post-body">
-              <p>今天刷LeetCode <a href="https://leetcode-cn.com/problems/largest-number/" target="_blank" rel="noopener">179. 最大数</a> 需要用到 String 类型的排序问题，就具体看了一下 Java 的实现方法</p>
+              <p>今天刷LeetCode <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/largest-number/">179. 最大数</a> 需要用到 String 类型的排序问题，就具体看了一下 Java 的实现方法</p>
 <p>String 是实现了 Comparable 接口，Comparable 接口里面只有一个方法就是 compareTo 方法。</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">compareTo</span><span class="hljs-params">(String anotherString)</span> </span>{xxx}</code></pre>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">compareTo</span><span class="hljs-params">(String anotherString)</span> </span>&#123;xxx&#125;</code></pre>
 <p>我们来看一下文档说明</p>
 <blockquote>
 <p>按字典顺序比较两个字符串。比较是基于字符串中每个字符的 Unicode 值。</p>
@@ -239,34 +243,16 @@
 </ul>
 </blockquote>
 <p>我们拿出一个实现版本看一下它的实现逻辑</p>
-<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">compareTo</span><span class="hljs-params">(<span class="hljs-keyword">byte</span>[] value, <span class="hljs-keyword">byte</span>[] other, <span class="hljs-keyword">int</span> len1, <span class="hljs-keyword">int</span> len2)</span> </span>{
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">compareTo</span><span class="hljs-params">(<span class="hljs-keyword">byte</span>[] value, <span class="hljs-keyword">byte</span>[] other, <span class="hljs-keyword">int</span> len1, <span class="hljs-keyword">int</span> len2)</span> </span>&#123;
     <span class="hljs-keyword">int</span> lim = Math.min(len1, len2);
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k < lim; k++) {
-        <span class="hljs-keyword">if</span> (value[k] != other[k]) {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &lt; lim; k++) &#123;
+        <span class="hljs-keyword">if</span> (value[k] != other[k]) &#123;
             <span class="hljs-keyword">return</span> getChar(value, k) - getChar(other, k);
-        }
-    }
+        &#125;
+    &#125;
     <span class="hljs-keyword">return</span> len1 - len2;
-}</code></pre>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+&#125;</code></pre>
+
             </div>
             <hr>
             <div>
@@ -289,7 +275,7 @@
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

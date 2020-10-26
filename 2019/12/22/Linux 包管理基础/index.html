@@ -37,9 +37,13 @@
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
+
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
+
+
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
 
 <link  rel="stylesheet" href="/css/main.css" />
 
@@ -48,15 +52,15 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-</head>
+<meta name="generator" content="Hexo 5.2.0"></head>
 
 
 <body>
-  <header style="height: 70vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>点滴琢磨</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -136,7 +140,7 @@
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:" target="_blank" rel="noopener">&nbsp;<i
+            <a class="nav-link" href="javascript:">&nbsp;<i
                 class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
@@ -146,7 +150,7 @@
 </nav>
 
     <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/img/banner_img.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -173,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.5k 字
+      1.4k 字
     </span>
   
 
@@ -183,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      16
+      15
        分钟
     </span>
   
@@ -216,7 +220,7 @@
             <h1 style="display: none">Linux 包管理基础</h1>
             
             <div class="markdown-body" id="post-body">
-              <p>内容参考自 <a href="https://linux.cn/article-8782-1.html" target="_blank" rel="noopener">Linux 包管理基础：apt、yum、dnf 和 pkg</a></p>
+              <p>内容参考自 <a target="_blank" rel="noopener" href="https://linux.cn/article-8782-1.html">Linux 包管理基础：apt、yum、dnf 和 pkg</a></p>
 <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>大多数现代的类 Unix 操作系统都提供了一种<strong>中心化</strong>的机制用来搜索和安装软件。软件通常都是存放在存储库中，并通过包的形式进行分发。处理包的工作被称为包管理。包提供了操作系统的基本组件，以及共享的库、应用程序、服务和文档。</p>
 <p>包管理系统除了安装软件外，它还提供了工具来更新已经安装的包。包存储库有助于确保你的系统中使用的代码是经过审查的，并且软件的安装版本已经得到了开发人员和包维护人员的认可。</p>
 <p>在配置服务器或开发环境时，我们最好了解下包在官方存储库之外的情况。某个发行版的稳定版本中的包有可能已经过时了，尤其是那些新的或者快速迭代的软件。然而，包管理无论对于系统管理员还是开发人员来说都是至关重要的技能，而已打包的软件对于主流 Linux 发行版来说也是一笔巨大的财富。</p>
@@ -351,7 +355,7 @@
 </tr>
 <tr>
 <td></td>
-<td><code>cd /usr/ports/ports-mgmt/portmaster && sudo make install && sudo portmaster -a</code></td>
+<td><code>cd /usr/ports/ports-mgmt/portmaster &amp;&amp; sudo make install &amp;&amp; sudo portmaster -a</code></td>
 <td>安装 <code>portmaster</code> 然后使用它更新已安装的 ports</td>
 </tr>
 </tbody>
@@ -359,31 +363,13 @@
 </div>
 <h2 id="结论和进一步的阅读"><a href="#结论和进一步的阅读" class="headerlink" title="结论和进一步的阅读"></a>结论和进一步的阅读</h2><p>本指南通过对多个系统间进行交叉对比概述了一下包管理系统的基本操作，但只涉及了这个复杂主题的表面。对于特定系统更详细的信息，可以参考以下资源：</p>
 <ul>
-<li><a href="https://www.digitalocean.com/community/tutorials/ubuntu-and-debian-package-management-essentials" target="_blank" rel="noopener">这份指南</a> 详细介绍了 Ubuntu 和 Debian 的软件包管理。</li>
-<li>这里有一份 CentOS 官方的指南 <a href="https://www.centos.org/docs/5/html/yum/" target="_blank" rel="noopener">使用 yum 管理软件</a></li>
-<li>这里有一个有关 Fedora 的 <code>dnf</code> 的 <a href="https://fedoraproject.org/wiki/Dnf" target="_blank" rel="noopener">wiki 页面</a> 以及一份有关 <code>dnf</code> <a href="https://dnf.readthedocs.org/en/latest/index.html" target="_blank" rel="noopener">官方的手册</a></li>
-<li><a href="https://www.digitalocean.com/community/tutorials/how-to-manage-packages-on-freebsd-10-1-with-pkg" target="_blank" rel="noopener">这份指南</a> 讲述了如何使用 <code>pkg</code> 在 FreeBSD 上进行包管理</li>
-<li>这本 <a href="https://www.freebsd.org/doc/handbook/" target="_blank" rel="noopener">FreeBSD Handbook</a> 有一节讲述了<a href="https://www.freebsd.org/doc/handbook/ports-using.html" target="_blank" rel="noopener">如何使用 Ports 集合</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/ubuntu-and-debian-package-management-essentials">这份指南</a> 详细介绍了 Ubuntu 和 Debian 的软件包管理。</li>
+<li>这里有一份 CentOS 官方的指南 <a target="_blank" rel="noopener" href="https://www.centos.org/docs/5/html/yum/">使用 yum 管理软件</a></li>
+<li>这里有一个有关 Fedora 的 <code>dnf</code> 的 <a target="_blank" rel="noopener" href="https://fedoraproject.org/wiki/Dnf">wiki 页面</a> 以及一份有关 <code>dnf</code> <a target="_blank" rel="noopener" href="https://dnf.readthedocs.org/en/latest/index.html">官方的手册</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/how-to-manage-packages-on-freebsd-10-1-with-pkg">这份指南</a> 讲述了如何使用 <code>pkg</code> 在 FreeBSD 上进行包管理</li>
+<li>这本 <a target="_blank" rel="noopener" href="https://www.freebsd.org/doc/handbook/">FreeBSD Handbook</a> 有一节讲述了<a target="_blank" rel="noopener" href="https://www.freebsd.org/doc/handbook/ports-using.html">如何使用 Ports 集合</a></li>
 </ul>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+
             </div>
             <hr>
             <div>
@@ -406,7 +392,7 @@
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

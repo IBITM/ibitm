@@ -37,9 +37,13 @@
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
+
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
+
+
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
 
 <link  rel="stylesheet" href="/css/main.css" />
 
@@ -48,15 +52,15 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-</head>
+<meta name="generator" content="Hexo 5.2.0"></head>
 
 
 <body>
-  <header style="height: 70vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>点滴琢磨</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -136,7 +140,7 @@
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:" target="_blank" rel="noopener">&nbsp;<i
+            <a class="nav-link" href="javascript:">&nbsp;<i
                 class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
@@ -146,7 +150,7 @@
 </nav>
 
     <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/img/banner_img.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -173,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      1.1k 字
     </span>
   
 
@@ -245,48 +249,30 @@
 <p>举个例子：如果最近写入HBase表中的数据是最可能被访问的，可以考虑将时间戳作为row key的一部分，由于是字典序排序，所以可以使用 <code>Long.MAX_VALUE - timestamp</code> 作为rowkey，这样能保证新写入的数据在读取时可以被快速命中。</p>
 <h4 id="rowkey-唯一原则"><a href="#rowkey-唯一原则" class="headerlink" title="rowkey 唯一原则"></a>rowkey 唯一原则</h4><p>必须在设计上保证其唯一性。rowkey 是按照字典顺序排序存储的，因此，设计 rowkey 的时候，要充分利用这个排序的特点，将经常读取的数据存储到一块，将最近可能会被访问 的数据放到一块。</p>
 <p>在日志数据中，用户 id 有 16 位左右，时间是 8 位，当前时间是 <code>System.currentTimeMillis()</code>不足16位，补 0. </p>
-<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SimpleRowKeyGenerator</span> </span>{
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SimpleRowKeyGenerator</span> </span>&#123;
 
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span>[] getUUIDKey(String prefix) <span class="hljs-keyword">throws</span> UnsupportedEncodingException {
-        <span class="hljs-keyword">return</span> (prefix + UUID.randomUUID().toString()).getBytes(<span class="hljs-string">"UTF8"</span>);
-    }
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span>[] getUUIDKey(String prefix) <span class="hljs-keyword">throws</span> UnsupportedEncodingException &#123;
+        <span class="hljs-keyword">return</span> (prefix + UUID.randomUUID().toString()).getBytes(<span class="hljs-string">&quot;UTF8&quot;</span>);
+    &#125;
 
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span>[] getRandomKey(String prefix) <span class="hljs-keyword">throws</span> UnsupportedEncodingException {
-        <span class="hljs-keyword">return</span> (prefix + String.valueOf(<span class="hljs-keyword">new</span> Random().nextLong())).getBytes(<span class="hljs-string">"UTF8"</span>);
-    }
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span>[] getRandomKey(String prefix) <span class="hljs-keyword">throws</span> UnsupportedEncodingException &#123;
+        <span class="hljs-keyword">return</span> (prefix + String.valueOf(<span class="hljs-keyword">new</span> Random().nextLong())).getBytes(<span class="hljs-string">&quot;UTF8&quot;</span>);
+    &#125;
 
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span>[] getTimestampKey(String prefix) <span class="hljs-keyword">throws</span> UnsupportedEncodingException {
-        <span class="hljs-keyword">return</span> (prefix + String.valueOf(System.currentTimeMillis())).getBytes(<span class="hljs-string">"UTF8"</span>);
-    }
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span>[] getTimestampKey(String prefix) <span class="hljs-keyword">throws</span> UnsupportedEncodingException &#123;
+        <span class="hljs-keyword">return</span> (prefix + String.valueOf(System.currentTimeMillis())).getBytes(<span class="hljs-string">&quot;UTF8&quot;</span>);
+    &#125;
 
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span>[] getNanoTimestampKey(String prefix) <span class="hljs-keyword">throws</span> UnsupportedEncodingException {
-        <span class="hljs-keyword">return</span> (prefix + String.valueOf(System.nanoTime())).getBytes(<span class="hljs-string">"UTF8"</span>);
-    }
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span>[] getNanoTimestampKey(String prefix) <span class="hljs-keyword">throws</span> UnsupportedEncodingException &#123;
+        <span class="hljs-keyword">return</span> (prefix + String.valueOf(System.nanoTime())).getBytes(<span class="hljs-string">&quot;UTF8&quot;</span>);
+    &#125;
     <span class="hljs-comment">// 自定义 RowKey</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span>[] getKfkRowKey(String userid,String datetime)<span class="hljs-keyword">throws</span> UnsupportedEncodingException {
-        <span class="hljs-keyword">return</span> (userid + datetime + String.valueOf(System.currentTimeMillis())).getBytes(<span class="hljs-string">"UTF8"</span>);
-    }
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span>[] getKfkRowKey(String userid,String datetime)<span class="hljs-keyword">throws</span> UnsupportedEncodingException &#123;
+        <span class="hljs-keyword">return</span> (userid + datetime + String.valueOf(System.currentTimeMillis())).getBytes(<span class="hljs-string">&quot;UTF8&quot;</span>);
+    &#125;
 
-}</code></pre>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+&#125;</code></pre>
+
             </div>
             <hr>
             <div>
@@ -313,7 +299,7 @@
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

@@ -37,9 +37,13 @@
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
+
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
+
+
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
 
 <link  rel="stylesheet" href="/css/main.css" />
 
@@ -48,15 +52,15 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-</head>
+<meta name="generator" content="Hexo 5.2.0"></head>
 
 
 <body>
-  <header style="height: 70vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>点滴琢磨</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -136,7 +140,7 @@
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:" target="_blank" rel="noopener">&nbsp;<i
+            <a class="nav-link" href="javascript:">&nbsp;<i
                 class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
@@ -146,7 +150,7 @@
 </nav>
 
     <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/img/banner_img.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -183,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      14
+      13
        分钟
     </span>
   
@@ -307,9 +311,9 @@
 <p>需要先明确一下主题、分区、副本和日志的概念，主题和分区都是提供给上层用户的抽象，而在副本层面或者更确切地说是 Log 层面才有真实的物理存在。</p>
 <p><img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/主题、分区、副本和 Log 之间的关系.png?raw=true" srcset="/img/loading.gif" alt="主题、分区、副本和 Log 之间的关系"></p>
 <h3 id="查看主题信息"><a href="#查看主题信息" class="headerlink" title="查看主题信息"></a>查看主题信息</h3><p>我们可以直接通过查看底层的物理存储和 Zookeeper 的节点信息来获取主题下分区的分配方案</p>
-<pre><code class="hljs vim"><span class="hljs-keyword">ls</span> -<span class="hljs-keyword">al</span> /tmp/kafka-logs/ | <span class="hljs-keyword">grep</span> topic_name</code></pre>
+<pre><code class="hljs gradle">ls -al <span class="hljs-regexp">/tmp/</span>kafka-logs/ | <span class="hljs-keyword">grep</span> topic_name</code></pre>
 <p>当我们创建一个主题后，会在 Zookeeper 的 /brokers/topics/ 目录下创建一个同名的实节点（实节点？）</p>
-<pre><code class="hljs routeros"><span class="hljs-builtin-name">get</span> /brokers/topics/topic_name</code></pre>
+<pre><code class="hljs awk">get <span class="hljs-regexp">/brokers/</span>topics/topic_name</code></pre>
 <p>但是通用的方法还是通过 kafka-topics.sh 命令，该命令可以与 topics-with-overrides 、unavailable-partitions、under-replicated-partitions 连用来过滤一些数据。</p>
 <pre><code class="hljs shell">bin/kafka-topics.sh 
 --zookeeper localhost:2121/kafka
@@ -348,25 +352,7 @@
 </blockquote>
 <h2 id="4-2-初识-KafkaAdminClient"><a href="#4-2-初识-KafkaAdminClient" class="headerlink" title="4.2 初识 KafkaAdminClient"></a>4.2 初识 KafkaAdminClient</h2><p>// to do</p>
 <h2 id="4-3-分区的管理"><a href="#4-3-分区的管理" class="headerlink" title="4.3 分区的管理"></a>4.3 分区的管理</h2><p>// to do</p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+
             </div>
             <hr>
             <div>
@@ -391,7 +377,7 @@
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">
