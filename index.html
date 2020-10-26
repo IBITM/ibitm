@@ -1,1814 +1,767 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-  <link rel="alternate" href="/atom.xml" title="求索之心" type="application/atom+xml">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
-
-
-<script id="hexo-configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    hostname: new URL('https://ibitm.github.io').hostname,
-    root: '/',
-    scheme: 'Pisces',
-    version: '7.5.0',
-    exturl: false,
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
-    mediumzoom: false,
-    lazyload: false,
-    pangu: false,
-    algolia: {
-      appID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    },
-    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: 'search.xml',
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    sidebarPadding: 40
-  };
-</script>
-
-  <meta property="og:type" content="website">
-<meta property="og:title" content="求索之心">
-<meta property="og:url" content="https:&#x2F;&#x2F;ibitm.github.io&#x2F;index.html">
-<meta property="og:site_name" content="求索之心">
-<meta property="og:locale" content="zh-CN">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="https://ibitm.github.io/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome: true,
-    isPost: false,
-    isPage: false,
-    isArchive: false
-  };
-</script>
-
-  <title>求索之心</title>
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="张潇">
+  <meta name="keywords" content="">
+  <title>求索之心</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
 
 
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
 
 
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-meta">
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
 
-    <div>
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">求索之心</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-        <p class="site-subtitle">点滴琢磨</p>
-  </div>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
 
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-</div>
-
-
-<nav class="site-nav">
-  
-  <ul id="menu" class="menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
-  </ul>
-
-</nav>
-  <div class="site-search">
-    <div class="popup search-popup">
-    <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocorrect="off" autocapitalize="none"
-           placeholder="搜索..." spellcheck="false"
-           type="text" id="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result"></div>
-
-</div>
-<div class="search-pop-overlay"></div>
-
-  </div>
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content">
-            
-
-  <div class="posts-expand">
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2020/10/26/LeetCode%20564.%20%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E5%9B%9E%E6%96%87%E6%95%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
-      <meta itemprop="name" content="张潇">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="求索之心">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/10/26/LeetCode%20564.%20%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E5%9B%9E%E6%96%87%E6%95%B0/" class="post-title-link" itemprop="url">寻找最近的回文数</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-26 09:18:59" itemprop="dateCreated datePublished" datetime="2020-10-26T09:18:59+08:00">2020-10-26</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
-                    <span itemprop="name">LeetCode</span>
-                  </a>
-                </span>
-            </span>
-
           
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/10/26/LeetCode%20564.%20%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E5%9B%9E%E6%96%87%E6%95%B0/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/26/LeetCode%20564.%20%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E5%9B%9E%E6%96%87%E6%95%B0/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="564-寻找最近的回文数"><a href="#564-寻找最近的回文数" class="headerlink" title="564. 寻找最近的回文数"></a><a href="https://leetcode-cn.com/problems/find-the-closest-palindrome/" target="_blank" rel="noopener">564. 寻找最近的回文数</a></h1><blockquote>
-<p>给定一个整数 n ，你需要找到与它最近的回文数（不包括自身）。</p>
-<p>“最近的”定义为两个整数<strong>差的绝对值</strong>最小。</p>
-<p><strong>示例 1:</strong></p>
-<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: "123"</span><br><span class="line">输出: "121"</span><br></pre></td></tr></tbody></table></figure>
-<p><strong>注意:</strong></p>
-<ol>
-<li><strong>n</strong> 是由字符串表示的正整数，其长度不超过18。</li>
-<li>如果有多个结果，返回最小的那个。</li>
-</ol>
-</blockquote>
-<h2 id="拓展知识点-Java-基本数据结构的表示范围"><a href="#拓展知识点-Java-基本数据结构的表示范围" class="headerlink" title="拓展知识点-Java 基本数据结构的表示范围"></a>拓展知识点-Java 基本数据结构的表示范围</h2><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>存储</th>
-<th>表示范围</th>
-<th>定义变量时的特殊处理</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>byte</td>
-<td>1B</td>
-<td>[-128 ,127]</td>
-<td>末尾加B</td>
-</tr>
-<tr>
-<td>short</td>
-<td>2B</td>
-<td>[-32768,32767]</td>
-<td>末尾加S</td>
-</tr>
-<tr>
-<td>int</td>
-<td>4B</td>
-<td>[-2147483648,2147483647]（20亿左右，10位十进制数）</td>
-<td>无</td>
-</tr>
-<tr>
-<td>long</td>
-<td>8B</td>
-<td>[-9223372036854774808,9223372036854774807]（19位十进制数）</td>
-<td>末尾加L</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>最近的回文数可能比当前的数 n 大或者小，所以这个题目需要比较比 n 大的最小回文数和比 n 小的最大回文数到 n 的距离来确定最近的回文数是哪一个。</p>
-<p>我们再考虑如何从 n 如何得到这 2 个回文数。</p>
-<p>我们观察 n = 123，当我们从中间位置反转时我们可以直接得到一个回文数 121，121 就是比 123 小的最大回文数。</p>
-<p>当时 n  = 12312 的时候，我们从中间位置反转可以得到 12321 ，这时候 12321 就是比 12312 大的最小回文数。</p>
-<p>当 n 的位数为偶数时，同样可以得到类似的结论。</p>
-<p>以上的规律并不能实质性的帮我们解决问题，我们还是需要想出从 n 得到这两个回文数的办法。</p>
-<p>我们再回到 n = 12312，我们可以知道距离它最近的 2 个回文是 12321 和 12221</p>
-<p>12321 可以由反转直接得到，12221 可以由 12312 中间位 -1 之后在反转得到。</p>
-<p>当我们 + 或者 - 的时候一定要考虑溢出和结尾的情况</p>
-<p>当 n = 101 时，99 可以由 91 反转得到</p>
-<p>当 n = 12345 的时候，12421 可以由 12445 反转得到</p>
-<p>当 n = 99 的时候，101 可以由 100 反转得到</p>
-<p>这时候知道为什么题目里面会规定 n  的长度不会超过 18 了吧，因为 long 能表示 19 位，我们在计算过程中会出现进位的情况。</p>
-<p>如何处理 n 的位数奇偶和一些边界情况的处理，就只能细扣代码了。</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">nearestPalindromic</span><span class="params">(String n)</span> </span>{</span><br><span class="line">		Long num = Long.valueOf(n);</span><br><span class="line">		Long raw = getRawPalindrome(n);</span><br><span class="line">		Long big = raw > num ? raw : getBigPalindrome(raw);</span><br><span class="line">		Long small = raw < num ? raw : getSmallPalindrome(raw);</span><br><span class="line">		<span class="keyword">return</span> String.valueOf(big - num >= num - small ? small : big);</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title">getRawPalindrome</span><span class="params">(String n)</span> </span>{</span><br><span class="line">		<span class="keyword">char</span>[] chs = n.toCharArray();</span><br><span class="line">		<span class="keyword">int</span> len = chs.length;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < len / <span class="number">2</span>; i++) {</span><br><span class="line">			chs[len - <span class="number">1</span> - i] = chs[i];</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">return</span> Long.valueOf(String.valueOf(chs));</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title">getBigPalindrome</span><span class="params">(Long raw)</span> </span>{</span><br><span class="line">		<span class="keyword">char</span>[] chs = String.valueOf(raw).toCharArray();</span><br><span class="line">		<span class="keyword">char</span>[] res = <span class="keyword">new</span> <span class="keyword">char</span>[chs.length + <span class="number">1</span>];</span><br><span class="line">		res[<span class="number">0</span>] = <span class="string">'0'</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < chs.length; i++) {</span><br><span class="line">			res[i + <span class="number">1</span>] = chs[i];</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">int</span> size = chs.length;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = (size - <span class="number">1</span>) / <span class="number">2</span> + <span class="number">1</span>; j >= <span class="number">0</span>; j--) {</span><br><span class="line">			<span class="keyword">if</span> (++res[j] > <span class="string">'9'</span>) {</span><br><span class="line">				res[j] = <span class="string">'0'</span>;</span><br><span class="line">			} <span class="keyword">else</span> {</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">int</span> offset = res[<span class="number">0</span>] == <span class="string">'1'</span> ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">		size = res.length;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = size - <span class="number">1</span>; i >= (size + offset) / <span class="number">2</span>; i--) {</span><br><span class="line">			res[i] = res[size - i - offset];</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">return</span> Long.valueOf(String.valueOf(res));</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title">getSmallPalindrome</span><span class="params">(Long raw)</span> </span>{</span><br><span class="line">		<span class="keyword">char</span>[] chs = String.valueOf(raw).toCharArray();</span><br><span class="line">		<span class="keyword">char</span>[] res = <span class="keyword">new</span> <span class="keyword">char</span>[chs.length];</span><br><span class="line">		<span class="keyword">int</span> size = res.length;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < size; i++) {</span><br><span class="line">			res[i] = chs[i];</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = (size - <span class="number">1</span>) / <span class="number">2</span>; j >= <span class="number">0</span>; j--) {</span><br><span class="line">			<span class="keyword">if</span> (--res[j] < <span class="string">'0'</span>) {</span><br><span class="line">				res[j] = <span class="string">'9'</span>;</span><br><span class="line">			} <span class="keyword">else</span> {</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">if</span> (res[<span class="number">0</span>] == <span class="string">'0'</span>) {</span><br><span class="line">			res = <span class="keyword">new</span> <span class="keyword">char</span>[size - <span class="number">1</span>];</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < res.length; i++) {</span><br><span class="line">				res[i] = <span class="string">'9'</span>;</span><br><span class="line">			}</span><br><span class="line">			<span class="keyword">return</span> size == <span class="number">1</span> ? <span class="number">0</span> : Long.parseLong(String.valueOf(res));</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k < size / <span class="number">2</span>; k++) {</span><br><span class="line">			res[size - <span class="number">1</span> - k] = res[k];</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">return</span> Long.valueOf(String.valueOf(res));</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2020/10/25/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Kafka%20%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E8%B7%B5%E5%8E%9F%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
-      <meta itemprop="name" content="张潇">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="求索之心">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/10/25/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Kafka%20%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E8%B7%B5%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">深入理解 Kafka 核心设计和实践原理</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-25 21:18:20" itemprop="dateCreated datePublished" datetime="2020-10-25T21:18:20+08:00">2020-10-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
-                  </a>
-                </span>
-            </span>
-
           
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/10/25/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Kafka%20%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E8%B7%B5%E5%8E%9F%E7%90%86/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/25/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Kafka%20%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E8%B7%B5%E5%8E%9F%E7%90%86/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="第-4-章-主题和分区"><a href="#第-4-章-主题和分区" class="headerlink" title="第 4 章 - 主题和分区"></a>第 4 章 - 主题和分区</h1><h2 id="4-1-主题的管理"><a href="#4-1-主题的管理" class="headerlink" title="4.1 主题的管理"></a>4.1 主题的管理</h2><p>主题的管理主要是包括主题的创建、修改、删除以及查看主题的元数据，都可以通过 Kafka 提供的 kafka-topics.sh 脚本执行这一些操作。</p>
-<p>这个脚本本质上是调用了 kafka.admin.TopicCommand 类来执行主题管理的操作。</p>
-<p>一般来说，还有 2 种办法可以实现主题的管理</p>
-<ul>
-<li>通过 KafkaAdminClient 的方式（通过发送 CreateTopicRequest 和 DeleteTopicRequest）</li>
-<li>直接修改日志文件和 Zookeeper 节点。Kafka 的日志文件存放在 log.dir 或者 log.dirs 参数所配置的目录下，默认是 /tmp/kafka-logs/。Zoookeeper 中存储着分区的元数据，我们可以通过直接修改 Zookeeper 的节点数据来实现对主题的管理。</li>
-</ul>
-<p>kafka-topics.sh 脚本中的参数</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>参数名称</th>
-<th>释义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>alter</td>
-<td>用于修改主题，包括分区数和主题的配置</td>
-</tr>
-<tr>
-<td>config</td>
-<td>创建和修改主题时，用于设置主题级别的参数</td>
-</tr>
-<tr>
-<td>create</td>
-<td>创建主题</td>
-</tr>
-<tr>
-<td>delete</td>
-<td>删除主题</td>
-</tr>
-<tr>
-<td>delete-config</td>
-<td>删除主题级别被覆盖的配置</td>
-</tr>
-<tr>
-<td>describe</td>
-<td>查看主题的详细信息</td>
-</tr>
-<tr>
-<td>disable-rack-aware</td>
-<td>创建主题时不考虑机架信息</td>
-</tr>
-<tr>
-<td>help</td>
-<td>打印主题</td>
-</tr>
-<tr>
-<td>list</td>
-<td>罗列出所有的主题</td>
-</tr>
-<tr>
-<td>partition</td>
-<td>创建主题或者增加分区时指定分区数</td>
-</tr>
-<tr>
-<td>replica-assignment</td>
-<td>手动指定分区副本分配方案</td>
-</tr>
-<tr>
-<td>replication-factor</td>
-<td>创建主题时指定副本因子</td>
-</tr>
-<tr>
-<td>topic</td>
-<td>指定主题名字</td>
-</tr>
-<tr>
-<td>topics-with-overrides</td>
-<td>使用 describe 查看主题信息时，展示与默认配置不同的配置</td>
-</tr>
-<tr>
-<td>unavailable-partitions</td>
-<td>使用 describe 查看主题信息时，展示没有 leader 副本的分区</td>
-</tr>
-<tr>
-<td>under-replicated-partitions</td>
-<td>使用 describe 查看主题信息时，展示包含失败副本的分区</td>
-</tr>
-<tr>
-<td>Zookeeper</td>
-<td>指定连接的 Zookeeper 的地址信息</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>需要先明确一下主题、分区、副本和日志的概念，主题和分区都是提供给上层用户的抽象，而在副本层面或者更确切地说是 Log 层面才有真实的物理存在。</p>
-<p><img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/主题、分区、副本和 Log 之间的关系.png?raw=true" alt="主题、分区、副本和 Log 之间的关系"></p>
-<h3 id="查看主题信息"><a href="#查看主题信息" class="headerlink" title="查看主题信息"></a>查看主题信息</h3><p>我们可以直接通过查看底层的物理存储和 Zookeeper 的节点信息来获取主题下分区的分配方案</p>
-<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -al /tmp/kafka-logs/ | grep topic_name</span><br></pre></td></tr></tbody></table></figure>
-<p>当我们创建一个主题后，会在 Zookeeper 的 /brokers/topics/ 目录下创建一个同名的实节点（实节点？）</p>
-<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">get /brokers/topics/topic_name</span><br></pre></td></tr></tbody></table></figure>
-<p>但是通用的方法还是通过 kafka-topics.sh 命令，该命令可以与 topics-with-overrides 、unavailable-partitions、under-replicated-partitions 连用来过滤一些数据。</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh </span><br><span class="line">--zookeeper localhost:2121/kafka</span><br><span class="line">--describe </span><br><span class="line">--topic topic_name1, topic_name2, ...</span><br></pre></td></tr></tbody></table></figure>
-<p>此外，如果你不知道你具体有哪一些主题，可以使用 list 命令查看有哪一些主题</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh </span><br><span class="line">--zookeeper localhost:2121/kafka</span><br><span class="line">--list</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="创建主题"><a href="#创建主题" class="headerlink" title="创建主题"></a>创建主题</h3><p>首先，有一个比较重要的 broker 端的参数 auto.create.topics.enabele 默认为 true。当生产者给一个尚未创建的主题发送消息或者当生产者向一个尚未创建的主题发送元数据请求或者读取数据时，都会按照 num.partitions 和 default.replication.factor  的值来创建一个主题。在生产活动中强烈建议该参数设置为 false。</p>
-<p>接下来我们通过 kafka-topics.sh 命令创建主题</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh </span><br><span class="line">--zookeeper localhost:2121/kafka</span><br><span class="line">--create</span><br><span class="line">--topic topic_name1</span><br><span class="line">--partitions n</span><br><span class="line">--replication-factor m</span><br></pre></td></tr></tbody></table></figure>
-<p>该命令同时可以搭配 replica-assignment 来手动指定分区副本的分配方案，这个参数的使用暂时不做讨论。</p>
-<p>另外一个使用比较多的参数是 config，该参数可以覆盖原本的默认配置，比如</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh </span><br><span class="line">--zookeeper localhost:2121/kafka</span><br><span class="line">--create</span><br><span class="line">--topic topic_name1</span><br><span class="line">--partitions 1</span><br><span class="line">--replication-factor 1</span><br><span class="line">--config cleanup.policy=compact</span><br><span class="line">--config max.message.bytes=10000</span><br></pre></td></tr></tbody></table></figure>
-<p>使用语法就是 <code>--config key=value</code> 的形式。除了主题的分区分配策略可以通过 Zookeeper 节点查看，主题的配置同样可以通过 Zookeeper 查看，对应的节点为 /config/topics/topic_name</p>
-<p>有一个需要特殊注意的点是主题的命名，kafka-topics 节点在创建主题的时候会检测主题名中是否含有 . 或者 _ 。为什么要这多样做呢？因为 Kafka 内部做埋点时会根据主题名命名 metrics 的名字，并且会将 . 转化成 _ 。所以尽量不要在命名主题时，使用 . 。此外，主题名尽量不要以 <strong> 开头，因为以 </strong> 开头在 Kafka 中被视为内部主题。</p>
-<blockquote>
-<p>关于功能升级和重构的思考：</p>
-<ol>
-<li>升级和重构的复杂程度</li>
-<li>升级和重构会不会影响到其他的功能</li>
-</ol>
-</blockquote>
-<h2 id="4-2-初识-KafkaAdminClient"><a href="#4-2-初识-KafkaAdminClient" class="headerlink" title="4.2 初识 KafkaAdminClient"></a>4.2 初识 KafkaAdminClient</h2><p>// to do</p>
-<h2 id="4-3-分区的管理"><a href="#4-3-分区的管理" class="headerlink" title="4.3 分区的管理"></a>4.3 分区的管理</h2><p>// to do</p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/12/22/Linux%20%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
-      <meta itemprop="name" content="张潇">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="求索之心">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/12/22/Linux%20%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Linux 包管理基础</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-22 14:54:18" itemprop="dateCreated datePublished" datetime="2019-12-22T14:54:18+08:00">2019-12-22</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-            </span>
-
           
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/12/22/Linux%20%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/22/Linux%20%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>内容参考自 <a href="https://linux.cn/article-8782-1.html" target="_blank" rel="noopener">Linux 包管理基础：apt、yum、dnf 和 pkg</a></p>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>大多数现代的类 Unix 操作系统都提供了一种<strong>中心化</strong>的机制用来搜索和安装软件。软件通常都是存放在存储库中，并通过包的形式进行分发。处理包的工作被称为包管理。包提供了操作系统的基本组件，以及共享的库、应用程序、服务和文档。</p>
-<p>包管理系统除了安装软件外，它还提供了工具来更新已经安装的包。包存储库有助于确保你的系统中使用的代码是经过审查的，并且软件的安装版本已经得到了开发人员和包维护人员的认可。</p>
-<p>在配置服务器或开发环境时，我们最好了解下包在官方存储库之外的情况。某个发行版的稳定版本中的包有可能已经过时了，尤其是那些新的或者快速迭代的软件。然而，包管理无论对于系统管理员还是开发人员来说都是至关重要的技能，而已打包的软件对于主流 Linux 发行版来说也是一笔巨大的财富。</p>
-<h2 id="包管理系统：简要概述"><a href="#包管理系统：简要概述" class="headerlink" title="包管理系统：简要概述"></a>包管理系统：简要概述</h2><p>大多数包系统都是围绕包文件的集合构建的。包文件通常是一个存档文件，它包含已编译的二进制文件和软件的其他资源，以及安装脚本。包文件同时也包含有价值的元数据，包括它们的依赖项，以及安装和运行它们所需的其他包的列表。</p>
-<p>虽然这些包管理系统的功能和优点大致相同，但打包格式和工具却因平台而异：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">操作系统</th>
-<th style="text-align:left">格式</th>
-<th style="text-align:left">工具</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">Debian</td>
-<td style="text-align:left"><code>.deb</code></td>
-<td style="text-align:left"><code>apt</code>, <code>apt-cache</code>, <code>apt-get</code>, <code>dpkg</code></td>
-</tr>
-<tr>
-<td style="text-align:left">Ubuntu</td>
-<td style="text-align:left"><code>.deb</code></td>
-<td style="text-align:left"><code>apt</code>, <code>apt-cache</code>, <code>apt-get</code>, <code>dpkg</code></td>
-</tr>
-<tr>
-<td style="text-align:left">CentOS</td>
-<td style="text-align:left"><code>.rpm</code></td>
-<td style="text-align:left"><code>yum</code></td>
-</tr>
-<tr>
-<td style="text-align:left">Fedora</td>
-<td style="text-align:left"><code>.rpm</code></td>
-<td style="text-align:left"><code>dnf</code></td>
-</tr>
-<tr>
-<td style="text-align:left">FreeBSD</td>
-<td style="text-align:left">Ports, <code>.txz</code></td>
-<td style="text-align:left"><code>make</code>, <code>pkg</code></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>Debian 及其衍生版，如 Ubuntu、Linux Mint 和 Raspbian，它们的包格式是 <code>.deb</code>。APT 这款先进的包管理工具提供了大多数常见的操作命令：搜索存储库、安装软件包及其依赖项，并管理升级。在本地系统中，我们还可以使用 <code>dpkg</code> 程序来安装单个的 <code>deb</code> 文件，APT 命令作为底层 <code>dpkg</code> 的前端，有时也会直接调用它。</p>
-<p>最近发布的 debian 衍生版大多数都包含了 <code>apt</code> 命令，它提供了一个简洁统一的接口，可用于通常由 <code>apt-get</code> 和 <code>apt-cache</code> 命令处理的常见操作。这个命令是可选的，但使用它可以简化一些任务。</p>
-<p>CentOS、Fedora 和其它 Red Hat 家族成员使用 RPM 文件。在 CentOS 中，通过 <code>yum</code> 来与单独的包文件和存储库进行交互。</p>
-<p>在最近的 Fedora 版本中，<code>yum</code> 已经被 <code>dnf</code> 取代，<code>dnf</code> 是它的一个现代化的分支，它保留了大部分 <code>yum</code> 的接口。</p>
-<p>FreeBSD 的二进制包系统由 <code>pkg</code> 命令管理。FreeBSD 还提供了 <code>Ports</code> 集合，这是一个存在于本地的目录结构和工具，它允许用户获取源码后使用 Makefile 直接从源码编译和安装包。</p>
-<h2 id="更新包列表"><a href="#更新包列表" class="headerlink" title="更新包列表"></a>更新包列表</h2><p>大多数系统在<strong>本地都会有一个和远程存储库对应的包数据库</strong>，在安装或升级包之前最好更新一下这个数据库。另外，<code>yum</code> 和 <code>dnf</code> 在执行一些操作之前也会自动检查更新。当然你可以在任何时候对系统进行更新。</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">系统</th>
-<th style="text-align:left">命令</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">Debian / Ubuntu</td>
-<td style="text-align:left"><code>sudo apt-get update</code></td>
-</tr>
-<tr>
-<td style="text-align:left"></td>
-<td style="text-align:left"><code>sudo apt update</code></td>
-</tr>
-<tr>
-<td style="text-align:left">CentOS</td>
-<td style="text-align:left"><code>yum check-update</code></td>
-</tr>
-<tr>
-<td style="text-align:left">Fedora</td>
-<td style="text-align:left"><code>dnf check-update</code></td>
-</tr>
-<tr>
-<td style="text-align:left">FreeBSD Packages</td>
-<td style="text-align:left"><code>sudo pkg update</code></td>
-</tr>
-<tr>
-<td style="text-align:left">FreeBSD Ports</td>
-<td style="text-align:left"><code>sudo portsnap fetch update</code></td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="更新已安装的包"><a href="#更新已安装的包" class="headerlink" title="更新已安装的包"></a>更新已安装的包</h3><p>在没有包系统的情况下，想确保机器上所有已安装的软件都保持在最新的状态是一个很艰巨的任务。你将不得不跟踪数百个不同包的上游更改和安全警报。虽然包管理器并不能解决升级软件时遇到的所有问题，但它确实使你能够使用一些命令来维护大多数系统组件。</p>
-<p>在 FreeBSD 上，升级已安装的 ports 可能会引入破坏性的改变，有些步骤还需要进行手动配置，所以在通过 <code>portmaster</code> 更新之前最好阅读下 <code>/usr/ports/UPDATING</code> 的内容。</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Debian / Ubuntu</th>
-<th><code>sudo apt-get upgrade</code></th>
-<th>只更新已安装的包</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td><code>sudo apt-get dist-upgrade</code></td>
-<td>可能会增加或删除包以满足新的依赖项</td>
-</tr>
-<tr>
-<td></td>
-<td><code>sudo apt upgrade</code></td>
-<td>和 <code>apt-get upgrade</code> 类似</td>
-</tr>
-<tr>
-<td></td>
-<td><code>sudo apt full-upgrade</code></td>
-<td>和 <code>apt-get dist-upgrade</code> 类似</td>
-</tr>
-<tr>
-<td>CentOS</td>
-<td><code>sudo yum update</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Fedora</td>
-<td><code>sudo dnf upgrade</code></td>
-<td></td>
-</tr>
-<tr>
-<td>FreeBSD Packages</td>
-<td><code>sudo pkg upgrade</code></td>
-<td></td>
-</tr>
-<tr>
-<td>FreeBSD Ports</td>
-<td><code>less /usr/ports/UPDATING</code></td>
-<td>使用 <code>less</code> 来查看 ports 的更新提示（使用上下光标键滚动，按 q 退出）。</td>
-</tr>
-<tr>
-<td></td>
-<td><code>cd /usr/ports/ports-mgmt/portmaster && sudo make install && sudo portmaster -a</code></td>
-<td>安装 <code>portmaster</code> 然后使用它更新已安装的 ports</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="结论和进一步的阅读"><a href="#结论和进一步的阅读" class="headerlink" title="结论和进一步的阅读"></a>结论和进一步的阅读</h2><p>本指南通过对多个系统间进行交叉对比概述了一下包管理系统的基本操作，但只涉及了这个复杂主题的表面。对于特定系统更详细的信息，可以参考以下资源：</p>
-<ul>
-<li><a href="https://www.digitalocean.com/community/tutorials/ubuntu-and-debian-package-management-essentials" target="_blank" rel="noopener">这份指南</a> 详细介绍了 Ubuntu 和 Debian 的软件包管理。</li>
-<li>这里有一份 CentOS 官方的指南 <a href="https://www.centos.org/docs/5/html/yum/" target="_blank" rel="noopener">使用 yum 管理软件</a></li>
-<li>这里有一个有关 Fedora 的 <code>dnf</code> 的 <a href="https://fedoraproject.org/wiki/Dnf" target="_blank" rel="noopener">wiki 页面</a> 以及一份有关 <code>dnf</code> <a href="https://dnf.readthedocs.org/en/latest/index.html" target="_blank" rel="noopener">官方的手册</a></li>
-<li><a href="https://www.digitalocean.com/community/tutorials/how-to-manage-packages-on-freebsd-10-1-with-pkg" target="_blank" rel="noopener">这份指南</a> 讲述了如何使用 <code>pkg</code> 在 FreeBSD 上进行包管理</li>
-<li>这本 <a href="https://www.freebsd.org/doc/handbook/" target="_blank" rel="noopener">FreeBSD Handbook</a> 有一节讲述了<a href="https://www.freebsd.org/doc/handbook/ports-using.html" target="_blank" rel="noopener">如何使用 Ports 集合</a></li>
-</ul>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/12/21/SQL-%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
-      <meta itemprop="name" content="张潇">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="求索之心">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/12/21/SQL-%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">SQL 实践总结</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-21 17:08:29" itemprop="dateCreated datePublished" datetime="2019-12-21T17:08:29+08:00">2019-12-21</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SQL/" itemprop="url" rel="index">
-                    <span itemprop="name">SQL</span>
-                  </a>
-                </span>
-            </span>
-
           
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/12/21/SQL-%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/21/SQL-%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="概念性问题"><a href="#概念性问题" class="headerlink" title="概念性问题"></a>概念性问题</h2><h2 id="实践性问题"><a href="#实践性问题" class="headerlink" title="实践性问题"></a>实践性问题</h2><h2 id="不同表相同字段当进行关联操作时，会发生什么？"><a href="#不同表相同字段当进行关联操作时，会发生什么？" class="headerlink" title="不同表相同字段当进行关联操作时，会发生什么？"></a>不同表相同字段当进行关联操作时，会发生什么？</h2><p>我们现在有 A，B 两个表</p>
-<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> A;  </span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line">| id   |</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line">|    1 |</span><br><span class="line">|    2 |</span><br><span class="line">|    3 |</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> B;</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line">| id   |</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line">|    3 |</span><br><span class="line">|    4 |</span><br><span class="line">|    5 |</span><br><span class="line">+<span class="comment">------+</span></span><br></pre></td></tr></tbody></table></figure>
-<p>当我们进行关联操作时会发生什么呢？</p>
-<h3 id="笛卡尔积"><a href="#笛卡尔积" class="headerlink" title="笛卡尔积"></a>笛卡尔积</h3><figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> A,B;</span><br><span class="line">+<span class="comment">------+------+</span></span><br><span class="line">| id   | id   |</span><br><span class="line">+<span class="comment">------+------+</span></span><br><span class="line">|    1 |    3 |</span><br><span class="line">|    2 |    3 |</span><br><span class="line">|    3 |    3 |</span><br><span class="line">|    1 |    4 |</span><br><span class="line">|    2 |    4 |</span><br><span class="line">|    3 |    4 |</span><br><span class="line">|    1 |    5 |</span><br><span class="line">|    2 |    5 |</span><br><span class="line">|    3 |    5 |</span><br><span class="line">+<span class="comment">------+------+</span></span><br></pre></td></tr></tbody></table></figure>
-<h3 id="等值连接"><a href="#等值连接" class="headerlink" title="等值连接"></a>等值连接</h3><figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> A <span class="keyword">join</span> B <span class="keyword">on</span> A.id = B.id;</span><br><span class="line">+<span class="comment">------+------+</span></span><br><span class="line">| id   | id   |</span><br><span class="line">+<span class="comment">------+------+</span></span><br><span class="line">|    3 |    3 |</span><br><span class="line">+<span class="comment">------+------+</span></span><br></pre></td></tr></tbody></table></figure>
-<h3 id="自然连接"><a href="#自然连接" class="headerlink" title="自然连接"></a>自然连接</h3><figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> A nature <span class="keyword">join</span> A;</span><br><span class="line">+<span class="comment">------+------+</span></span><br><span class="line">| id   | id   |</span><br><span class="line">+<span class="comment">------+------+</span></span><br><span class="line">|    1 |    1 |</span><br><span class="line">|    2 |    1 |</span><br><span class="line">|    3 |    1 |</span><br><span class="line">|    1 |    2 |</span><br><span class="line">|    2 |    2 |</span><br><span class="line">|    3 |    2 |</span><br><span class="line">|    1 |    3 |</span><br><span class="line">|    2 |    3 |</span><br><span class="line">|    3 |    3 |</span><br><span class="line">+<span class="comment">------+------+</span></span><br></pre></td></tr></tbody></table></figure>
-<p>我们发现，无论是内连接还是外连接，无论是相同表还是不同表，相同字段并不会覆盖。</p>
-<h3 id="两个集合的交、并、差"><a href="#两个集合的交、并、差" class="headerlink" title="两个集合的交、并、差"></a>两个集合的交、并、差</h3><figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 并集</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> A <span class="keyword">union</span> <span class="keyword">select</span> * <span class="keyword">from</span> B;</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line">| id   |</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line">|    1 |</span><br><span class="line">|    2 |</span><br><span class="line">|    3 |</span><br><span class="line">|    4 |</span><br><span class="line">|    5 |</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 交集</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> A <span class="keyword">join</span> B <span class="keyword">on</span> A.id = B.id;</span><br><span class="line">+<span class="comment">------+------+</span></span><br><span class="line">| id   | id   |</span><br><span class="line">+<span class="comment">------+------+</span></span><br><span class="line">|    3 |    3 |</span><br><span class="line">+<span class="comment">------+------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 差集 A-B</span></span><br><span class="line"><span class="keyword">select</span> A.id <span class="keyword">from</span> A <span class="keyword">left</span> <span class="keyword">join</span> B <span class="keyword">on</span> A.id = B.id <span class="keyword">where</span> B.id <span class="keyword">is</span> <span class="literal">null</span>;</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line">| id   |</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line">|    1 |</span><br><span class="line">|    2 |</span><br><span class="line">+<span class="comment">------+</span></span><br></pre></td></tr></tbody></table></figure>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/12/21/%E4%BD%BF%E7%94%A8Beamer%E5%88%B6%E4%BD%9C%E5%B9%BB%E7%81%AF%E7%89%87%E5%85%A5%E9%97%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
-      <meta itemprop="name" content="张潇">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="求索之心">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/12/21/%E4%BD%BF%E7%94%A8Beamer%E5%88%B6%E4%BD%9C%E5%B9%BB%E7%81%AF%E7%89%87%E5%85%A5%E9%97%A8/" class="post-title-link" itemprop="url">使用Beamer制作幻灯片入门</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-21 16:39:51" itemprop="dateCreated datePublished" datetime="2019-12-21T16:39:51+08:00">2019-12-21</time>
-            </span>
-
           
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/12/21/%E4%BD%BF%E7%94%A8Beamer%E5%88%B6%E4%BD%9C%E5%B9%BB%E7%81%AF%E7%89%87%E5%85%A5%E9%97%A8/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/21/%E4%BD%BF%E7%94%A8Beamer%E5%88%B6%E4%BD%9C%E5%B9%BB%E7%81%AF%E7%89%87%E5%85%A5%E9%97%A8/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="幻灯片"><a href="#幻灯片" class="headerlink" title="幻灯片"></a>幻灯片</h2><p>我们将 presentation slide 叫做演示幻灯片，具体的由来可以参考维基百科 👉 <a href="https://en.wikipedia.org/wiki/Presentation_slide" target="_blank" rel="noopener">presentation slide</a></p>
-<p>随着  <a href="https://en.wikipedia.org/wiki/Microsoft_PowerPoint" target="_blank" rel="noopener">Microsoft PowerPoint</a> 占领的市场份额越来越大，我们现在直接将 PowerPoint 的概念等同为了幻灯片。</p>
-<p>其实，幻灯片也可以使用 <a href="https://en.wikipedia.org/wiki/Document_markup_language" target="_blank" rel="noopener">文档标记语言</a>例如 <a href="https://en.wikipedia.org/wiki/LaTeX" target="_blank" rel="noopener">LaTeX</a> 的 <a href="https://en.wikipedia.org/wiki/Beamer(LaTeX" target="_blank" rel="noopener">Beamer</a>) 来创建。</p>
-<h2 id="一些资源网站"><a href="#一些资源网站" class="headerlink" title="一些资源网站"></a>一些资源网站</h2><p><a href="https://www.latexstudio.net/archives/2825.html" target="_blank" rel="noopener">Beamer 的基本结构</a></p>
-<p><a href="https://www.latexstudio.net/archives/category/tex-slides/beamer-theme-template" target="_blank" rel="noopener">Beamer 幻灯片主题模板</a></p>
-<p><a href="https://www.overleaf.com/gallery/tagged/presentation#.Wv7RVIiFPIU" target="_blank" rel="noopener">Beamer 模板</a></p>
-<p>有哪些好的 LaTeX 编辑器？ - 黄盼的回答 - 知乎<br><a href="https://www.zhihu.com/question/19954023/answer/676316395" target="_blank" rel="noopener">https://www.zhihu.com/question/19954023/answer/676316395</a></p>
-<p><a href="Huang Zhenghua's home page">黄正华</a> 老师 LaTeX 和 Beamer 资源的分享</p>
-<p>Beamer v3.0 指南 (黄旭华译)    下载地址：<a href="http://static.latexstudio.net/wp-content/uploads/2014/12/beamer_guide-cnbyl00l.pdf" target="_blank" rel="noopener">beamer_guide-cnbyl00l</a></p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/12/19/HR-%E9%9D%A2%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
-      <meta itemprop="name" content="张潇">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="求索之心">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/19/HR-%E9%9D%A2%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" class="post-title-link" itemprop="url">HR 面注意事项</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-19 10:59:05" itemprop="dateCreated datePublished" datetime="2019-12-19T10:59:05+08:00">2019-12-19</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/12/19/HR-%E9%9D%A2%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/19/HR-%E9%9D%A2%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本文的大部分来自 <a href="HR通常提的一些面试问题是什么？怎么回答？ - 职研社De圆圆的回答 - 知乎
-https://www.zhihu.com/question/24192778/answer/631081857">HR通常提的一些面试问题是什么？怎么回答？ - 职研社De圆圆的回答</a></p>
-<h2 id="你最大的缺点是什么？"><a href="#你最大的缺点是什么？" class="headerlink" title="你最大的缺点是什么？"></a>你最大的缺点是什么？</h2><p><strong>问题分析：</strong>考察候选人的自我认知能力，个人优点是否符合岗位要求。</p>
-<p><strong>参考建议：</strong></p>
-<p>第一，不宜说自己没有缺点，只要是人就有缺点，这么说一定会令人反感。</p>
-<p>第二，年轻经验不足、缺乏磨炼、有些着急、对待效率低下的人缺乏耐心等</p>
-<p><strong>根据以上的关键点，缺点参考回复：</strong></p>
-<p>首先，我刚毕业，经验方面不足，我会在工作中积极完成工作，积累各方面经验</p>
-<p>其次，性子急，对待效率低下的人缺乏耐心，但是我平时和别人聊天的时候会控制自己语速和讲话，慢慢培养自己耐心，避免浮躁。（<strong>遵循一个原则避重就轻</strong>）</p>
-<p><strong>Tips：</strong>利用你的优点改正你的缺点，比如，工作追求细节极致，导致项目无法按时完成，通过时间管理，得以解决。一定不能说对应聘岗位的硬伤的缺点，以及无法弥补的缺点。</p>
-<h2 id="面试最难：自我介绍"><a href="#面试最难：自我介绍" class="headerlink" title="面试最难：自我介绍"></a>面试最难：自我介绍</h2><p><strong>参考建议：</strong></p>
-<p>第一，条理清晰，层次分明，突出与岗位要求相吻合的技能、个人所长、行为风格、实际经验等。</p>
-<p>第二，现场表达必须与个人简历所写保持一致。</p>
-<p>第三，控制时间，一般不超过 3 分钟。</p>
-<p>第四，尽量口语化，语言平实可信。</p>
-<p><strong>▲根据以上的关键点，参考回复：</strong></p>
-<p>首先，我叫xxx，xxx大学xxx专业毕业，我在学校获得xxx荣誉（或者证书）……这样的信息（基本信息介绍）</p>
-<p>其次，在工作方面，我在xxx公司实习（或者学校活动），我负责xx工作，为了完成这个工作，我做了xxx努力，最后取得xxx成果，结尾，还可以总结一下通过这次活动或者项目有什么收获。</p>
-<p><strong>关键点，在做了什么努力这部分要体现做的深度</strong>。<strong>（利用STAR法则）</strong></p>
-<p>第三，在大型比赛中取得xxx的成绩，如果没有，可以讲自己参加过的公益类活动，例如支教，敬老院看望爷爷奶奶。(<strong>特殊经历亮点加分项</strong>)</p>
-<p>（ps:最好准备一个1分钟自我介绍，一个3-5 分钟自我介绍，多手准备!!）</p>
-<p><strong>Tips：</strong>在面试前一天，一定一定要熟记自我介绍，自己也可以对着镜子模拟面试情景反复刻意练习自我介绍。这样才能保证面试从容，不紧张。</p>
-<h2 id="你的兴趣爱好？"><a href="#你的兴趣爱好？" class="headerlink" title="你的兴趣爱好？"></a><strong>你的兴趣爱好？</strong></h2><p><strong>问题分析：</strong>了解候选人的心态、性格、价值观、责任感等</p>
-<p>当HR问到兴趣爱好，这时大脑一片空白，一时想不到，拍脑袋回答没什么爱好，或者随便回答，那你就会掉进坑里了。</p>
-<p><strong>参考建议：</strong></p>
-<p>第一，常见的爱好无外乎运动、旅游、听音乐、读书等，比如篮球：团队精神，古典音乐、阅读、书法：细心耐心，旅游：适应能力学习能力，演讲：沟通能力，唱歌、舞蹈：性格外向，沟通能力</p>
-<p>第二，如果有表现突出的文体爱好，例如书法、羽毛球、小提琴、写文章等获得过有关奖项，可以适当加分</p>
-<p>第三，如果热衷社会公益，参与过某些公益组织，为困难人群提供过无私、积极的帮助的，可以突出介绍，可以给面试官留下更好地印象。</p>
-<p>▲<strong>根据以上的关键点，参考回复：</strong></p>
-<p>eg1：写与岗位匹配的爱好，假如是应聘文案类（编辑）岗位，你说你喜欢写文章，发表过文章，还获得奖，加分！加分！（没得奖也不怕给HR看写过的文章，体现你是有潜力的）</p>
-<p>eg2：我喜欢读书，一年读了xx本，收获xxx。</p>
-<p><strong>Tips：</strong>说岗位需求匹配的爱好，有助于工作的爱好；回答要真实，否则HR接着深入一问，容易露馅。</p>
-<h2 id="介绍未来5年职业规划"><a href="#介绍未来5年职业规划" class="headerlink" title="介绍未来5年职业规划"></a>介绍未来5年职业规划</h2><p><strong>问题分析：</strong>考察候选人对自己未来发展的设想、职业生涯的规划能力。</p>
-<p>除非是目标非常明确的人，或者有多年工作经验的职场人，不然很难回答清楚，那么怎么说才能回答好这个问题呢？</p>
-<p>不要说“几年当主管”，”几年当经理”毫无意义。</p>
-<p><strong>参考建议：</strong></p>
-<p>第一，介绍自己认真思考过这个问题，自己的规划是基于目前的实际情况来设计的。</p>
-<p>第二，在工作方面，突出自己打算通过积极完成工作任务，积累各方面的经验，让自己成为这个领域的专业人士，也希望有机会能够带领团队，成为优秀的管理者，为单位做出更大贡献，获得双赢。</p>
-<p>第三，在学习方面，打算在专业领域做进一步学习和研究，将实践经验与专业知识相结合，为自己的职业成长做好铺垫，打好基础<strong>。</strong></p>
-<p><strong>Tips：</strong>回答这个问题强调你稳定性，踏实工作的态度，重点在工作技能方面的提升与内在积累，不要描述外在的东西，比如职位，薪资。</p>
-<h2 id="还有什么要问的吗？"><a href="#还有什么要问的吗？" class="headerlink" title="还有什么要问的吗？"></a><strong>还有什么要问的吗？</strong></h2><p><strong>问题分析：</strong>考察候选人的情商，是否对这个公司或者行业很了解，是否用心准备。</p>
-<p><strong>参考建议：</strong></p>
-<p>第一，可以问本职岗位工作要求、职责。例如，这个部门人员设置是怎么样的。</p>
-<p>第二，可以问公司、公司的业务、体系、行业、客户。</p>
-<p>eg：为了胜任该职位，需要我提前学习哪些技术知识？</p>
-<p>eg：贵公司业务及战略的未来发展？</p>
-<p>eg：团队、公司现在面临的最大挑战是什么？</p>
-<p><strong>Tips：</strong>切忌纠缠薪资，如果回答没问题，HR会误会，你对岗位没有太大兴趣。</p>
-<h2 id="若领导布置了大量的工作，而完成时间又十分有限，为了完成任务，您怎么办？"><a href="#若领导布置了大量的工作，而完成时间又十分有限，为了完成任务，您怎么办？" class="headerlink" title="若领导布置了大量的工作，而完成时间又十分有限，为了完成任务，您怎么办？"></a>若领导布置了大量的工作，而完成时间又十分有限，为了完成任务，您怎么办？</h2><p><strong>问题分析：</strong>考察候选人的时间管理能力。</p>
-<p><strong>参考建议：</strong></p>
-<p>第一，分清任务的轻重缓急，紧急又重要的任务先完成。</p>
-<p>第二，发动团队其他成员，借力完成。</p>
-<p>第三，鼓励老人带新人，提高工作效率。</p>
-<p><strong>Tips：</strong>实在是过重，以上方法全部用上了都不行，可以与领导协商，先完成几成，其他不重要的任务可以缓办。</p>
-<h2 id="希望与怎样的领导共事？"><a href="#希望与怎样的领导共事？" class="headerlink" title="希望与怎样的领导共事？"></a>希望与怎样的领导共事？</h2><p>一类题：希望与怎样的领导合作？怎样处理与领导的关系？</p>
-<p><strong>问题分析：</strong>考察候选人的人际交往能力、主动适应能力。如果你回答：我希望我的上级比较有经验，能够给饿哦一些帮助，陷阱！这样会暴露自己短处。</p>
-<p><strong>参考建议：</strong></p>
-<p>第一，尽量不要提及对领导的具体要求，而应该突出自己会认真向领导学习，尽快熟悉和适应工作环境，主动向领导请教，保质保量完成本职工作。</p>
-<p>第二，如果有做得不到的地方，会诚恳地向领导请教，可以在哪些地方多多改善。这才是一位职业人作为下属应该秉持的工作态度。</p>
-<p><strong>Tips：</strong>切忌一切围绕工作进行，着重谈论对自己有要求，自身努力的方向，千万不要提及前任领导的缺点。</p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/12/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
-      <meta itemprop="name" content="张潇">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="求索之心">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">设计模式</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-16 13:18:20" itemprop="dateCreated datePublished" datetime="2019-12-16T13:18:20+08:00">2019-12-16</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index">
-                    <span itemprop="name">设计模式</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/12/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>设计模式</strong>是软件设计中常见问题或者常见应用场景的典型解决方案。 每个模式就像一张蓝图， 你可以通过对其进行定制来解决代码中的特定设计问题。</p>
-<p>发现一个整理比较号的文档 <a href="https://refactoringguru.cn/design-patterns/what-is-pattern" target="_blank" rel="noopener">设计模式</a></p>
-<h2 id="模式的分类"><a href="#模式的分类" class="headerlink" title="模式的分类"></a>模式的分类</h2><p>不同设计模式在其复杂程度、 细节层次以及在整个系统中的应用范围等方面各不相同。 我喜欢将其类比于道路的建造： 如果你希望让十字路口更加安全， 那么可以安装一些交通信号灯， 或者修建包含行人地下通道在内的多层互通式立交桥。</p>
-<p>最基础的、 底层的模式通常被称为<em>惯用技巧</em>。 这类模式一般只能在一种编程语言中使用。</p>
-<p>最通用的、 高层的模式是<em>构架模式</em>。 开发者可以在任何编程语言中使用这类模式。 与其他模式不同， 它们可用于整个应用程序的架构设计。</p>
-<p>此外， 所有模式可以根据其<em>意图</em>或目的来分类。 本书覆盖了三种主要的模式类别：</p>
-<ul>
-<li><strong>创建型模式</strong>提供创建对象的机制， 增加已有代码的灵活性和可复用性。</li>
-<li><strong>结构型模式</strong>介绍如何将对象和类组装成较大的结构， 并同时保持结构的灵活和高效。</li>
-<li><strong>行为模式</strong>负责对象间的高效沟通和职责委派。</li>
-</ul>
-<h2 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h2><h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><p><strong>单例模式</strong>是一种创建型设计模式， 让你能够保证一个类只有一个实例， 并提供一个访问该实例的全局节点。</p>
-<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>单例模式同时解决了两个问题， 所以违反了<a href="https://refactoringguru.cn/didp/principles/solid-principles/srp" target="_blank" rel="noopener">单一职责原则</a>：</p>
-<ol>
-<li><p><strong>保证一个类只有一个实例</strong>。 为什么会有人想要控制一个类所拥有的实例数量？ 最常见原因是控制某些共享资源 （例如数据库或文件） 的访问权限。</p>
-<p>它的运作方式是这样的： 如果你创建了一个对象， 同时一会儿后你决定再创建一个新对象， 此时你会获得之前已创建的对象， 而不是一个新对象。</p>
-<p>注意， 普通构造函数无法实现上述行为， 因为构造函数的设计决定了它<strong>必须</strong>总是返回一个新对象。</p>
-</li>
-</ol>
-<p>客户端甚至可能没有意识到它们一直都在使用同一个对象。</p>
-<ol>
-<li><p><strong>为该实例提供一个全局访问入口 </strong>。 还记得你 （好吧， 其实是我自己） 用过的那些存储重要对象的全局变量吗？ 它们在使用上十分方便， 但同时也非常不安全， 因为任何代码都有可能覆盖掉那些变量的内容， 从而引发程序崩溃。</p>
-<p>和全局变量一样， 单例模式也允许在程序的任何地方访问特定对象。 但是它可以保护该实例不被其他代码覆盖。</p>
-<p>还有一点： 你不会希望解决同一个问题的代码分散在程序各处的。 因此更好的方式是将其放在同一个类中， 特别是当其他代码已经依赖这个类时更应该如此。</p>
-</li>
-</ol>
-<p>如今， 单例模式已经变得非常流行， 以至于人们会将只解决上文描述中任意一个问题的东西称为<em>单例</em>。</p>
-<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>所有单例的实现都包含以下两个相同的步骤：</p>
-<ul>
-<li>将默认构造函数设为私有， 防止其他对象使用单例类的 <code>new</code>运算符。</li>
-<li>新建一个静态方法作为构造函数。 该函数会 “偷偷” 调用私有构造函数来创建对象， 并将其保存在一个静态成员变量中。 此后所有对于该函数的调用都将返回这一缓存对象。</li>
-</ul>
-<p>如果你的代码能够访问单例类， 那它就能调用单例类的静态方法。 无论何时调用该方法， 它总是会返回相同的对象。</p>
-<h4 id="单例模式适用性"><a href="#单例模式适用性" class="headerlink" title="单例模式适用性"></a>单例模式适用性</h4><ol>
-<li><p>如果程序中的某个类对于所有客户端只有一个可用的实例，可以使用单例模式。</p>
-<p>单例模式禁止通过除了特殊构建方法以外的任何方式来创建自身类对象。 该方法可以创建一个新对象， 但如果该对象已经被创建， 则返回已有的对象</p>
-</li>
-<li><p>如果你需要更加严格地控制全局变量， 可以使用单例模式。</p>
-<p>单例模式与全局变量不同， 它保证类只存在一个实例。 除了单例类自己以外， 无法通过任何方式替换缓存的实例。</p>
-</li>
-</ol>
-<h4 id="经典的实现方法"><a href="#经典的实现方法" class="headerlink" title="经典的实现方法"></a>经典的实现方法</h4><h5 id="懒汉模式"><a href="#懒汉模式" class="headerlink" title="懒汉模式"></a>懒汉模式</h5><p><strong>是否 Lazy 初始化：</strong>是</p>
-<p><strong>是否多线程安全：</strong>是</p>
-<p><strong>实现难度：</strong>易</p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>{  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>{}  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>{  </span><br><span class="line">    <span class="keyword">if</span> (instance == <span class="keyword">null</span>) {  </span><br><span class="line">        instance = <span class="keyword">new</span> Singleton();  </span><br><span class="line">    }  </span><br><span class="line">    <span class="keyword">return</span> instance;  </span><br><span class="line">    }  </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h5 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h5><p><strong>是否 Lazy 初始化：</strong>否</p>
-<p><strong>是否多线程安全：</strong>是</p>
-<p><strong>实现难度：</strong>易</p>
-<p>优点：没有加锁，执行效率会提高。<br>缺点：类加载时就初始化，浪费内存。<br>它基于 classloader 机制避免了多线程的同步问题，不过，instance 在类装载时就实例化，虽然导致类装载的原因有很多种，在单例模式中大多数都是调用 getInstance 方法， 但是也不能确定有其他的方式（或者其他的静态方法）导致类装载，这时候初始化 instance 显然没有达到 lazy loading 的效果。</p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>{  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">new</span> Singleton();  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>{}  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>{  </span><br><span class="line">    <span class="keyword">return</span> instance;  </span><br><span class="line">    }  </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h5 id="双检锁-双重校验锁（DCL，即-double-checked-locking）"><a href="#双检锁-双重校验锁（DCL，即-double-checked-locking）" class="headerlink" title="双检锁/双重校验锁（DCL，即 double-checked locking）"></a>双检锁/双重校验锁（DCL，即 double-checked locking）</h5><p><strong>JDK 版本：</strong>JDK1.5 起</p>
-<p><strong>是否 Lazy 初始化：</strong>是</p>
-<p><strong>是否多线程安全：</strong>是</p>
-<p><strong>实现难度：</strong>较复杂</p>
-<p><strong>描述：</strong>这种方式采用双锁机制，安全且在多线程情况下能保持高性能。</p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>{</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>{</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getSingleton</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) {</span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton<span class="class">.<span class="keyword">class</span>) </span>{</span><br><span class="line">                <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) {</span><br><span class="line">                    singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="结构型模式"><a href="#结构型模式" class="headerlink" title="结构型模式"></a>结构型模式</h2><h3 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h3><p><strong>代理模式</strong>是一种结构型设计模式， 让你能够提供对象的替代品或其占位符。 代理控制着对于原对象的访问， 并允许在将请求提交给对象前后进行一些处理。</p>
-<h4 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h4><p>为什么要控制对于某个对象的访问呢？ 举个例子： 有这样一个消耗大量系统资源的巨型对象， 你只是偶尔需要使用它， 并非总是需要。</p>
-<p>你可以实现延迟初始化： 在实际有需要时再创建该对象。 对象的所有客户端都要执行延迟初始代码。 不幸的是， 这很可能会带来很多重复代码。</p>
-<p>在理想情况下， 我们希望将代码直接放入对象的类中， 但这并非总是能实现： 比如类可能是第三方封闭库的一部分。</p>
-<h4 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h4><p>代理模式建议新建一个与原服务对象接口相同的代理类， 然后更新应用以将代理对象传递给所有原始对象客户端。 代理类接收到客户端请求后会创建实际的服务对象， 并将所有工作委派给它。</p>
-<p>代理将自己伪装成数据库对象， 可在客户端或实际数据库对象不知情的情况下处理延迟初始化和缓存查询结果的工作。</p>
-<p>这有什么好处呢？ 如果需要在类的主要业务逻辑前后执行一些工作， 你无需修改类就能完成这项工作。 由于代理实现的接口与原类相同， 因此你可将其传递给任何一个使用实际服务对象的客户端。</p>
-<h4 id="实现方式："><a href="#实现方式：" class="headerlink" title="实现方式："></a>实现方式：</h4><p>a） 为服务类和代理类提供的公共接口或抽象类</p>
-<p>b） 服务类具体实现逻辑，实现或继承接口</p>
-<p>c）  代理类，实现或继承接口，有对服务类实例的引用，调用服务类实例业务的具体实现</p>
-<p>d） 客户端，调用代理类实现对服务类的调用</p>
-<p><img src="https://refactoringguru.cn/images/patterns/diagrams/proxy/structure.png" alt="代理设计模式的结构"></p>
-<h4 id="代理模式适用性"><a href="#代理模式适用性" class="headerlink" title="代理模式适用性"></a>代理模式适用性</h4><p>使用代理模式的方式多种多样， 我们来看看最常见的几种。</p>
-<ol>
-<li><p>延迟初始化 （虚拟代理）。 如果你有一个偶尔使用的重量级服务对象， 一直保持该对象运行会消耗系统资源时， 可使用代理模式。</p>
-<p>你无需在程序启动时就创建该对象， 可将对象的初始化延迟到真正有需要的时候。</p>
-</li>
-<li><p>访问控制 （保护代理）。 如果你只希望特定客户端使用服务对象， 这里的对象可以是操作系统中非常重要的部分， 而客户端则是各种已启动的程序 （包括恶意程序）， 此时可使用代理模式。代理可仅在客户端凭据满足要求时将请求传递给服务对象。</p>
-</li>
-</ol>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/12/15/Maven%20%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
-      <meta itemprop="name" content="张潇">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="求索之心">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/15/Maven%20%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">Maven 相关问题的总结</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-15 16:10:27" itemprop="dateCreated datePublished" datetime="2019-12-15T16:10:27+08:00">2019-12-15</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/12/15/Maven%20%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/15/Maven%20%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Maven中建立的依赖管理方式基本已成为Java语言依赖管理的事实标准，Maven的替代者Gradle也基本沿用了Maven的依赖管理机制。在Maven依赖管理中，唯一标识一个依赖项是由该依赖项的三个属性构成的，分别是groupId、artifactId以及version。这三个属性可以唯一确定一个组件（Jar包或者War包）。</p>
-<p>其实在Nexus仓库中，一个仓库一般分为public(Release)仓和SNAPSHOT仓，前者存放正式版本，后者存放快照版本。如果在项目配置文件中（无论是build.gradle还是pom.xml）指定的版本号带有’-SNAPSHOT’后缀，比如版本号为’Junit-4.10-SNAPSHOT’，那么打出的包就是一个快照版本。</p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/12/15/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
-      <meta itemprop="name" content="张潇">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="求索之心">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/15/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">秒杀系统学习笔记</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-15 15:19:07" itemprop="dateCreated datePublished" datetime="2019-12-15T15:19:07+08:00">2019-12-15</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/12/15/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/15/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="环境的搭建"><a href="#环境的搭建" class="headerlink" title="环境的搭建"></a>环境的搭建</h2><h3 id="Spring-Boot"><a href="#Spring-Boot" class="headerlink" title="Spring Boot"></a>Spring Boot</h3><p><a href="https://spring.io/projects/spring-boot/" target="_blank" rel="noopener">Spring Boot 官网</a></p>
-<p><a href="https://spring.io/guides/gs/rest-service/" target="_blank" rel="noopener">Spring Boot 构建一个 RESTFUL 风格的 Web 服务</a></p>
-<p>互不 通信 的 分布式 架构 方式。 缓存 与 应用 分离 部署， 缓存 系统 部署 在 一组 专门 的 服务器 上， 应用 程序 通过 一致性 Hash 等 路 由 算法 选择 缓存 服务器 远程 访问 缓存 数据， 缓存 服务器 之间 不 通信， 缓存 集群 的 规模 可以 很容易 地 实现 扩容， 具有 良好 的 可 伸缩性。</p>
-<p>李智慧. 大型网站技术架构:核心原理与案例分析 (p. 49). 电子工业出版社. Kindle 版本. </p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:" target="_blank" rel="noopener">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/12/14/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9%E5%A4%8D%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
-      <meta itemprop="name" content="张潇">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="求索之心">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/14/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9%E5%A4%8D%E4%B9%A0/" class="post-title-link" itemprop="url">关于计算机网络的知识点复习...</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-14 15:03:18" itemprop="dateCreated datePublished" datetime="2019-12-14T15:03:18+08:00">2019-12-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/12/14/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9%E5%A4%8D%E4%B9%A0/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/14/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9%E5%A4%8D%E4%B9%A0/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>既然已经决定要做开发了，就把之间放下的东西捡起来好好看看吧😝</p>
-<h2 id="ISO-OSI-参考模型和-TCP-IP-模型"><a href="#ISO-OSI-参考模型和-TCP-IP-模型" class="headerlink" title="ISO/OSI 参考模型和 TCP/IP 模型"></a>ISO/OSI 参考模型和 TCP/IP 模型</h2><p>国际标准化组织 (ISO)提出了网络体系结构模型，称为<strong>开放互连参考模型</strong>（OSI/RM），简称为 <strong>OSI 参考模型</strong>。</p>
-<p>共有七层</p>
-<h2 id="数据交换的方式"><a href="#数据交换的方式" class="headerlink" title="数据交换的方式"></a>数据交换的方式</h2><ol>
-<li><p>电路交换</p>
-<p>在源节点和目的节点之间建立一条专用（双方独占）的通路用于传送数据，通常分为三个阶段：建立连接，传输数据和断开连接。最典型的电路交换网就是传统电话网络。</p>
-<p>主要特点是整个报文的比特流连续的从源点到达终点，好像在一个管道中传输。优点是数据直接传送、延迟小。缺点是线路利用率低、不能充分利用线路容量。</p>
-</li>
-<li><p>报文交换</p>
-<p>将用户数据附加上源地址、目的地址、校验码等辅助信息，封装成报文。整个报文传送到相邻节点，全部存储袭来后，再转发给下一个节点，重复上述过程直到到达目的节点。</p>
-<p>报文交换也称为存储-转发。主要特点是整个报文先传送到相邻结点，全部存储下来后查找转发表，转发到下一个结点。</p>
-<p>优点是可以较为充分线路容量；可以实现不同链路之间不同数据率的转换；可以实现格式转换；可以实现一对多、多对一的访间；可以实现差错控制。其缺点是增加了资源开销（如辅助信息导致处理时间和存储资源的开销）：增加缓冲延迟；额外的控制机制来保证多个报文的顺序不会乱序；缓冲区难以管理，因为报文的大小不确定，接收方在接收到报文之前不能预知报文的大小。</p>
-</li>
-<li><p>分组交换<br>分组交换网络，也称为包交换网络。其原理是将用户数据分成较短的固定长度的数据块，在每个数据块中加上目的地址、源地址等辅助信息组成分组（包），以存储-转发方式传输。</p>
-<p>除了具备报文交换网络的优点外，分组交换网络还具有自身的优点：缓冲易于管理；包的平均延迟更小，网络中占用的平均缓冲区更少；更易于标准化；更适合应用。</p>
-</li>
-</ol>
-<p>现在的主流网络基本上都可以看成是<strong>分组交换</strong>网络。</p>
-<h2 id="端到端的通信和点到点的通信的区别？"><a href="#端到端的通信和点到点的通信的区别？" class="headerlink" title="端到端的通信和点到点的通信的区别？"></a>端到端的通信和点到点的通信的区别？</h2><p> 三点不同：</p>
-<ul>
-<li>实体不同</li>
-<li>发生的层不同</li>
-<li>点到点不支持可靠传输，而端到端支持</li>
-</ul>
-<p>从本质上说，由物理层、数据链路层和网络层组成的通信子网为网络环境中的主机提供点到点的服务，而传输层为网络中的主机提供端到端的通信。</p>
-<p>直接相连的结点之间的通信叫点到点通信。它只提件一合却票到另一台机器之间的通信，不会涉及程序或进程的概念。同时点到点通信并不能保证数据传输的可靠性，也不能说明源主机与目的主机之间是哪两个进程在通信，这些工作都是由传输层来完成的。</p>
-<p>端到端通信建立在点到点通信的基础上，它是由一段段的点到点通信信道构成的，是比点到点通信更高一级的通信方式，以完成应用程序（进程）之间的通信。“端”是指用户程序的端口，端口号标识了应用层中不同的进程。</p>
-<h2 id="通信方式"><a href="#通信方式" class="headerlink" title="通信方式"></a>通信方式</h2><h3 id="单工通信"><a href="#单工通信" class="headerlink" title="单工通信"></a>单工通信</h3><p>只能有一个方向的通信，没有反方向的交互，只需要一个信道。</p>
-<h3 id="半双工"><a href="#半双工" class="headerlink" title="半双工"></a>半双工</h3><p>通信的双方都可以发送或者接受消息，但是任何一方不能同时发送和接收消息，需要两个信道。</p>
-<h3 id="全双工"><a href="#全双工" class="headerlink" title="全双工"></a>全双工</h3><p>通信的双方都可以同时发送和接收消息，需要两个信道。</p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-  </div>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
-
-
-
-          </div>
-          
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
       </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="张潇"
-      src="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
-  <p class="site-author-name" itemprop="name">张潇</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">26</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">10</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">21</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="feed-link motion-element">
-    <a href="/atom.xml" rel="alternate">
-      <i class="fa fa-rss"></i>RSS
-    </a>
-  </div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/ibitm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ibitm" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="/mailto:875080958@qq.com" title="E-Mail → mailto:875080958@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="http://www.zhihu.com/people/zhang-xiao-61-53/activities" title="zhihu → http:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;zhang-xiao-61-53&#x2F;activities" rel="noopener" target="_blank"><i class="fa fa-fw fa-zhihu"></i>zhihu</a>
-      </span>
-  </div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+  </div>
+</nav>
 
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
 
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
       </div>
-    </main>
+    </div>
+  </header>
 
-    <footer class="footer">
-      <div class="footer-inner">
+  <main>
+    
+      <div class="container nopadding-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
         
+        <a href="/2020/10/26/LeetCode%20564.%20%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E5%9B%9E%E6%96%87%E6%95%B0/">寻找最近的回文数</a>
+      </h1>
 
-<div class="copyright">
+      <p class="index-excerpt">
+        <a href="/2020/10/26/LeetCode%20564.%20%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E5%9B%9E%E6%96%87%E6%95%B0/">
+          
+          
+            
+          
+          564. 寻找最近的回文数
+给定一个整数 n ，你需要找到与它最近的回文数（不包括自身）。
+“最近的”定义为两个整数差的绝对值最小。
+示例 1:
+输入: "123"
+输出: "121"
+注意:
+
+n 是由字符串表示的正整数，其长度不超过18。
+如果有多个结果，返回最小的那个。
+
+
+拓展知识点-Java 基本数据结构的表示范围
+
+
+
+类型
+存储
+表示范围
+定义变量时的特殊处理
+
+
+
+
+byte
+1B
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-26 09:18" pubdate>
+              2020-10-26
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/LeetCode/">LeetCode</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">算法和数据结构</a>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/10/25/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Kafka%20%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E8%B7%B5%E5%8E%9F%E7%90%86/">深入理解 Kafka 核心设计和实践原理</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/10/25/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Kafka%20%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E8%B7%B5%E5%8E%9F%E7%90%86/">
+          
+          
+            
+          
+          第 4 章 - 主题和分区4.1 主题的管理主题的管理主要是包括主题的创建、修改、删除以及查看主题的元数据，都可以通过 Kafka 提供的 kafka-topics.sh 脚本执行这一些操作。
+这个脚本本质上是调用了 kafka.admin.TopicCommand 类来执行主题管理的操作。
+一般来说，还有 2 种办法可以实现主题的管理
+
+通过 KafkaAdminClient 的方式（通过发送 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-25 21:18" pubdate>
+              2020-10-25
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Kafka/">Kafka</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/12/22/Linux%20%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/">Linux 包管理基础</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/12/22/Linux%20%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/">
+          
+          
+            
+          
+          内容参考自 Linux 包管理基础：apt、yum、dnf 和 pkg
+介绍大多数现代的类 Unix 操作系统都提供了一种中心化的机制用来搜索和安装软件。软件通常都是存放在存储库中，并通过包的形式进行分发。处理包的工作被称为包管理。包提供了操作系统的基本组件，以及共享的库、应用程序、服务和文档。
+包管理系统除了安装软件外，它还提供了工具来更新已经安装的包。包存储库有助于确保你的系统中使用的代码是经
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-12-22 14:54" pubdate>
+              2019-12-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Linux/">Linux</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Linux/">Linux</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/12/21/SQL-%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93/">SQL 实践总结</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/12/21/SQL-%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93/">
+          
+          
+            
+          
+          概念性问题实践性问题不同表相同字段当进行关联操作时，会发生什么？我们现在有 A，B 两个表
+select * from A;  
++------+
+| id   |
++------+
+|    1 |
+|    2 |
+|    3 |
++------+
+
+select * from B;
++------+
+| id   |
++------+
+|    3 |
+|    4 |
+|    5 |
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-12-21 17:08" pubdate>
+              2019-12-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/SQL/">SQL</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/SQL/">SQL</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/12/21/%E4%BD%BF%E7%94%A8Beamer%E5%88%B6%E4%BD%9C%E5%B9%BB%E7%81%AF%E7%89%87%E5%85%A5%E9%97%A8/">使用Beamer制作幻灯片入门</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/12/21/%E4%BD%BF%E7%94%A8Beamer%E5%88%B6%E4%BD%9C%E5%B9%BB%E7%81%AF%E7%89%87%E5%85%A5%E9%97%A8/">
+          
+          
+            
+          
+          幻灯片我们将 presentation slide 叫做演示幻灯片，具体的由来可以参考维基百科 👉 presentation slide
+随着  Microsoft PowerPoint 占领的市场份额越来越大，我们现在直接将 PowerPoint 的概念等同为了幻灯片。
+其实，幻灯片也可以使用 文档标记语言例如 LaTeX 的 Beamer) 来创建。
+一些资源网站Beamer 的基本结构
+B
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-12-21 16:39" pubdate>
+              2019-12-21
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LaTeX/">LaTeX</a>
+            
+              <a href="/tags/%E5%B9%BB%E7%81%AF%E7%89%87/">幻灯片</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/12/19/HR-%E9%9D%A2%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/">HR 面注意事项</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/12/19/HR-%E9%9D%A2%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/">
+          
+          
+            
+          
+          本文的大部分来自 HR通常提的一些面试问题是什么？怎么回答？ - 职研社De圆圆的回答
+你最大的缺点是什么？问题分析：考察候选人的自我认知能力，个人优点是否符合岗位要求。
+参考建议：
+第一，不宜说自己没有缺点，只要是人就有缺点，这么说一定会令人反感。
+第二，年轻经验不足、缺乏磨炼、有些着急、对待效率低下的人缺乏耐心等
+根据以上的关键点，缺点参考回复：
+首先，我刚毕业，经验方面不足，我会在工作中积极
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-12-19 10:59" pubdate>
+              2019-12-19
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%9D%A2%E8%AF%95/">面试</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/12/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/12/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+          
+          
+            
+          
+          设计模式是软件设计中常见问题或者常见应用场景的典型解决方案。 每个模式就像一张蓝图， 你可以通过对其进行定制来解决代码中的特定设计问题。
+发现一个整理比较号的文档 设计模式
+模式的分类不同设计模式在其复杂程度、 细节层次以及在整个系统中的应用范围等方面各不相同。 我喜欢将其类比于道路的建造： 如果你希望让十字路口更加安全， 那么可以安装一些交通信号灯， 或者修建包含行人地下通道在内的多层互通式立交
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-12-16 13:18" pubdate>
+              2019-12-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Java/">Java</a>
+            
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/12/15/Maven%20%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/">Maven 相关问题的总结</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/12/15/Maven%20%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/">
+          
+          
+            
+          
+          Maven中建立的依赖管理方式基本已成为Java语言依赖管理的事实标准，Maven的替代者Gradle也基本沿用了Maven的依赖管理机制。在Maven依赖管理中，唯一标识一个依赖项是由该依赖项的三个属性构成的，分别是groupId、artifactId以及version。这三个属性可以唯一确定一个组件（Jar包或者War包）。
+其实在Nexus仓库中，一个仓库一般分为public(Release
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-12-15 16:10" pubdate>
+              2019-12-15
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/12/15/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">秒杀系统学习笔记</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/12/15/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+          
+          
+            
+          
+          环境的搭建Spring BootSpring Boot 官网
+Spring Boot 构建一个 RESTFUL 风格的 Web 服务
+互不 通信 的 分布式 架构 方式。 缓存 与 应用 分离 部署， 缓存 系统 部署 在 一组 专门 的 服务器 上， 应用 程序 通过 一致性 Hash 等 路 由 算法 选择 缓存 服务器 远程 访问 缓存 数据， 缓存 服务器 之间 不 通信， 缓存 集群 的
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-12-15 15:19" pubdate>
+              2019-12-15
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/12/14/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9%E5%A4%8D%E4%B9%A0/">关于计算机网络的知识点复习...</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/12/14/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9%E5%A4%8D%E4%B9%A0/">
+          
+          
+            
+          
+          既然已经决定要做开发了，就把之间放下的东西捡起来好好看看吧😝
+ISO/OSI 参考模型和 TCP/IP 模型国际标准化组织 (ISO)提出了网络体系结构模型，称为开放互连参考模型（OSI/RM），简称为 OSI 参考模型。
+共有七层
+数据交换的方式
+电路交换
+在源节点和目的节点之间建立一条专用（双方独占）的通路用于传送数据，通常分为三个阶段：建立连接，传输数据和断开连接。最典型的电路交换网就是传
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-12-14 15:03" pubdate>
+              2019-12-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%9D%A2%E8%AF%95/">面试</a>
+            
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E7%BD%91%E7%BB%9C/">计算网络</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
   
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">张潇</span>
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  
+
+  
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
-  <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
-  </div>
-
-        
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-  </div>
+  
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
-<script src="/js/schemes/pisces.js"></script>
-<script src="/js/next-boot.js"></script>
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
@@ -1816,10 +769,8 @@ https://www.zhihu.com/question/24192778/answer/631081857">HR通常提的一些�
 
 
 
-
-  <script src="/js/local-search.js"></script>
-
-
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
 
 
 
@@ -1829,40 +780,53 @@ https://www.zhihu.com/question/24192778/answer/631081857">HR通常提的一些�
 
 
 
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "An elegant Material-Design theme for Hexo&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
 
 
-  
-
-  
-
-  
 
 
-<script>
-NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
-  var GUEST = ['nick', 'mail', 'link'];
-  var guest = 'nick,mail,link';
-  guest = guest.split(',').filter(item => {
-    return GUEST.includes(item);
-  });
-  new Valine({
-    el: '#comments',
-    verify: false,
-    notify: false,
-    appId: '59jSyrRz5vygBBEppvd4Inud-MdYXbMMI',
-    appKey: '14TLHCXpYXedwKjmamiT2knn',
-    placeholder: "Just go go",
-    avatar: 'retro',
-    meta: guest,
-    pageSize: '10' || 10,
-    visitor: false,
-    lang: '' || 'zh-cn',
-    path: location.pathname,
-    recordIP: false,
-    serverURLs: ''
-  });
-}, window.Valine);
-</script>
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>

@@ -1,278 +1,222 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-  <link rel="alternate" href="/atom.xml" title="求索之心" type="application/atom+xml">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="张潇">
+  <meta name="keywords" content="">
+  <title>背包问题 - 求索之心</title>
 
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
-
-
-<script id="hexo-configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    hostname: new URL('https://ibitm.github.io').hostname,
-    root: '/',
-    scheme: 'Pisces',
-    version: '7.5.0',
-    exturl: false,
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
-    mediumzoom: false,
-    lazyload: false,
-    pangu: false,
-    algolia: {
-      appID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    },
-    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: 'search.xml',
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    sidebarPadding: 40
-  };
-</script>
-
-  <meta name="description" content="背景待补充 0&#x2F;1背包问题二维动态规划有一个容量为 N 的背包，要用这个背包装下物品的价值最大，这些物品有两个属性：体积 w 和价值 v。 定义一个二维数组 dp 存储最大价值，其中 dp[i][j] 表示前 i 件物品体积不超过 j 的情况下能达到的最大价值。设第 i 件物品体积为 w，价值为 v，根据第 i 件物品是否添加到背包中，可以分两种情况讨论：  第 i 件物品没添加到背包，总体积不超">
-<meta name="keywords" content="数据结构与算法,背包问题">
-<meta property="og:type" content="article">
-<meta property="og:title" content="背包问题">
-<meta property="og:url" content="https:&#x2F;&#x2F;ibitm.github.io&#x2F;2019&#x2F;11&#x2F;29&#x2F;%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98&#x2F;index.html">
-<meta property="og:site_name" content="求索之心">
-<meta property="og:description" content="背景待补充 0&#x2F;1背包问题二维动态规划有一个容量为 N 的背包，要用这个背包装下物品的价值最大，这些物品有两个属性：体积 w 和价值 v。 定义一个二维数组 dp 存储最大价值，其中 dp[i][j] 表示前 i 件物品体积不超过 j 的情况下能达到的最大价值。设第 i 件物品体积为 w，价值为 v，根据第 i 件物品是否添加到背包中，可以分两种情况讨论：  第 i 件物品没添加到背包，总体积不超">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;github.com&#x2F;IBITM&#x2F;ibitm.github.io&#x2F;blob&#x2F;master&#x2F;img&#x2F;%E6%9C%AA%E5%91%BD%E5%90%8D%E8%A1%A8%E5%8D%952.png?raw=true">
-<meta property="og:image" content="https:&#x2F;&#x2F;github.com&#x2F;IBITM&#x2F;ibitm.github.io&#x2F;blob&#x2F;master&#x2F;img&#x2F;%E6%9C%AA%E5%91%BD%E5%90%8D%E8%A1%A8%E5%8D%95.png?raw=true">
-<meta property="og:updated_time" content="2019-11-29T08:09:22.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;github.com&#x2F;IBITM&#x2F;ibitm.github.io&#x2F;blob&#x2F;master&#x2F;img&#x2F;%E6%9C%AA%E5%91%BD%E5%90%8D%E8%A1%A8%E5%8D%952.png?raw=true">
-
-<link rel="canonical" href="https://ibitm.github.io/2019/11/29/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/">
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome: false,
-    isPost: true,
-    isPage: false,
-    isArchive: false
-  };
-</script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
-  <title>背包问题 | 求索之心</title>
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
   
 
 
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
 
 
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-meta">
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
 
-    <div>
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">求索之心</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:" target="_blank" rel="noopener">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
-        <p class="site-subtitle">点滴琢磨</p>
   </div>
-
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-</div>
-
-
-<nav class="site-nav">
-  
-  <ul id="menu" class="menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
-  </ul>
-
 </nav>
-  <div class="site-search">
-    <div class="popup search-popup">
-    <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocorrect="off" autocapitalize="none"
-           placeholder="搜索..." spellcheck="false"
-           type="text" id="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result"></div>
 
-</div>
-<div class="search-pop-overlay"></div>
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
 
-  </div>
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content">
             
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-11-29 16:09" pubdate>
+        2019年11月29日 下午
+      </time>
+    </span>
+  
+</div>
 
-  <div class="posts-expand">
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
       
+      
+      22
+       分钟
+    </span>
+  
+
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ibitm.github.io/2019/11/29/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/">
+</div>
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
-      <meta itemprop="name" content="张潇">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="求索之心">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          背包问题
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-29 16:09:22" itemprop="dateCreated datePublished" datetime="2019-11-29T16:09:22+08:00">2019-11-29</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法</span>
-                  </a>
-                </span>
-            </span>
+            
+          </div>
 
           
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/11/29/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/29/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
         </div>
-      </header>
+      </div>
+    </div>
+  </header>
 
+  <main>
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>待补充</p>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">背包问题</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>待补充</p>
 <h2 id="0-1背包问题"><a href="#0-1背包问题" class="headerlink" title="0/1背包问题"></a>0/1背包问题</h2><h3 id="二维动态规划"><a href="#二维动态规划" class="headerlink" title="二维动态规划"></a>二维动态规划</h3><p>有一个容量为 N 的背包，要用这个背包装下物品的价值最大，这些物品有两个属性：体积 w 和价值 v。</p>
 <p>定义一个二维数组 <code>dp</code> 存储最大价值，其中 <code>dp[i][j]</code> 表示前 i 件物品体积不超过 j 的情况下能达到的最大价值。设第 i 件物品体积为 w，价值为 v，根据第 i 件物品是否添加到背包中，可以分两种情况讨论：</p>
 <ul>
@@ -281,16 +225,47 @@
 </ul>
 <p>第 i 件物品可添加也可以不添加，取决于哪种情况下最大价值更大。因此，0-1 背包的状态转移方程为：</p>
 <script type="math/tex; mode=display">
-dp[i][j] = max(dp[i-1][j],dp[i-1][j-w]+v)</script><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        W 表示背包能容纳的最大重量</span></span><br><span class="line"><span class="comment">        N 表示物品的数量</span></span><br><span class="line"><span class="comment">        wiehgts 表示 N 件物品的重量</span></span><br><span class="line"><span class="comment">        value 表示 N 件物品的价值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">knapsack</span><span class="params">(<span class="keyword">int</span> W, <span class="keyword">int</span> N, <span class="keyword">int</span>[] weights, <span class="keyword">int</span>[] values)</span> </span>{</span><br><span class="line">        <span class="comment">//dp[i][j] 表示只放前 i 件的商品，体积不超过 j 的最大价值</span></span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[N + <span class="number">1</span>][W + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i <= n; i++) {< span><br><span class="line">            <span class="keyword">int</span> w = weights[i - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">int</span> v = values[i - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j <= w; j++) {< span><br><span class="line">                <span class="keyword">if</span> (j >= w) {</span><br><span class="line">                    dp[i][j] = Math.max(dp[i - <span class="number">1</span>][j], dp[i - <span class="number">1</span>][j - w] + v);</span><br><span class="line">                } <span class="keyword">else</span> {</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j];</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> dp[N][W];</span><br><span class="line">    }</span><br><span class="line">}</span><br></=></span></=></span></pre></td></tr></tbody></table></figure>
+dp[i][j] = max(dp[i-1][j],dp[i-1][j-w]+v)</script><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-comment">/*
+        W 表示背包能容纳的最大重量
+        N 表示物品的数量
+        wiehgts 表示 N 件物品的重量
+        value 表示 N 件物品的价值
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">knapsack</span><span class="hljs-params">(<span class="hljs-keyword">int</span> W, <span class="hljs-keyword">int</span> N, <span class="hljs-keyword">int</span>[] weights, <span class="hljs-keyword">int</span>[] values)</span> </span>{
+        <span class="hljs-comment">//dp[i][j] 表示只放前 i 件的商品，体积不超过 j 的最大价值</span>
+        <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[N + <span class="hljs-number">1</span>][W + <span class="hljs-number">1</span>];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i <= n; i++) { <span class="hljs-keyword">int w = weights[i - <span class="hljs-number">1</span>];
+            <span class="hljs-keyword">int</span> v = values[i - <span class="hljs-number">1</span>];
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j <= w; j++) { <span class="hljs-keyword">if (j >= w) {
+                    dp[i][j] = Math.max(dp[i - <span class="hljs-number">1</span>][j], dp[i - <span class="hljs-number">1</span>][j - w] + v);
+                } <span class="hljs-keyword">else</span> {
+                    dp[i][j] = dp[i - <span class="hljs-number">1</span>][j];
+                }
+            }
+        }
+        <span class="hljs-keyword">return</span> dp[N][W];
+    }
+}</=></=></code></pre>
 <p><strong>我们以下面的物品举例说明求解的过程</strong></p>
-<p></p><div align="left"> <img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/%E6%9C%AA%E5%91%BD%E5%90%8D%E8%A1%A8%E5%8D%952.png?raw=true" width="274px" height="141px"> </div><br>下面以四个状态的计算举例<p></p>
-<p></p><div align="left"> <img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/%E6%9C%AA%E5%91%BD%E5%90%8D%E8%A1%A8%E5%8D%95.png?raw=true" width="1108px" height="535px"> </div><p></p>
+<p></p><div align="left"> <img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/%E6%9C%AA%E5%91%BD%E5%90%8D%E8%A1%A8%E5%8D%952.png?raw=true" srcset="/img/loading.gif" width="274px" height="141px"> </div><br>下面以四个状态的计算举例<p></p>
+<p></p><div align="left"> <img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/%E6%9C%AA%E5%91%BD%E5%90%8D%E8%A1%A8%E5%8D%95.png?raw=true" srcset="/img/loading.gif" width="1108px" height="535px"> </div><p></p>
 <h3 id="一维动态规划"><a href="#一维动态规划" class="headerlink" title="一维动态规划"></a>一维动态规划</h3><p>观察状态转移方程或者填充表格的顺序，我们可以知道，前 i 件物品的状态仅与前 i-1 件物品的状态有关，因此可以将 dp 定义为一维数组，表示容量为 j 时，可以获得的最大价值。</p>
 <script type="math/tex; mode=display">
 dp[j] = max(dp[j],dp[j-w]+v)</script><p>值得注意的是，等号左边的<code>dp[j]</code>表示前 i 件商品容量为 j 时可以获得的最大价值，本质上是<code>dp[i][j]</code>；等号右边的<code>dp[j]</code>和<code>dp[j-w]</code>是前 i -1 件商品时容量分别为 j 和 j-w 时获得的最大价值，本质上其实是<code>dp[i-1][j]</code>和<code>dp[i-1][j-w]</code>。</p>
 <p>如果我们实现代码的时候，内层循环还是按照容量从小到大循环，就会出现一个问题，就是<code>dp[j-w]</code>表示的不再是<code>dp[i-1][j-w]</code>而是<code>dp[i][j-w]</code>。</p>
 <p>所以，我们实现的时候内层循环，要按照容量从大向小来循环。</p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">knapsack</span><span class="params">(<span class="keyword">int</span> W, <span class="keyword">int</span> N, <span class="keyword">int</span>[] weights, <span class="keyword">int</span>[] values)</span> </span>{</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[W + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i <= n; i++) {< span><br><span class="line">        <span class="keyword">int</span> w = weights[i - <span class="number">1</span>], v = values[i - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = W; j >= <span class="number">1</span>; j--) {</span><br><span class="line">            <span class="keyword">if</span> (j >= w) {</span><br><span class="line">                dp[j] = Math.max(dp[j], dp[j - w] + v);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> dp[W];</span><br><span class="line">}</span><br></=></span></pre></td></tr></tbody></table></figure>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">knapsack</span><span class="hljs-params">(<span class="hljs-keyword">int</span> W, <span class="hljs-keyword">int</span> N, <span class="hljs-keyword">int</span>[] weights, <span class="hljs-keyword">int</span>[] values)</span> </span>{
+    <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[W + <span class="hljs-number">1</span>];
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i <= n; i++) { <span class="hljs-keyword">int w = weights[i - <span class="hljs-number">1</span>], v = values[i - <span class="hljs-number">1</span>];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = W; j >= <span class="hljs-number">1</span>; j--) {
+            <span class="hljs-keyword">if</span> (j >= w) {
+                dp[j] = Math.max(dp[j], dp[j - w] + v);
+            }
+        }
+    }
+    <span class="hljs-keyword">return</span> dp[W];
+}</=></code></pre>
 <p>内容参考<a href="https://cyc2018.github.io/CS-Notes/#/notes/Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92?id=_0-1-%e8%83%8c%e5%8c%85" target="_blank" rel="noopener">Leetcode题解/动态规划/0-1-背包</a></p>
 <h2 id="二维费用背包问题"><a href="#二维费用背包问题" class="headerlink" title="二维费用背包问题"></a>二维费用背包问题</h2><p>二维费用背包问题本质上只是0/1背包的变形，多添加一种费用。二维费用背包问题是指：</p>
 <ul>
@@ -315,7 +290,31 @@ dp[i][j][k] = max(dp[i-1][j][k],dp[i-1][j-volume][k-weight] + value)</script><p>
 <script type="math/tex; mode=display">
 dp[j][k] = max(dp[j][k],dp[j-volume][k-weight] + value)</script><p>我们以 <a href="https://leetcode-cn.com/problems/ones-and-zeroes/" target="_blank" rel="noopener">474. 一和零</a> 为例说明二维背包的解题过程</p>
 <p>在这个问题中，每个字符串对应一个物品，每选择一个字符串就得花费一定量的 0 和 1，每个字符串的价值都是 1，0 和 1的最大容量为 m 和 n 。</p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findMaxForm</span><span class="params">(String[] strs, <span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>{</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         dp[i][j] 表示当 i 个 0 和 j 个 1 时，所能收获的最大价值，也就是最多字符串的个数。</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[m + <span class="number">1</span>][n + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (String str : strs) {</span><br><span class="line">            <span class="keyword">int</span> one = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">int</span> zero = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < str.length(); i++) {</span><br><span class="line">                <span class="keyword">if</span> (str.charAt(i) == <span class="string">'0'</span>)</span><br><span class="line">                    zero++;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    one++;</span><br><span class="line">            }</span><br><span class="line">            <span class="comment">//为什么要逆序遍历，参考0/1 背包的解释。</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = m; i >= zero; i--) {</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = n; j >= one; j--) {</span><br><span class="line">                    dp[i][j] = Math.max(dp[i][j], dp[i - zero][j - one] + <span class="number">1</span>);</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> dp[m][n];</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findMaxForm</span><span class="hljs-params">(String[] strs, <span class="hljs-keyword">int</span> m, <span class="hljs-keyword">int</span> n)</span> </span>{
+        <span class="hljs-comment">/*
+         dp[i][j] 表示当 i 个 0 和 j 个 1 时，所能收获的最大价值，也就是最多字符串的个数。
+         */</span>
+        <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[m + <span class="hljs-number">1</span>][n + <span class="hljs-number">1</span>];
+        <span class="hljs-keyword">for</span> (String str : strs) {
+            <span class="hljs-keyword">int</span> one = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">int</span> zero = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i < str.length(); i++) {
+                <span class="hljs-keyword">if</span> (str.charAt(i) == <span class="hljs-string">'0'</span>)
+                    zero++;
+                <span class="hljs-keyword">else</span>
+                    one++;
+            }
+            <span class="hljs-comment">//为什么要逆序遍历，参考0/1 背包的解释。</span>
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = m; i >= zero; i--) {
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = n; j >= one; j--) {
+                    dp[i][j] = Math.max(dp[i][j], dp[i - zero][j - one] + <span class="hljs-number">1</span>);
+                }
+            }
+        }
+        <span class="hljs-keyword">return</span> dp[m][n];
+    }
+}</code></pre>
 <h2 id="完全背包问题"><a href="#完全背包问题" class="headerlink" title="完全背包问题"></a>完全背包问题</h2><p>完全背包问题和 0/1 背包最大的不同，在于<strong>物品是可以重复选择的</strong>。</p>
 <p>我们以 <a href="https://leetcode-cn.com/problems/coin-change/" target="_blank" rel="noopener">零钱兑换</a> 这道经典题目举例，说明完全背包问题的特点和求解方法。</p>
 <p>我们同样定义一个二维数组<code>dp[i][j]</code> ， 表示考虑前 i <strong>种</strong>硬币，凑出金额为 j 的最少硬币数目。</p>
@@ -359,276 +358,255 @@ dp[j] = min(dp[j], dp[j-c] + 1)</script><p>在这里我们可以完全背包和0
             document.body.appendChild(img);
           });
       </script>
-    </div>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/">背包问题</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/11/29/2019%E5%B9%B411%E6%9C%8829%E6%97%A5-%E9%9A%8F%E7%AC%94/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2019年11月29日 随笔</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/11/27/646-%E6%9C%80%E9%95%BF%E6%95%B0%E5%AF%B9%E9%93%BE/">
+                        <span class="hidden-mobile">646. 最长数对链</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
 
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag"># 数据结构与算法</a>
-              <a href="/tags/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/" rel="tag"># 背包问题</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2019/11/27/646-%E6%9C%80%E9%95%BF%E6%95%B0%E5%AF%B9%E9%93%BE/" rel="prev" title="646. 最长数对链">
-      <i class="fa fa-chevron-left"></i> 646. 最长数对链
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2019/11/29/2019%E5%B9%B411%E6%9C%8829%E6%97%A5-%E9%9A%8F%E7%AC%94/" rel="next" title="2019年11月29日 随笔">
-      2019年11月29日 随笔 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-  </div>
-
-
-          </div>
-          
-    <div class="comments" id="comments"></div>
-
+            
+          </article>
         </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-1背包问题"><span class="nav-number">2.</span> <span class="nav-text">0/1背包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二维动态规划"><span class="nav-number">2.1.</span> <span class="nav-text">二维动态规划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一维动态规划"><span class="nav-number">2.2.</span> <span class="nav-text">一维动态规划</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二维费用背包问题"><span class="nav-number">3.</span> <span class="nav-text">二维费用背包问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完全背包问题"><span class="nav-number">4.</span> <span class="nav-text">完全背包问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="张潇"
-      src="/uploads/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20191124213944.png">
-  <p class="site-author-name" itemprop="name">张潇</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">26</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">10</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">21</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="feed-link motion-element">
-    <a href="/atom.xml" rel="alternate">
-      <i class="fa fa-rss"></i>RSS
-    </a>
-  </div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/ibitm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ibitm" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="/mailto:875080958@qq.com" title="E-Mail → mailto:875080958@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="http://www.zhihu.com/people/zhang-xiao-61-53/activities" title="zhihu → http:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;zhang-xiao-61-53&#x2F;activities" rel="noopener" target="_blank"><i class="fa fa-fw fa-zhihu"></i>zhihu</a>
-      </span>
-  </div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">张潇</span>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
-  </div>
-  <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
-  </div>
 
-        
-
-
-
-
-
-
-
-
-        
       </div>
-    </footer>
+    
   </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
-<script src="/js/schemes/pisces.js"></script>
-<script src="/js/next-boot.js"></script>
-
-
-
-  
-
-
-
-
-  <script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
   
 
   
-      
-<script type="text/x-mathjax-config">
-    MathJax.Ajax.config.path['mhchem'] = '//cdn.jsdelivr.net/npm/mathjax-mhchem@3';
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
 
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-        extensions: ['[mhchem]/mhchem.js'],
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
+  
 
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
       }
     });
-  });
+  </script>
 
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "背包问题&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
     }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
-    
-
-  
+    anchors.add(res.join(", "))
+  </script>
 
 
-<script>
-NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
-  var GUEST = ['nick', 'mail', 'link'];
-  var guest = 'nick,mail,link';
-  guest = guest.split(',').filter(item => {
-    return GUEST.includes(item);
-  });
-  new Valine({
-    el: '#comments',
-    verify: false,
-    notify: false,
-    appId: '59jSyrRz5vygBBEppvd4Inud-MdYXbMMI',
-    appKey: '14TLHCXpYXedwKjmamiT2knn',
-    placeholder: "Just go go",
-    avatar: 'retro',
-    meta: guest,
-    pageSize: '10' || 10,
-    visitor: false,
-    lang: '' || 'zh-cn',
-    path: location.pathname,
-    recordIP: false,
-    serverURLs: ''
-  });
-}, window.Valine);
-</script>
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>
