@@ -587,6 +587,98 @@ new capacity : 00100000</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>LeetCode 263.丑数序列</title>
+    <url>/2020/10/27/LeetCode-263-%E4%B8%91%E6%95%B0%E5%BA%8F%E5%88%97/</url>
+    <content><![CDATA[<h2 id="丑数序列"><a href="#丑数序列" class="headerlink" title="丑数序列"></a>丑数序列</h2><p>丑数问题可以归结为序列问题，而序列问题中的元素往往存在一些递推关系，使用编程来解决序列问题往往可以考察程序员对于问题特征的思考和算法实现能力。</p>
+<a id="more"></a>
+<h2 id="263-丑数"><a href="#263-丑数" class="headerlink" title="263. 丑数"></a><a href="https://leetcode-cn.com/problems/ugly-number/">263. 丑数</a></h2><blockquote>
+<p>编写一个程序判断给定的数是否为丑数。</p>
+<p>丑数就是只包含质因数 2, 3, 5 的正整数。</p>
+<p><strong>示例 1:</strong></p>
+<pre><code class="hljs yaml"><span class="hljs-string">输入:</span> <span class="hljs-number">6</span>
+<span class="hljs-string">输出:</span> <span class="hljs-literal">true</span>
+<span class="hljs-string">解释:</span> <span class="hljs-number">6</span> <span class="hljs-string">=</span> <span class="hljs-number">2</span> <span class="hljs-string">×</span> <span class="hljs-number">3</span></code></pre>
+<p><strong>示例 2:</strong></p>
+<pre><code class="hljs yaml"><span class="hljs-string">输入:</span> <span class="hljs-number">8</span>
+<span class="hljs-string">输出:</span> <span class="hljs-literal">true</span>
+<span class="hljs-string">解释:</span> <span class="hljs-number">8</span> <span class="hljs-string">=</span> <span class="hljs-number">2</span> <span class="hljs-string">×</span> <span class="hljs-number">2</span> <span class="hljs-string">×</span> <span class="hljs-number">2</span></code></pre>
+<p><strong>示例 3:</strong></p>
+<pre><code class="hljs yaml"><span class="hljs-string">输入:</span> <span class="hljs-number">14</span>
+<span class="hljs-string">输出:</span> <span class="hljs-literal">false</span> 
+<span class="hljs-string">解释:</span> <span class="hljs-number">14</span> <span class="hljs-string">不是丑数，因为它包含了另外一个质因数</span> <span class="hljs-number">7</span><span class="hljs-string">。</span></code></pre>
+</blockquote>
+<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isUgly</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>&#123;
+        # 吐槽一下，题目里说了正整数，结果测试用例里给了一个 0 
+        <span class="hljs-keyword">if</span> (num &lt; <span class="hljs-number">1</span>)
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        <span class="hljs-keyword">while</span> (num % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)
+            num /= <span class="hljs-number">2</span>;
+        <span class="hljs-keyword">while</span> (num % <span class="hljs-number">3</span> == <span class="hljs-number">0</span>)
+            num /= <span class="hljs-number">3</span>;
+        <span class="hljs-keyword">while</span> (num % <span class="hljs-number">5</span> == <span class="hljs-number">0</span>)
+            num /= <span class="hljs-number">5</span>;
+        <span class="hljs-keyword">return</span> num == <span class="hljs-number">1</span>;
+    &#125;
+&#125;</code></pre>
+<h2 id="264-丑数-II"><a href="#264-丑数-II" class="headerlink" title="264. 丑数 II"></a><a href="https://leetcode-cn.com/problems/ugly-number-ii/">264. 丑数 II</a></h2><p>编写一个程序，找出第 <code>n</code> 个丑数。</p>
+<p>丑数就是质因数只包含 <code>2, 3, 5</code> 的<strong>正整数</strong>。</p>
+<p><strong>示例:</strong></p>
+<pre><code class="hljs angelscript">输入: n = <span class="hljs-number">10</span>
+输出: <span class="hljs-number">12</span>
+解释: <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>, <span class="hljs-number">12</span> 是前 <span class="hljs-number">10</span> 个丑数。</code></pre>
+<p><strong>说明:</strong>  </p>
+<ol>
+<li><code>1</code> 是丑数。</li>
+<li><code>n</code> <strong>不超过</strong>1690。</li>
+</ol>
+<p><strong>思路：</strong></p>
+<p>为什么说丑数问题是一个序列问题呢？</p>
+<p>因为第 n 个丑数肯定是由比 n 小的丑数 <em> 2、</em> 3 或者 *5 得到。</p>
+<p>那我们怎么通过开始的丑数来获得有序的丑数序列呢？</p>
+<p><img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/LeetCode/丑数序列.png" alt="丑数序列"></p>
+<p>我们设置 3 个指针，红色每次 <em>2，绿色每次 \</em>3，蓝色每次 *5</p>
+<p><strong>Step1</strong></p>
+<p>我们可以由 1*2 得到 2 或者 1*3 得到 3 再或者 1* 5 = 5</p>
+<p>我们选择三者中的最小值 2，并且红色指针向前走一步</p>
+<p><strong>Step2</strong></p>
+<p>我们可以由 1*3 = 3 或者 1* 5 = 5 再或者 2*2= 4</p>
+<p>我们选择三者中的最小值 3，并且绿色指针向前走一步</p>
+<p><strong>Step2</strong></p>
+<p>我们可以由 1* 5 = 5 或者 2*2= 4 再或者 2*3 = 6</p>
+<p>我们选择三者中的最小值 4，并且红色指针向前走一步</p>
+<p>以此类推</p>
+<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">nthUglyNumber</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;
+        <span class="hljs-keyword">int</span>[] help = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n];
+        help[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">int</span> i2 = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> i3 = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> i5 = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> index = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">while</span> (index &lt; n) &#123;
+            help[index] = Math.min(<span class="hljs-number">2</span> * help[i2], Math.min(<span class="hljs-number">3</span> * help[i3], <span class="hljs-number">5</span> * help[i5]));
+            <span class="hljs-keyword">if</span> (help[index] == <span class="hljs-number">2</span> * help[i2])
+                i2++;
+            <span class="hljs-keyword">if</span> (help[index] == <span class="hljs-number">3</span> * help[i3])
+                i3++;
+            <span class="hljs-keyword">if</span> (help[index] == <span class="hljs-number">5</span> * help[i5])
+                i5++;
+            index++;
+        &#125;
+        <span class="hljs-keyword">return</span> help[index - <span class="hljs-number">1</span>];
+    &#125;
+&#125;</code></pre>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>数据结构和算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux 包管理基础</title>
     <url>/2019/12/22/Linux%20%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<p>内容参考自 <a href="https://linux.cn/article-8782-1.html">Linux 包管理基础：apt、yum、dnf 和 pkg</a></p>
@@ -747,6 +839,13 @@ new capacity : 00100000</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>Maven 相关问题的总结</title>
+    <url>/2019/12/15/Maven%20%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p>Maven中建立的依赖管理方式基本已成为Java语言依赖管理的事实标准，Maven的替代者Gradle也基本沿用了Maven的依赖管理机制。在Maven依赖管理中，唯一标识一个依赖项是由该依赖项的三个属性构成的，分别是groupId、artifactId以及version。这三个属性可以唯一确定一个组件（Jar包或者War包）。</p>
+<p>其实在Nexus仓库中，一个仓库一般分为public(Release)仓和SNAPSHOT仓，前者存放正式版本，后者存放快照版本。如果在项目配置文件中（无论是build.gradle还是pom.xml）指定的版本号带有’-SNAPSHOT’后缀，比如版本号为’Junit-4.10-SNAPSHOT’，那么打出的包就是一个快照版本。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>SQL 实践总结</title>
     <url>/2019/12/21/SQL-%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h2 id="概念性问题"><a href="#概念性问题" class="headerlink" title="概念性问题"></a>概念性问题</h2><h2 id="实践性问题"><a href="#实践性问题" class="headerlink" title="实践性问题"></a>实践性问题</h2><h2 id="不同表相同字段当进行关联操作时，会发生什么？"><a href="#不同表相同字段当进行关联操作时，会发生什么？" class="headerlink" title="不同表相同字段当进行关联操作时，会发生什么？"></a>不同表相同字段当进行关联操作时，会发生什么？</h2><p>我们现在有 A，B 两个表</p>
@@ -838,13 +937,6 @@ new capacity : 00100000</code></pre>
       <tags>
         <tag>SQL</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Maven 相关问题的总结</title>
-    <url>/2019/12/15/Maven%20%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<p>Maven中建立的依赖管理方式基本已成为Java语言依赖管理的事实标准，Maven的替代者Gradle也基本沿用了Maven的依赖管理机制。在Maven依赖管理中，唯一标识一个依赖项是由该依赖项的三个属性构成的，分别是groupId、artifactId以及version。这三个属性可以唯一确定一个组件（Jar包或者War包）。</p>
-<p>其实在Nexus仓库中，一个仓库一般分为public(Release)仓和SNAPSHOT仓，前者存放正式版本，后者存放快照版本。如果在项目配置文件中（无论是build.gradle还是pom.xml）指定的版本号带有’-SNAPSHOT’后缀，比如版本号为’Junit-4.10-SNAPSHOT’，那么打出的包就是一个快照版本。</p>
-]]></content>
   </entry>
   <entry>
     <title>Scala和Java的版本兼容问题</title>
@@ -1566,125 +1658,6 @@ res0: <span class="hljs-type">Array</span>[<span class="hljs-type">Int</span>] =
 ]]></content>
   </entry>
   <entry>
-    <title>设计模式</title>
-    <url>/2019/12/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<p><strong>设计模式</strong>是软件设计中常见问题或者常见应用场景的典型解决方案。 每个模式就像一张蓝图， 你可以通过对其进行定制来解决代码中的特定设计问题。</p>
-<p>发现一个整理比较号的文档 <a href="https://refactoringguru.cn/design-patterns/what-is-pattern">设计模式</a></p>
-<h2 id="模式的分类"><a href="#模式的分类" class="headerlink" title="模式的分类"></a>模式的分类</h2><p>不同设计模式在其复杂程度、 细节层次以及在整个系统中的应用范围等方面各不相同。 我喜欢将其类比于道路的建造： 如果你希望让十字路口更加安全， 那么可以安装一些交通信号灯， 或者修建包含行人地下通道在内的多层互通式立交桥。</p>
-<p>最基础的、 底层的模式通常被称为<em>惯用技巧</em>。 这类模式一般只能在一种编程语言中使用。</p>
-<p>最通用的、 高层的模式是<em>构架模式</em>。 开发者可以在任何编程语言中使用这类模式。 与其他模式不同， 它们可用于整个应用程序的架构设计。</p>
-<p>此外， 所有模式可以根据其<em>意图</em>或目的来分类。 本书覆盖了三种主要的模式类别：</p>
-<ul>
-<li><strong>创建型模式</strong>提供创建对象的机制， 增加已有代码的灵活性和可复用性。</li>
-<li><strong>结构型模式</strong>介绍如何将对象和类组装成较大的结构， 并同时保持结构的灵活和高效。</li>
-<li><strong>行为模式</strong>负责对象间的高效沟通和职责委派。</li>
-</ul>
-<h2 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h2><h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><p><strong>单例模式</strong>是一种创建型设计模式， 让你能够保证一个类只有一个实例， 并提供一个访问该实例的全局节点。</p>
-<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>单例模式同时解决了两个问题， 所以违反了<a href="https://refactoringguru.cn/didp/principles/solid-principles/srp">单一职责原则</a>：</p>
-<ol>
-<li><p><strong>保证一个类只有一个实例</strong>。 为什么会有人想要控制一个类所拥有的实例数量？ 最常见原因是控制某些共享资源 （例如数据库或文件） 的访问权限。</p>
-<p>它的运作方式是这样的： 如果你创建了一个对象， 同时一会儿后你决定再创建一个新对象， 此时你会获得之前已创建的对象， 而不是一个新对象。</p>
-<p>注意， 普通构造函数无法实现上述行为， 因为构造函数的设计决定了它<strong>必须</strong>总是返回一个新对象。</p>
-</li>
-</ol>
-<p>客户端甚至可能没有意识到它们一直都在使用同一个对象。</p>
-<ol>
-<li><p><strong>为该实例提供一个全局访问入口 </strong>。 还记得你 （好吧， 其实是我自己） 用过的那些存储重要对象的全局变量吗？ 它们在使用上十分方便， 但同时也非常不安全， 因为任何代码都有可能覆盖掉那些变量的内容， 从而引发程序崩溃。</p>
-<p>和全局变量一样， 单例模式也允许在程序的任何地方访问特定对象。 但是它可以保护该实例不被其他代码覆盖。</p>
-<p>还有一点： 你不会希望解决同一个问题的代码分散在程序各处的。 因此更好的方式是将其放在同一个类中， 特别是当其他代码已经依赖这个类时更应该如此。</p>
-</li>
-</ol>
-<p>如今， 单例模式已经变得非常流行， 以至于人们会将只解决上文描述中任意一个问题的东西称为<em>单例</em>。</p>
-<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>所有单例的实现都包含以下两个相同的步骤：</p>
-<ul>
-<li>将默认构造函数设为私有， 防止其他对象使用单例类的 <code>new</code>运算符。</li>
-<li>新建一个静态方法作为构造函数。 该函数会 “偷偷” 调用私有构造函数来创建对象， 并将其保存在一个静态成员变量中。 此后所有对于该函数的调用都将返回这一缓存对象。</li>
-</ul>
-<p>如果你的代码能够访问单例类， 那它就能调用单例类的静态方法。 无论何时调用该方法， 它总是会返回相同的对象。</p>
-<h4 id="单例模式适用性"><a href="#单例模式适用性" class="headerlink" title="单例模式适用性"></a>单例模式适用性</h4><ol>
-<li><p>如果程序中的某个类对于所有客户端只有一个可用的实例，可以使用单例模式。</p>
-<p>单例模式禁止通过除了特殊构建方法以外的任何方式来创建自身类对象。 该方法可以创建一个新对象， 但如果该对象已经被创建， 则返回已有的对象</p>
-</li>
-<li><p>如果你需要更加严格地控制全局变量， 可以使用单例模式。</p>
-<p>单例模式与全局变量不同， 它保证类只存在一个实例。 除了单例类自己以外， 无法通过任何方式替换缓存的实例。</p>
-</li>
-</ol>
-<h4 id="经典的实现方法"><a href="#经典的实现方法" class="headerlink" title="经典的实现方法"></a>经典的实现方法</h4><h5 id="懒汉模式"><a href="#懒汉模式" class="headerlink" title="懒汉模式"></a>懒汉模式</h5><p><strong>是否 Lazy 初始化：</strong>是</p>
-<p><strong>是否多线程安全：</strong>是</p>
-<p><strong>实现难度：</strong>易</p>
-<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span> </span>&#123;  
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Singleton instance;  
-    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Singleton</span> <span class="hljs-params">()</span></span>&#123;&#125;  
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">synchronized</span> Singleton <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>&#123;  
-    <span class="hljs-keyword">if</span> (instance == <span class="hljs-keyword">null</span>) &#123;  
-        instance = <span class="hljs-keyword">new</span> Singleton();  
-    &#125;  
-    <span class="hljs-keyword">return</span> instance;  
-    &#125;  
-&#125;</code></pre>
-<h5 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h5><p><strong>是否 Lazy 初始化：</strong>否</p>
-<p><strong>是否多线程安全：</strong>是</p>
-<p><strong>实现难度：</strong>易</p>
-<p>优点：没有加锁，执行效率会提高。<br>缺点：类加载时就初始化，浪费内存。<br>它基于 classloader 机制避免了多线程的同步问题，不过，instance 在类装载时就实例化，虽然导致类装载的原因有很多种，在单例模式中大多数都是调用 getInstance 方法， 但是也不能确定有其他的方式（或者其他的静态方法）导致类装载，这时候初始化 instance 显然没有达到 lazy loading 的效果。</p>
-<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span> </span>&#123;  
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Singleton instance = <span class="hljs-keyword">new</span> Singleton();  
-    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Singleton</span> <span class="hljs-params">()</span></span>&#123;&#125;  
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Singleton <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>&#123;  
-    <span class="hljs-keyword">return</span> instance;  
-    &#125;  
-&#125;</code></pre>
-<h5 id="双检锁-双重校验锁（DCL，即-double-checked-locking）"><a href="#双检锁-双重校验锁（DCL，即-double-checked-locking）" class="headerlink" title="双检锁/双重校验锁（DCL，即 double-checked locking）"></a>双检锁/双重校验锁（DCL，即 double-checked locking）</h5><p><strong>JDK 版本：</strong>JDK1.5 起</p>
-<p><strong>是否 Lazy 初始化：</strong>是</p>
-<p><strong>是否多线程安全：</strong>是</p>
-<p><strong>实现难度：</strong>较复杂</p>
-<p><strong>描述：</strong>这种方式采用双锁机制，安全且在多线程情况下能保持高性能。</p>
-<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span> </span>&#123;
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">volatile</span> <span class="hljs-keyword">static</span> Singleton singleton;
-
-    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Singleton</span><span class="hljs-params">()</span> </span>&#123;
-    &#125;
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Singleton <span class="hljs-title">getSingleton</span><span class="hljs-params">()</span> </span>&#123;
-        <span class="hljs-keyword">if</span> (singleton == <span class="hljs-keyword">null</span>) &#123;
-            <span class="hljs-keyword">synchronized</span> (Singleton.class) &#123;
-                <span class="hljs-keyword">if</span> (singleton == <span class="hljs-keyword">null</span>) &#123;
-                    singleton = <span class="hljs-keyword">new</span> Singleton();
-                &#125;
-            &#125;
-        &#125;
-        <span class="hljs-keyword">return</span> singleton;
-    &#125;
-&#125;</code></pre>
-<h2 id="结构型模式"><a href="#结构型模式" class="headerlink" title="结构型模式"></a>结构型模式</h2><h3 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h3><p><strong>代理模式</strong>是一种结构型设计模式， 让你能够提供对象的替代品或其占位符。 代理控制着对于原对象的访问， 并允许在将请求提交给对象前后进行一些处理。</p>
-<h4 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h4><p>为什么要控制对于某个对象的访问呢？ 举个例子： 有这样一个消耗大量系统资源的巨型对象， 你只是偶尔需要使用它， 并非总是需要。</p>
-<p>你可以实现延迟初始化： 在实际有需要时再创建该对象。 对象的所有客户端都要执行延迟初始代码。 不幸的是， 这很可能会带来很多重复代码。</p>
-<p>在理想情况下， 我们希望将代码直接放入对象的类中， 但这并非总是能实现： 比如类可能是第三方封闭库的一部分。</p>
-<h4 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h4><p>代理模式建议新建一个与原服务对象接口相同的代理类， 然后更新应用以将代理对象传递给所有原始对象客户端。 代理类接收到客户端请求后会创建实际的服务对象， 并将所有工作委派给它。</p>
-<p>代理将自己伪装成数据库对象， 可在客户端或实际数据库对象不知情的情况下处理延迟初始化和缓存查询结果的工作。</p>
-<p>这有什么好处呢？ 如果需要在类的主要业务逻辑前后执行一些工作， 你无需修改类就能完成这项工作。 由于代理实现的接口与原类相同， 因此你可将其传递给任何一个使用实际服务对象的客户端。</p>
-<h4 id="实现方式："><a href="#实现方式：" class="headerlink" title="实现方式："></a>实现方式：</h4><p>a） 为服务类和代理类提供的公共接口或抽象类</p>
-<p>b） 服务类具体实现逻辑，实现或继承接口</p>
-<p>c）  代理类，实现或继承接口，有对服务类实例的引用，调用服务类实例业务的具体实现</p>
-<p>d） 客户端，调用代理类实现对服务类的调用</p>
-<p><img src="https://refactoringguru.cn/images/patterns/diagrams/proxy/structure.png" alt="代理设计模式的结构"></p>
-<h4 id="代理模式适用性"><a href="#代理模式适用性" class="headerlink" title="代理模式适用性"></a>代理模式适用性</h4><p>使用代理模式的方式多种多样， 我们来看看最常见的几种。</p>
-<ol>
-<li><p>延迟初始化 （虚拟代理）。 如果你有一个偶尔使用的重量级服务对象， 一直保持该对象运行会消耗系统资源时， 可使用代理模式。</p>
-<p>你无需在程序启动时就创建该对象， 可将对象的初始化延迟到真正有需要的时候。</p>
-</li>
-<li><p>访问控制 （保护代理）。 如果你只希望特定客户端使用服务对象， 这里的对象可以是操作系统中非常重要的部分， 而客户端则是各种已启动的程序 （包括恶意程序）， 此时可使用代理模式。代理可仅在客户端凭据满足要求时将请求传递给服务对象。</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>背包问题</title>
     <url>/2019/11/29/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>待补充</p>
@@ -1820,6 +1793,125 @@ dp[j] = min(dp[j], dp[j-c] + 1)</script><p>在这里我们可以完全背包和0
       <tags>
         <tag>数据结构与算法</tag>
         <tag>背包问题</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式</title>
+    <url>/2019/12/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<p><strong>设计模式</strong>是软件设计中常见问题或者常见应用场景的典型解决方案。 每个模式就像一张蓝图， 你可以通过对其进行定制来解决代码中的特定设计问题。</p>
+<p>发现一个整理比较号的文档 <a href="https://refactoringguru.cn/design-patterns/what-is-pattern">设计模式</a></p>
+<h2 id="模式的分类"><a href="#模式的分类" class="headerlink" title="模式的分类"></a>模式的分类</h2><p>不同设计模式在其复杂程度、 细节层次以及在整个系统中的应用范围等方面各不相同。 我喜欢将其类比于道路的建造： 如果你希望让十字路口更加安全， 那么可以安装一些交通信号灯， 或者修建包含行人地下通道在内的多层互通式立交桥。</p>
+<p>最基础的、 底层的模式通常被称为<em>惯用技巧</em>。 这类模式一般只能在一种编程语言中使用。</p>
+<p>最通用的、 高层的模式是<em>构架模式</em>。 开发者可以在任何编程语言中使用这类模式。 与其他模式不同， 它们可用于整个应用程序的架构设计。</p>
+<p>此外， 所有模式可以根据其<em>意图</em>或目的来分类。 本书覆盖了三种主要的模式类别：</p>
+<ul>
+<li><strong>创建型模式</strong>提供创建对象的机制， 增加已有代码的灵活性和可复用性。</li>
+<li><strong>结构型模式</strong>介绍如何将对象和类组装成较大的结构， 并同时保持结构的灵活和高效。</li>
+<li><strong>行为模式</strong>负责对象间的高效沟通和职责委派。</li>
+</ul>
+<h2 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h2><h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><p><strong>单例模式</strong>是一种创建型设计模式， 让你能够保证一个类只有一个实例， 并提供一个访问该实例的全局节点。</p>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>单例模式同时解决了两个问题， 所以违反了<a href="https://refactoringguru.cn/didp/principles/solid-principles/srp">单一职责原则</a>：</p>
+<ol>
+<li><p><strong>保证一个类只有一个实例</strong>。 为什么会有人想要控制一个类所拥有的实例数量？ 最常见原因是控制某些共享资源 （例如数据库或文件） 的访问权限。</p>
+<p>它的运作方式是这样的： 如果你创建了一个对象， 同时一会儿后你决定再创建一个新对象， 此时你会获得之前已创建的对象， 而不是一个新对象。</p>
+<p>注意， 普通构造函数无法实现上述行为， 因为构造函数的设计决定了它<strong>必须</strong>总是返回一个新对象。</p>
+</li>
+</ol>
+<p>客户端甚至可能没有意识到它们一直都在使用同一个对象。</p>
+<ol>
+<li><p><strong>为该实例提供一个全局访问入口 </strong>。 还记得你 （好吧， 其实是我自己） 用过的那些存储重要对象的全局变量吗？ 它们在使用上十分方便， 但同时也非常不安全， 因为任何代码都有可能覆盖掉那些变量的内容， 从而引发程序崩溃。</p>
+<p>和全局变量一样， 单例模式也允许在程序的任何地方访问特定对象。 但是它可以保护该实例不被其他代码覆盖。</p>
+<p>还有一点： 你不会希望解决同一个问题的代码分散在程序各处的。 因此更好的方式是将其放在同一个类中， 特别是当其他代码已经依赖这个类时更应该如此。</p>
+</li>
+</ol>
+<p>如今， 单例模式已经变得非常流行， 以至于人们会将只解决上文描述中任意一个问题的东西称为<em>单例</em>。</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>所有单例的实现都包含以下两个相同的步骤：</p>
+<ul>
+<li>将默认构造函数设为私有， 防止其他对象使用单例类的 <code>new</code>运算符。</li>
+<li>新建一个静态方法作为构造函数。 该函数会 “偷偷” 调用私有构造函数来创建对象， 并将其保存在一个静态成员变量中。 此后所有对于该函数的调用都将返回这一缓存对象。</li>
+</ul>
+<p>如果你的代码能够访问单例类， 那它就能调用单例类的静态方法。 无论何时调用该方法， 它总是会返回相同的对象。</p>
+<h4 id="单例模式适用性"><a href="#单例模式适用性" class="headerlink" title="单例模式适用性"></a>单例模式适用性</h4><ol>
+<li><p>如果程序中的某个类对于所有客户端只有一个可用的实例，可以使用单例模式。</p>
+<p>单例模式禁止通过除了特殊构建方法以外的任何方式来创建自身类对象。 该方法可以创建一个新对象， 但如果该对象已经被创建， 则返回已有的对象</p>
+</li>
+<li><p>如果你需要更加严格地控制全局变量， 可以使用单例模式。</p>
+<p>单例模式与全局变量不同， 它保证类只存在一个实例。 除了单例类自己以外， 无法通过任何方式替换缓存的实例。</p>
+</li>
+</ol>
+<h4 id="经典的实现方法"><a href="#经典的实现方法" class="headerlink" title="经典的实现方法"></a>经典的实现方法</h4><h5 id="懒汉模式"><a href="#懒汉模式" class="headerlink" title="懒汉模式"></a>懒汉模式</h5><p><strong>是否 Lazy 初始化：</strong>是</p>
+<p><strong>是否多线程安全：</strong>是</p>
+<p><strong>实现难度：</strong>易</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span> </span>&#123;  
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Singleton instance;  
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Singleton</span> <span class="hljs-params">()</span></span>&#123;&#125;  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">synchronized</span> Singleton <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>&#123;  
+    <span class="hljs-keyword">if</span> (instance == <span class="hljs-keyword">null</span>) &#123;  
+        instance = <span class="hljs-keyword">new</span> Singleton();  
+    &#125;  
+    <span class="hljs-keyword">return</span> instance;  
+    &#125;  
+&#125;</code></pre>
+<h5 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h5><p><strong>是否 Lazy 初始化：</strong>否</p>
+<p><strong>是否多线程安全：</strong>是</p>
+<p><strong>实现难度：</strong>易</p>
+<p>优点：没有加锁，执行效率会提高。<br>缺点：类加载时就初始化，浪费内存。<br>它基于 classloader 机制避免了多线程的同步问题，不过，instance 在类装载时就实例化，虽然导致类装载的原因有很多种，在单例模式中大多数都是调用 getInstance 方法， 但是也不能确定有其他的方式（或者其他的静态方法）导致类装载，这时候初始化 instance 显然没有达到 lazy loading 的效果。</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span> </span>&#123;  
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Singleton instance = <span class="hljs-keyword">new</span> Singleton();  
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Singleton</span> <span class="hljs-params">()</span></span>&#123;&#125;  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Singleton <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>&#123;  
+    <span class="hljs-keyword">return</span> instance;  
+    &#125;  
+&#125;</code></pre>
+<h5 id="双检锁-双重校验锁（DCL，即-double-checked-locking）"><a href="#双检锁-双重校验锁（DCL，即-double-checked-locking）" class="headerlink" title="双检锁/双重校验锁（DCL，即 double-checked locking）"></a>双检锁/双重校验锁（DCL，即 double-checked locking）</h5><p><strong>JDK 版本：</strong>JDK1.5 起</p>
+<p><strong>是否 Lazy 初始化：</strong>是</p>
+<p><strong>是否多线程安全：</strong>是</p>
+<p><strong>实现难度：</strong>较复杂</p>
+<p><strong>描述：</strong>这种方式采用双锁机制，安全且在多线程情况下能保持高性能。</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span> </span>&#123;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">volatile</span> <span class="hljs-keyword">static</span> Singleton singleton;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Singleton</span><span class="hljs-params">()</span> </span>&#123;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Singleton <span class="hljs-title">getSingleton</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (singleton == <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">synchronized</span> (Singleton.class) &#123;
+                <span class="hljs-keyword">if</span> (singleton == <span class="hljs-keyword">null</span>) &#123;
+                    singleton = <span class="hljs-keyword">new</span> Singleton();
+                &#125;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> singleton;
+    &#125;
+&#125;</code></pre>
+<h2 id="结构型模式"><a href="#结构型模式" class="headerlink" title="结构型模式"></a>结构型模式</h2><h3 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h3><p><strong>代理模式</strong>是一种结构型设计模式， 让你能够提供对象的替代品或其占位符。 代理控制着对于原对象的访问， 并允许在将请求提交给对象前后进行一些处理。</p>
+<h4 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h4><p>为什么要控制对于某个对象的访问呢？ 举个例子： 有这样一个消耗大量系统资源的巨型对象， 你只是偶尔需要使用它， 并非总是需要。</p>
+<p>你可以实现延迟初始化： 在实际有需要时再创建该对象。 对象的所有客户端都要执行延迟初始代码。 不幸的是， 这很可能会带来很多重复代码。</p>
+<p>在理想情况下， 我们希望将代码直接放入对象的类中， 但这并非总是能实现： 比如类可能是第三方封闭库的一部分。</p>
+<h4 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h4><p>代理模式建议新建一个与原服务对象接口相同的代理类， 然后更新应用以将代理对象传递给所有原始对象客户端。 代理类接收到客户端请求后会创建实际的服务对象， 并将所有工作委派给它。</p>
+<p>代理将自己伪装成数据库对象， 可在客户端或实际数据库对象不知情的情况下处理延迟初始化和缓存查询结果的工作。</p>
+<p>这有什么好处呢？ 如果需要在类的主要业务逻辑前后执行一些工作， 你无需修改类就能完成这项工作。 由于代理实现的接口与原类相同， 因此你可将其传递给任何一个使用实际服务对象的客户端。</p>
+<h4 id="实现方式："><a href="#实现方式：" class="headerlink" title="实现方式："></a>实现方式：</h4><p>a） 为服务类和代理类提供的公共接口或抽象类</p>
+<p>b） 服务类具体实现逻辑，实现或继承接口</p>
+<p>c）  代理类，实现或继承接口，有对服务类实例的引用，调用服务类实例业务的具体实现</p>
+<p>d） 客户端，调用代理类实现对服务类的调用</p>
+<p><img src="https://refactoringguru.cn/images/patterns/diagrams/proxy/structure.png" alt="代理设计模式的结构"></p>
+<h4 id="代理模式适用性"><a href="#代理模式适用性" class="headerlink" title="代理模式适用性"></a>代理模式适用性</h4><p>使用代理模式的方式多种多样， 我们来看看最常见的几种。</p>
+<ol>
+<li><p>延迟初始化 （虚拟代理）。 如果你有一个偶尔使用的重量级服务对象， 一直保持该对象运行会消耗系统资源时， 可使用代理模式。</p>
+<p>你无需在程序启动时就创建该对象， 可将对象的初始化延迟到真正有需要的时候。</p>
+</li>
+<li><p>访问控制 （保护代理）。 如果你只希望特定客户端使用服务对象， 这里的对象可以是操作系统中非常重要的部分， 而客户端则是各种已启动的程序 （包括恶意程序）， 此时可使用代理模式。代理可仅在客户端凭据满足要求时将请求传递给服务对象。</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>设计模式</tag>
       </tags>
   </entry>
   <entry>
