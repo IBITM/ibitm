@@ -846,6 +846,21 @@ new capacity : 00100000</code></pre>
 ]]></content>
   </entry>
   <entry>
+    <title>Pycharm 使用技巧积累</title>
+    <url>/2020/10/31/Pycharm-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%A7%AF%E7%B4%AF/</url>
+    <content><![CDATA[<p>如何替换变量的大小写 </p>
+<pre><code class="hljs bash">ctrl + <span class="hljs-built_in">shift</span> + u</code></pre>
+]]></content>
+      <categories>
+        <category>实用技巧</category>
+      </categories>
+      <tags>
+        <tag>IDE</tag>
+        <tag>Jetbrains</tag>
+        <tag>Pycharm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SQL 实践总结</title>
     <url>/2019/12/21/SQL-%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h2 id="概念性问题"><a href="#概念性问题" class="headerlink" title="概念性问题"></a>概念性问题</h2><h2 id="实践性问题"><a href="#实践性问题" class="headerlink" title="实践性问题"></a>实践性问题</h2><h2 id="不同表相同字段当进行关联操作时，会发生什么？"><a href="#不同表相同字段当进行关联操作时，会发生什么？" class="headerlink" title="不同表相同字段当进行关联操作时，会发生什么？"></a>不同表相同字段当进行关联操作时，会发生什么？</h2><p>我们现在有 A，B 两个表</p>
@@ -1261,36 +1276,6 @@ new capacity : 00100000</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>专业书籍备忘录</title>
-    <url>/2019/12/05/%E4%B8%93%E4%B8%9A%E4%B9%A6%E7%B1%8D%E5%A4%87%E5%BF%98%E5%BD%95/</url>
-    <content><![CDATA[<p><img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/%E5%AD%A6%E4%B9%A0%E4%B9%A6%E7%B1%8D.png?raw=true" alt></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>二分查找的各种变形</title>
-    <url>/2019/11/26/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%9A%84%E5%90%84%E7%A7%8D%E5%8F%98%E5%BD%A2/</url>
-    <content><![CDATA[<h2 id="二分查找，寻找插入的位置"><a href="#二分查找，寻找插入的位置" class="headerlink" title="二分查找，寻找插入的位置"></a>二分查找，寻找插入的位置</h2><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">binarySearch</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> h, <span class="hljs-keyword">int</span> k)</span> </span>&#123;
-    <span class="hljs-comment">//开区间</span>
-    <span class="hljs-keyword">while</span> (l &lt; h) &#123;
-        <span class="hljs-keyword">int</span> m = l + (h - l) / <span class="hljs-number">2</span>;
-        <span class="hljs-keyword">if</span> (nums[m] == k) &#123;
-            <span class="hljs-keyword">return</span> m;
-        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[m] &gt; k) &#123;
-            h = m;
-        &#125; <span class="hljs-keyword">else</span>
-            l = m + <span class="hljs-number">1</span>;
-    &#125;
-    <span class="hljs-keyword">return</span> l;
-&#125;</code></pre>
-]]></content>
-      <categories>
-        <category>数据结构与算法</category>
-      </categories>
-      <tags>
-        <tag>数据结构与算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Spark 共享变量的若干思考</title>
     <url>/2019/11/26/reflections-on-Spark-shared-variables/</url>
     <content><![CDATA[<p>通常在向 Spark 传递函数时，可以使用 driver programme 中定义的变量，但是集群中运行的每个 tusk 都只会得到这些变量的一份新的副本，更新这些副本的值也不会影响driver programme 中的对应变量。</p>
@@ -1329,6 +1314,36 @@ scala&gt; broadcastVar.value
 res0: <span class="hljs-type">Array</span>[<span class="hljs-type">Int</span>] = <span class="hljs-type">Array</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)</code></pre>]]></content>
       <tags>
         <tag>spark</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>专业书籍备忘录</title>
+    <url>/2019/12/05/%E4%B8%93%E4%B8%9A%E4%B9%A6%E7%B1%8D%E5%A4%87%E5%BF%98%E5%BD%95/</url>
+    <content><![CDATA[<p><img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/%E5%AD%A6%E4%B9%A0%E4%B9%A6%E7%B1%8D.png?raw=true" alt></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>二分查找的各种变形</title>
+    <url>/2019/11/26/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%9A%84%E5%90%84%E7%A7%8D%E5%8F%98%E5%BD%A2/</url>
+    <content><![CDATA[<h2 id="二分查找，寻找插入的位置"><a href="#二分查找，寻找插入的位置" class="headerlink" title="二分查找，寻找插入的位置"></a>二分查找，寻找插入的位置</h2><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">binarySearch</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> h, <span class="hljs-keyword">int</span> k)</span> </span>&#123;
+    <span class="hljs-comment">//开区间</span>
+    <span class="hljs-keyword">while</span> (l &lt; h) &#123;
+        <span class="hljs-keyword">int</span> m = l + (h - l) / <span class="hljs-number">2</span>;
+        <span class="hljs-keyword">if</span> (nums[m] == k) &#123;
+            <span class="hljs-keyword">return</span> m;
+        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[m] &gt; k) &#123;
+            h = m;
+        &#125; <span class="hljs-keyword">else</span>
+            l = m + <span class="hljs-number">1</span>;
+    &#125;
+    <span class="hljs-keyword">return</span> l;
+&#125;</code></pre>
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>数据结构与算法</tag>
       </tags>
   </entry>
   <entry>
@@ -1398,6 +1413,77 @@ res0: <span class="hljs-type">Array</span>[<span class="hljs-type">Int</span>] =
       </tags>
   </entry>
   <entry>
+    <title>关于计算机网络的知识点复习...</title>
+    <url>/2019/12/14/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9%E5%A4%8D%E4%B9%A0/</url>
+    <content><![CDATA[<p>既然已经决定要做开发了，就把之间放下的东西捡起来好好看看吧😝</p>
+<h2 id="ISO-OSI-参考模型和-TCP-IP-模型"><a href="#ISO-OSI-参考模型和-TCP-IP-模型" class="headerlink" title="ISO/OSI 参考模型和 TCP/IP 模型"></a>ISO/OSI 参考模型和 TCP/IP 模型</h2><p>国际标准化组织 (ISO)提出了网络体系结构模型，称为<strong>开放互连参考模型</strong>（OSI/RM），简称为 <strong>OSI 参考模型</strong>。</p>
+<p>共有七层</p>
+<h2 id="数据交换的方式"><a href="#数据交换的方式" class="headerlink" title="数据交换的方式"></a>数据交换的方式</h2><ol>
+<li><p>电路交换</p>
+<p>在源节点和目的节点之间建立一条专用（双方独占）的通路用于传送数据，通常分为三个阶段：建立连接，传输数据和断开连接。最典型的电路交换网就是传统电话网络。</p>
+<p>主要特点是整个报文的比特流连续的从源点到达终点，好像在一个管道中传输。优点是数据直接传送、延迟小。缺点是线路利用率低、不能充分利用线路容量。</p>
+</li>
+<li><p>报文交换</p>
+<p>将用户数据附加上源地址、目的地址、校验码等辅助信息，封装成报文。整个报文传送到相邻节点，全部存储袭来后，再转发给下一个节点，重复上述过程直到到达目的节点。</p>
+<p>报文交换也称为存储-转发。主要特点是整个报文先传送到相邻结点，全部存储下来后查找转发表，转发到下一个结点。</p>
+<p>优点是可以较为充分线路容量；可以实现不同链路之间不同数据率的转换；可以实现格式转换；可以实现一对多、多对一的访间；可以实现差错控制。其缺点是增加了资源开销（如辅助信息导致处理时间和存储资源的开销）：增加缓冲延迟；额外的控制机制来保证多个报文的顺序不会乱序；缓冲区难以管理，因为报文的大小不确定，接收方在接收到报文之前不能预知报文的大小。</p>
+</li>
+<li><p>分组交换<br>分组交换网络，也称为包交换网络。其原理是将用户数据分成较短的固定长度的数据块，在每个数据块中加上目的地址、源地址等辅助信息组成分组（包），以存储-转发方式传输。</p>
+<p>除了具备报文交换网络的优点外，分组交换网络还具有自身的优点：缓冲易于管理；包的平均延迟更小，网络中占用的平均缓冲区更少；更易于标准化；更适合应用。</p>
+</li>
+</ol>
+<p>现在的主流网络基本上都可以看成是<strong>分组交换</strong>网络。</p>
+<h2 id="端到端的通信和点到点的通信的区别？"><a href="#端到端的通信和点到点的通信的区别？" class="headerlink" title="端到端的通信和点到点的通信的区别？"></a>端到端的通信和点到点的通信的区别？</h2><p> 三点不同：</p>
+<ul>
+<li>实体不同</li>
+<li>发生的层不同</li>
+<li>点到点不支持可靠传输，而端到端支持</li>
+</ul>
+<p>从本质上说，由物理层、数据链路层和网络层组成的通信子网为网络环境中的主机提供点到点的服务，而传输层为网络中的主机提供端到端的通信。</p>
+<p>直接相连的结点之间的通信叫点到点通信。它只提件一合却票到另一台机器之间的通信，不会涉及程序或进程的概念。同时点到点通信并不能保证数据传输的可靠性，也不能说明源主机与目的主机之间是哪两个进程在通信，这些工作都是由传输层来完成的。</p>
+<p>端到端通信建立在点到点通信的基础上，它是由一段段的点到点通信信道构成的，是比点到点通信更高一级的通信方式，以完成应用程序（进程）之间的通信。“端”是指用户程序的端口，端口号标识了应用层中不同的进程。</p>
+<h2 id="通信方式"><a href="#通信方式" class="headerlink" title="通信方式"></a>通信方式</h2><h3 id="单工通信"><a href="#单工通信" class="headerlink" title="单工通信"></a>单工通信</h3><p>只能有一个方向的通信，没有反方向的交互，只需要一个信道。</p>
+<h3 id="半双工"><a href="#半双工" class="headerlink" title="半双工"></a>半双工</h3><p>通信的双方都可以发送或者接受消息，但是任何一方不能同时发送和接收消息，需要两个信道。</p>
+<h3 id="全双工"><a href="#全双工" class="headerlink" title="全双工"></a>全双工</h3><p>通信的双方都可以同时发送和接收消息，需要两个信道。</p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>面试</tag>
+        <tag>计算网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Thinking about recording and thinking</title>
+    <url>/2020/11/09/%E5%AF%B9%E4%BA%8E%E8%AE%B0%E5%BD%95%E5%92%8C%E6%80%9D%E8%80%83%E7%9A%84%E6%80%9D%E8%80%83%EF%BC%88Thinking-about-recording-and-thinking%EF%BC%89/</url>
+    <content><![CDATA[<p>有没有人觉得这篇文章的 title 比较赞，第一次看到类似 title 是参加讲座了解到了科学学（science of science ）这个概念，印象深刻。</p>
+<p>距离上一次制定计划的好像还是我在字节跳动实习的第 2 个月，当时也只是确定了需要了解什么业务和技能，才发现距离上一次和自己深刻对话好像已经过了好久了。</p>
+<a id="more"></a>
+<p>随着认识越来越多优秀的同学和同事，也开始逐渐思考一些自己之前从来不考虑的问题，比如如何提高学习能力、思辨能力、表达能力甚至是理财能力，如何去协调生活和工作，如何去规划自己的职业生涯。</p>
+<p>当然这个过程伴随着一些落差和阵痛的，不过总体还是积极的。</p>
+<p>我一直是一个喜欢记录和分享的人，但是都是碎片化、浅层的记录和分享，缺乏系统性和深刻性。归根到底是三方面的原因：一方面是自己的囫囵吞枣，对于内容的获取的浅尝辄止，缺乏对于内容的思考和总结；一方面是盲目求快，希望在有限的时间内尽可能的获取、了解更多的内容；第三方面就是缺乏系统的学习计划，除了定期的通过书籍学习外，就是遇到问题解决问题，这就会加深第一个和第二个问题。</p>
+<p>当然这一些问题在不同人身上都有所提现，不同人也有不同需要修改的侧重点。</p>
+<p>针对于我而言，我想要对自己提出几个需要改进的点</p>
+<ol>
+<li>发现问题以后，尽量给出一般性的解决办法，谋定而后动。</li>
+<li>多反思，多思考。</li>
+</ol>
+<p>以上两点可能会有一些抽象，具体而言可以</p>
+<ol>
+<li>坚持每天写日报，总结自己的收获和思考。日报不是汇报、博客，尽量简明扼要的概括和总结内容，这相当于每天的一次的训练和考试。</li>
+<li>对于重要的、通用性的知识点要及时的总结，深入思考后输出成博客的形式，不求多，求精。</li>
+<li>减少碎片化的阅读，提高自己阅读的知识获取率。最直接的做法就是带着疑问和审视去阅读，往往会更有所得。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>日志分析系统</title>
     <url>/2019/12/08/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/</url>
     <content><![CDATA[<h2 id="项目概述"><a href="#项目概述" class="headerlink" title="项目概述"></a>项目概述</h2><h2 id="项目所用的组件版本"><a href="#项目所用的组件版本" class="headerlink" title="项目所用的组件版本"></a>项目所用的组件版本</h2><h2 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h2><p>Zookeeper 两个最重要的系统模型：ZNode 和 Watcher</p>
@@ -1463,46 +1549,13 @@ res0: <span class="hljs-type">Array</span>[<span class="hljs-type">Int</span>] =
       </tags>
   </entry>
   <entry>
-    <title>关于计算机网络的知识点复习...</title>
-    <url>/2019/12/14/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9%E5%A4%8D%E4%B9%A0/</url>
-    <content><![CDATA[<p>既然已经决定要做开发了，就把之间放下的东西捡起来好好看看吧😝</p>
-<h2 id="ISO-OSI-参考模型和-TCP-IP-模型"><a href="#ISO-OSI-参考模型和-TCP-IP-模型" class="headerlink" title="ISO/OSI 参考模型和 TCP/IP 模型"></a>ISO/OSI 参考模型和 TCP/IP 模型</h2><p>国际标准化组织 (ISO)提出了网络体系结构模型，称为<strong>开放互连参考模型</strong>（OSI/RM），简称为 <strong>OSI 参考模型</strong>。</p>
-<p>共有七层</p>
-<h2 id="数据交换的方式"><a href="#数据交换的方式" class="headerlink" title="数据交换的方式"></a>数据交换的方式</h2><ol>
-<li><p>电路交换</p>
-<p>在源节点和目的节点之间建立一条专用（双方独占）的通路用于传送数据，通常分为三个阶段：建立连接，传输数据和断开连接。最典型的电路交换网就是传统电话网络。</p>
-<p>主要特点是整个报文的比特流连续的从源点到达终点，好像在一个管道中传输。优点是数据直接传送、延迟小。缺点是线路利用率低、不能充分利用线路容量。</p>
-</li>
-<li><p>报文交换</p>
-<p>将用户数据附加上源地址、目的地址、校验码等辅助信息，封装成报文。整个报文传送到相邻节点，全部存储袭来后，再转发给下一个节点，重复上述过程直到到达目的节点。</p>
-<p>报文交换也称为存储-转发。主要特点是整个报文先传送到相邻结点，全部存储下来后查找转发表，转发到下一个结点。</p>
-<p>优点是可以较为充分线路容量；可以实现不同链路之间不同数据率的转换；可以实现格式转换；可以实现一对多、多对一的访间；可以实现差错控制。其缺点是增加了资源开销（如辅助信息导致处理时间和存储资源的开销）：增加缓冲延迟；额外的控制机制来保证多个报文的顺序不会乱序；缓冲区难以管理，因为报文的大小不确定，接收方在接收到报文之前不能预知报文的大小。</p>
-</li>
-<li><p>分组交换<br>分组交换网络，也称为包交换网络。其原理是将用户数据分成较短的固定长度的数据块，在每个数据块中加上目的地址、源地址等辅助信息组成分组（包），以存储-转发方式传输。</p>
-<p>除了具备报文交换网络的优点外，分组交换网络还具有自身的优点：缓冲易于管理；包的平均延迟更小，网络中占用的平均缓冲区更少；更易于标准化；更适合应用。</p>
-</li>
-</ol>
-<p>现在的主流网络基本上都可以看成是<strong>分组交换</strong>网络。</p>
-<h2 id="端到端的通信和点到点的通信的区别？"><a href="#端到端的通信和点到点的通信的区别？" class="headerlink" title="端到端的通信和点到点的通信的区别？"></a>端到端的通信和点到点的通信的区别？</h2><p> 三点不同：</p>
-<ul>
-<li>实体不同</li>
-<li>发生的层不同</li>
-<li>点到点不支持可靠传输，而端到端支持</li>
-</ul>
-<p>从本质上说，由物理层、数据链路层和网络层组成的通信子网为网络环境中的主机提供点到点的服务，而传输层为网络中的主机提供端到端的通信。</p>
-<p>直接相连的结点之间的通信叫点到点通信。它只提件一合却票到另一台机器之间的通信，不会涉及程序或进程的概念。同时点到点通信并不能保证数据传输的可靠性，也不能说明源主机与目的主机之间是哪两个进程在通信，这些工作都是由传输层来完成的。</p>
-<p>端到端通信建立在点到点通信的基础上，它是由一段段的点到点通信信道构成的，是比点到点通信更高一级的通信方式，以完成应用程序（进程）之间的通信。“端”是指用户程序的端口，端口号标识了应用层中不同的进程。</p>
-<h2 id="通信方式"><a href="#通信方式" class="headerlink" title="通信方式"></a>通信方式</h2><h3 id="单工通信"><a href="#单工通信" class="headerlink" title="单工通信"></a>单工通信</h3><p>只能有一个方向的通信，没有反方向的交互，只需要一个信道。</p>
-<h3 id="半双工"><a href="#半双工" class="headerlink" title="半双工"></a>半双工</h3><p>通信的双方都可以发送或者接受消息，但是任何一方不能同时发送和接收消息，需要两个信道。</p>
-<h3 id="全双工"><a href="#全双工" class="headerlink" title="全双工"></a>全双工</h3><p>通信的双方都可以同时发送和接收消息，需要两个信道。</p>
+    <title>秒杀系统学习笔记</title>
+    <url>/2019/12/15/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h2 id="环境的搭建"><a href="#环境的搭建" class="headerlink" title="环境的搭建"></a>环境的搭建</h2><h3 id="Spring-Boot"><a href="#Spring-Boot" class="headerlink" title="Spring Boot"></a>Spring Boot</h3><p><a href="https://spring.io/projects/spring-boot/">Spring Boot 官网</a></p>
+<p><a href="https://spring.io/guides/gs/rest-service/">Spring Boot 构建一个 RESTFUL 风格的 Web 服务</a></p>
+<p>互不 通信 的 分布式 架构 方式。 缓存 与 应用 分离 部署， 缓存 系统 部署 在 一组 专门 的 服务器 上， 应用 程序 通过 一致性 Hash 等 路 由 算法 选择 缓存 服务器 远程 访问 缓存 数据， 缓存 服务器 之间 不 通信， 缓存 集群 的 规模 可以 很容易 地 实现 扩容， 具有 良好 的 可 伸缩性。</p>
+<p>李智慧. 大型网站技术架构:核心原理与案例分析 (p. 49). 电子工业出版社. Kindle 版本. </p>
 ]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>面试</tag>
-        <tag>计算网络</tag>
-      </tags>
   </entry>
   <entry>
     <title>深入理解 Kafka 核心设计和实践原理</title>
@@ -1647,15 +1700,6 @@ res0: <span class="hljs-type">Array</span>[<span class="hljs-type">Int</span>] =
         <tag>Kafka</tag>
         <tag>读书笔记</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>秒杀系统学习笔记</title>
-    <url>/2019/12/15/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h2 id="环境的搭建"><a href="#环境的搭建" class="headerlink" title="环境的搭建"></a>环境的搭建</h2><h3 id="Spring-Boot"><a href="#Spring-Boot" class="headerlink" title="Spring Boot"></a>Spring Boot</h3><p><a href="https://spring.io/projects/spring-boot/">Spring Boot 官网</a></p>
-<p><a href="https://spring.io/guides/gs/rest-service/">Spring Boot 构建一个 RESTFUL 风格的 Web 服务</a></p>
-<p>互不 通信 的 分布式 架构 方式。 缓存 与 应用 分离 部署， 缓存 系统 部署 在 一组 专门 的 服务器 上， 应用 程序 通过 一致性 Hash 等 路 由 算法 选择 缓存 服务器 远程 访问 缓存 数据， 缓存 服务器 之间 不 通信， 缓存 集群 的 规模 可以 很容易 地 实现 扩容， 具有 良好 的 可 伸缩性。</p>
-<p>李智慧. 大型网站技术架构:核心原理与案例分析 (p. 49). 电子工业出版社. Kindle 版本. </p>
-]]></content>
   </entry>
   <entry>
     <title>背包问题</title>
@@ -1913,6 +1957,17 @@ dp[j] = min(dp[j], dp[j-c] + 1)</script><p>在这里我们可以完全背包和0
         <tag>Java</tag>
         <tag>设计模式</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>重构：改善既有代码的设计</title>
+    <url>/2020/11/04/%E9%87%8D%E6%9E%84%EF%BC%9A%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1/</url>
+    <content><![CDATA[<a id="more"></a>
+<h1 id="待补充的内容"><a href="#待补充的内容" class="headerlink" title="待补充的内容"></a>待补充的内容</h1><ol>
+<li>Maven 的基本使用方法</li>
+<li>Java 的输入输出流</li>
+<li>jackson 的序列化使用 &amp; 操作 json 文件，参考 <a href="https://www.cnblogs.com/yourbatman/p/13559185.html#%E6%A0%91%E6%A8%A1%E5%9E%8B">Jackson 类详解</a></li>
+</ol>
+]]></content>
   </entry>
   <entry>
     <title>ConcurrentHashMap</title>

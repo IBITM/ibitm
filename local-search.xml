@@ -4,6 +4,73 @@
   
   
   <entry>
+    <title>Thinking about recording and thinking</title>
+    <link href="/2020/11/09/%E5%AF%B9%E4%BA%8E%E8%AE%B0%E5%BD%95%E5%92%8C%E6%80%9D%E8%80%83%E7%9A%84%E6%80%9D%E8%80%83%EF%BC%88Thinking-about-recording-and-thinking%EF%BC%89/"/>
+    <url>/2020/11/09/%E5%AF%B9%E4%BA%8E%E8%AE%B0%E5%BD%95%E5%92%8C%E6%80%9D%E8%80%83%E7%9A%84%E6%80%9D%E8%80%83%EF%BC%88Thinking-about-recording-and-thinking%EF%BC%89/</url>
+    
+    <content type="html"><![CDATA[<p>有没有人觉得这篇文章的 title 比较赞，第一次看到类似 title 是参加讲座了解到了科学学（science of science ）这个概念，印象深刻。</p><p>距离上一次制定计划的好像还是我在字节跳动实习的第 2 个月，当时也只是确定了需要了解什么业务和技能，才发现距离上一次和自己深刻对话好像已经过了好久了。</p><a id="more"></a><p>随着认识越来越多优秀的同学和同事，也开始逐渐思考一些自己之前从来不考虑的问题，比如如何提高学习能力、思辨能力、表达能力甚至是理财能力，如何去协调生活和工作，如何去规划自己的职业生涯。</p><p>当然这个过程伴随着一些落差和阵痛的，不过总体还是积极的。</p><p>我一直是一个喜欢记录和分享的人，但是都是碎片化、浅层的记录和分享，缺乏系统性和深刻性。归根到底是三方面的原因：一方面是自己的囫囵吞枣，对于内容的获取的浅尝辄止，缺乏对于内容的思考和总结；一方面是盲目求快，希望在有限的时间内尽可能的获取、了解更多的内容；第三方面就是缺乏系统的学习计划，除了定期的通过书籍学习外，就是遇到问题解决问题，这就会加深第一个和第二个问题。</p><p>当然这一些问题在不同人身上都有所提现，不同人也有不同需要修改的侧重点。</p><p>针对于我而言，我想要对自己提出几个需要改进的点</p><ol><li>发现问题以后，尽量给出一般性的解决办法，谋定而后动。</li><li>多反思，多思考。</li></ol><p>以上两点可能会有一些抽象，具体而言可以</p><ol><li>坚持每天写日报，总结自己的收获和思考。日报不是汇报、博客，尽量简明扼要的概括和总结内容，这相当于每天的一次的训练和考试。</li><li>对于重要的、通用性的知识点要及时的总结，深入思考后输出成博客的形式，不求多，求精。</li><li>减少碎片化的阅读，提高自己阅读的知识获取率。最直接的做法就是带着疑问和审视去阅读，往往会更有所得。</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>随笔</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>随笔</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>重构：改善既有代码的设计</title>
+    <link href="/2020/11/04/%E9%87%8D%E6%9E%84%EF%BC%9A%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1/"/>
+    <url>/2020/11/04/%E9%87%8D%E6%9E%84%EF%BC%9A%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1/</url>
+    
+    <content type="html"><![CDATA[<a id="more"></a><h1 id="待补充的内容"><a href="#待补充的内容" class="headerlink" title="待补充的内容"></a>待补充的内容</h1><ol><li>Maven 的基本使用方法</li><li>Java 的输入输出流</li><li>jackson 的序列化使用 &amp; 操作 json 文件，参考 <a href="https://www.cnblogs.com/yourbatman/p/13559185.html#%E6%A0%91%E6%A8%A1%E5%9E%8B">Jackson 类详解</a></li></ol>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Pycharm 使用技巧积累</title>
+    <link href="/2020/10/31/Pycharm-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%A7%AF%E7%B4%AF/"/>
+    <url>/2020/10/31/Pycharm-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%A7%AF%E7%B4%AF/</url>
+    
+    <content type="html"><![CDATA[<p>如何替换变量的大小写 </p><pre><code class="hljs bash">ctrl + <span class="hljs-built_in">shift</span> + u</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>实用技巧</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>IDE</tag>
+      
+      <tag>Jetbrains</tag>
+      
+      <tag>Pycharm</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode 263.丑数序列</title>
     <link href="/2020/10/27/LeetCode-263-%E4%B8%91%E6%95%B0%E5%BA%8F%E5%88%97/"/>
     <url>/2020/10/27/LeetCode-263-%E4%B8%91%E6%95%B0%E5%BA%8F%E5%88%97/</url>
