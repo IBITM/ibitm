@@ -587,105 +587,6 @@ new capacity : 00100000</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>LeetCode 263.丑数序列</title>
-    <url>/2020/10/27/LeetCode-263-%E4%B8%91%E6%95%B0%E5%BA%8F%E5%88%97/</url>
-    <content><![CDATA[<h2 id="丑数序列"><a href="#丑数序列" class="headerlink" title="丑数序列"></a>丑数序列</h2><p>丑数问题可以归结为序列问题，而序列问题中的元素往往存在一些递推关系，使用编程来解决序列问题往往可以考察程序员对于问题特征的思考和算法实现能力。</p>
-<a id="more"></a>
-<h2 id="263-丑数"><a href="#263-丑数" class="headerlink" title="263. 丑数"></a><a href="https://leetcode-cn.com/problems/ugly-number/">263. 丑数</a></h2><blockquote>
-<p>编写一个程序判断给定的数是否为丑数。</p>
-<p>丑数就是只包含质因数 2, 3, 5 的正整数。</p>
-<p><strong>示例 1:</strong></p>
-<pre><code class="hljs yaml"><span class="hljs-string">输入:</span> <span class="hljs-number">6</span>
-<span class="hljs-string">输出:</span> <span class="hljs-literal">true</span>
-<span class="hljs-string">解释:</span> <span class="hljs-number">6</span> <span class="hljs-string">=</span> <span class="hljs-number">2</span> <span class="hljs-string">×</span> <span class="hljs-number">3</span></code></pre>
-<p><strong>示例 2:</strong></p>
-<pre><code class="hljs yaml"><span class="hljs-string">输入:</span> <span class="hljs-number">8</span>
-<span class="hljs-string">输出:</span> <span class="hljs-literal">true</span>
-<span class="hljs-string">解释:</span> <span class="hljs-number">8</span> <span class="hljs-string">=</span> <span class="hljs-number">2</span> <span class="hljs-string">×</span> <span class="hljs-number">2</span> <span class="hljs-string">×</span> <span class="hljs-number">2</span></code></pre>
-<p><strong>示例 3:</strong></p>
-<pre><code class="hljs yaml"><span class="hljs-string">输入:</span> <span class="hljs-number">14</span>
-<span class="hljs-string">输出:</span> <span class="hljs-literal">false</span> 
-<span class="hljs-string">解释:</span> <span class="hljs-number">14</span> <span class="hljs-string">不是丑数，因为它包含了另外一个质因数</span> <span class="hljs-number">7</span><span class="hljs-string">。</span></code></pre>
-</blockquote>
-<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isUgly</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>&#123;
-        # 吐槽一下，题目里说了正整数，结果测试用例里给了一个 0 
-        <span class="hljs-keyword">if</span> (num &lt; <span class="hljs-number">1</span>)
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
-        <span class="hljs-keyword">while</span> (num % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)
-            num /= <span class="hljs-number">2</span>;
-        <span class="hljs-keyword">while</span> (num % <span class="hljs-number">3</span> == <span class="hljs-number">0</span>)
-            num /= <span class="hljs-number">3</span>;
-        <span class="hljs-keyword">while</span> (num % <span class="hljs-number">5</span> == <span class="hljs-number">0</span>)
-            num /= <span class="hljs-number">5</span>;
-        <span class="hljs-keyword">return</span> num == <span class="hljs-number">1</span>;
-    &#125;
-&#125;</code></pre>
-<h2 id="264-丑数-II"><a href="#264-丑数-II" class="headerlink" title="264. 丑数 II"></a><a href="https://leetcode-cn.com/problems/ugly-number-ii/">264. 丑数 II</a></h2><p>编写一个程序，找出第 <code>n</code> 个丑数。</p>
-<p>丑数就是质因数只包含 <code>2, 3, 5</code> 的<strong>正整数</strong>。</p>
-<p><strong>示例:</strong></p>
-<pre><code class="hljs angelscript">输入: n = <span class="hljs-number">10</span>
-输出: <span class="hljs-number">12</span>
-解释: <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>, <span class="hljs-number">12</span> 是前 <span class="hljs-number">10</span> 个丑数。</code></pre>
-<p><strong>说明:</strong>  </p>
-<ol>
-<li><code>1</code> 是丑数。</li>
-<li><code>n</code> <strong>不超过</strong>1690。</li>
-</ol>
-<p><strong>思路：</strong></p>
-<p>为什么说丑数问题是一个序列问题呢？</p>
-<p>因为第 n 个丑数肯定是由比 n 小的丑数 <em> 2、</em> 3 或者 *5 得到。</p>
-<p>那我们怎么通过开始的丑数来获得有序的丑数序列呢？</p>
-<p><img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/LeetCode/丑数序列.png?raw=true" alt="丑数序列"></p>
-<p>我们设置 3 个指针，红色每次 <em>2，绿色每次 \</em>3，蓝色每次 *5</p>
-<p><strong>Step1</strong></p>
-<p>我们可以由 1*2 得到 2 或者 1*3 得到 3 再或者 1* 5 = 5</p>
-<p>我们选择三者中的最小值 2，并且红色指针向前走一步</p>
-<p><strong>Step2</strong></p>
-<p>我们可以由 1*3 = 3 或者 1* 5 = 5 再或者 2*2= 4</p>
-<p>我们选择三者中的最小值 3，并且绿色指针向前走一步</p>
-<p><strong>Step2</strong></p>
-<p>我们可以由 1* 5 = 5 或者 2*2= 4 再或者 2*3 = 6</p>
-<p>我们选择三者中的最小值 4，并且红色指针向前走一步</p>
-<p>以此类推</p>
-<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">nthUglyNumber</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;
-        <span class="hljs-keyword">int</span>[] help = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n];
-        help[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;
-        <span class="hljs-keyword">int</span> i2 = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">int</span> i3 = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">int</span> i5 = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">int</span> index = <span class="hljs-number">1</span>;
-        <span class="hljs-keyword">while</span> (index &lt; n) &#123;
-            help[index] = Math.min(<span class="hljs-number">2</span> * help[i2], Math.min(<span class="hljs-number">3</span> * help[i3], <span class="hljs-number">5</span> * help[i5]));
-            <span class="hljs-keyword">if</span> (help[index] == <span class="hljs-number">2</span> * help[i2])
-                i2++;
-            <span class="hljs-keyword">if</span> (help[index] == <span class="hljs-number">3</span> * help[i3])
-                i3++;
-            <span class="hljs-keyword">if</span> (help[index] == <span class="hljs-number">5</span> * help[i5])
-                i5++;
-            index++;
-        &#125;
-        <span class="hljs-keyword">return</span> help[index - <span class="hljs-number">1</span>];
-    &#125;
-&#125;</code></pre>
-]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-        <tag>数据结构和算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Maven 相关问题的总结</title>
-    <url>/2019/12/15/Maven%20%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<p>Maven中建立的依赖管理方式基本已成为Java语言依赖管理的事实标准，Maven的替代者Gradle也基本沿用了Maven的依赖管理机制。在Maven依赖管理中，唯一标识一个依赖项是由该依赖项的三个属性构成的，分别是groupId、artifactId以及version。这三个属性可以唯一确定一个组件（Jar包或者War包）。</p>
-<p>其实在Nexus仓库中，一个仓库一般分为public(Release)仓和SNAPSHOT仓，前者存放正式版本，后者存放快照版本。如果在项目配置文件中（无论是build.gradle还是pom.xml）指定的版本号带有’-SNAPSHOT’后缀，比如版本号为’Junit-4.10-SNAPSHOT’，那么打出的包就是一个快照版本。</p>
-]]></content>
-  </entry>
-  <entry>
     <title>Linux 包管理基础</title>
     <url>/2019/12/22/Linux%20%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<p>内容参考自 <a href="https://linux.cn/article-8782-1.html">Linux 包管理基础：apt、yum、dnf 和 pkg</a></p>
@@ -846,6 +747,105 @@ new capacity : 00100000</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>LeetCode 263.丑数序列</title>
+    <url>/2020/10/27/LeetCode-263-%E4%B8%91%E6%95%B0%E5%BA%8F%E5%88%97/</url>
+    <content><![CDATA[<h2 id="丑数序列"><a href="#丑数序列" class="headerlink" title="丑数序列"></a>丑数序列</h2><p>丑数问题可以归结为序列问题，而序列问题中的元素往往存在一些递推关系，使用编程来解决序列问题往往可以考察程序员对于问题特征的思考和算法实现能力。</p>
+<a id="more"></a>
+<h2 id="263-丑数"><a href="#263-丑数" class="headerlink" title="263. 丑数"></a><a href="https://leetcode-cn.com/problems/ugly-number/">263. 丑数</a></h2><blockquote>
+<p>编写一个程序判断给定的数是否为丑数。</p>
+<p>丑数就是只包含质因数 2, 3, 5 的正整数。</p>
+<p><strong>示例 1:</strong></p>
+<pre><code class="hljs yaml"><span class="hljs-string">输入:</span> <span class="hljs-number">6</span>
+<span class="hljs-string">输出:</span> <span class="hljs-literal">true</span>
+<span class="hljs-string">解释:</span> <span class="hljs-number">6</span> <span class="hljs-string">=</span> <span class="hljs-number">2</span> <span class="hljs-string">×</span> <span class="hljs-number">3</span></code></pre>
+<p><strong>示例 2:</strong></p>
+<pre><code class="hljs yaml"><span class="hljs-string">输入:</span> <span class="hljs-number">8</span>
+<span class="hljs-string">输出:</span> <span class="hljs-literal">true</span>
+<span class="hljs-string">解释:</span> <span class="hljs-number">8</span> <span class="hljs-string">=</span> <span class="hljs-number">2</span> <span class="hljs-string">×</span> <span class="hljs-number">2</span> <span class="hljs-string">×</span> <span class="hljs-number">2</span></code></pre>
+<p><strong>示例 3:</strong></p>
+<pre><code class="hljs yaml"><span class="hljs-string">输入:</span> <span class="hljs-number">14</span>
+<span class="hljs-string">输出:</span> <span class="hljs-literal">false</span> 
+<span class="hljs-string">解释:</span> <span class="hljs-number">14</span> <span class="hljs-string">不是丑数，因为它包含了另外一个质因数</span> <span class="hljs-number">7</span><span class="hljs-string">。</span></code></pre>
+</blockquote>
+<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isUgly</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>&#123;
+        # 吐槽一下，题目里说了正整数，结果测试用例里给了一个 0 
+        <span class="hljs-keyword">if</span> (num &lt; <span class="hljs-number">1</span>)
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        <span class="hljs-keyword">while</span> (num % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)
+            num /= <span class="hljs-number">2</span>;
+        <span class="hljs-keyword">while</span> (num % <span class="hljs-number">3</span> == <span class="hljs-number">0</span>)
+            num /= <span class="hljs-number">3</span>;
+        <span class="hljs-keyword">while</span> (num % <span class="hljs-number">5</span> == <span class="hljs-number">0</span>)
+            num /= <span class="hljs-number">5</span>;
+        <span class="hljs-keyword">return</span> num == <span class="hljs-number">1</span>;
+    &#125;
+&#125;</code></pre>
+<h2 id="264-丑数-II"><a href="#264-丑数-II" class="headerlink" title="264. 丑数 II"></a><a href="https://leetcode-cn.com/problems/ugly-number-ii/">264. 丑数 II</a></h2><p>编写一个程序，找出第 <code>n</code> 个丑数。</p>
+<p>丑数就是质因数只包含 <code>2, 3, 5</code> 的<strong>正整数</strong>。</p>
+<p><strong>示例:</strong></p>
+<pre><code class="hljs angelscript">输入: n = <span class="hljs-number">10</span>
+输出: <span class="hljs-number">12</span>
+解释: <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>, <span class="hljs-number">12</span> 是前 <span class="hljs-number">10</span> 个丑数。</code></pre>
+<p><strong>说明:</strong>  </p>
+<ol>
+<li><code>1</code> 是丑数。</li>
+<li><code>n</code> <strong>不超过</strong>1690。</li>
+</ol>
+<p><strong>思路：</strong></p>
+<p>为什么说丑数问题是一个序列问题呢？</p>
+<p>因为第 n 个丑数肯定是由比 n 小的丑数 <em> 2、</em> 3 或者 *5 得到。</p>
+<p>那我们怎么通过开始的丑数来获得有序的丑数序列呢？</p>
+<p><img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/LeetCode/丑数序列.png?raw=true" alt="丑数序列"></p>
+<p>我们设置 3 个指针，红色每次 <em>2，绿色每次 \</em>3，蓝色每次 *5</p>
+<p><strong>Step1</strong></p>
+<p>我们可以由 1*2 得到 2 或者 1*3 得到 3 再或者 1* 5 = 5</p>
+<p>我们选择三者中的最小值 2，并且红色指针向前走一步</p>
+<p><strong>Step2</strong></p>
+<p>我们可以由 1*3 = 3 或者 1* 5 = 5 再或者 2*2= 4</p>
+<p>我们选择三者中的最小值 3，并且绿色指针向前走一步</p>
+<p><strong>Step2</strong></p>
+<p>我们可以由 1* 5 = 5 或者 2*2= 4 再或者 2*3 = 6</p>
+<p>我们选择三者中的最小值 4，并且红色指针向前走一步</p>
+<p>以此类推</p>
+<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">nthUglyNumber</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;
+        <span class="hljs-keyword">int</span>[] help = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n];
+        help[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">int</span> i2 = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> i3 = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> i5 = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> index = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">while</span> (index &lt; n) &#123;
+            help[index] = Math.min(<span class="hljs-number">2</span> * help[i2], Math.min(<span class="hljs-number">3</span> * help[i3], <span class="hljs-number">5</span> * help[i5]));
+            <span class="hljs-keyword">if</span> (help[index] == <span class="hljs-number">2</span> * help[i2])
+                i2++;
+            <span class="hljs-keyword">if</span> (help[index] == <span class="hljs-number">3</span> * help[i3])
+                i3++;
+            <span class="hljs-keyword">if</span> (help[index] == <span class="hljs-number">5</span> * help[i5])
+                i5++;
+            index++;
+        &#125;
+        <span class="hljs-keyword">return</span> help[index - <span class="hljs-number">1</span>];
+    &#125;
+&#125;</code></pre>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>数据结构和算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Maven 相关问题的总结</title>
+    <url>/2019/12/15/Maven%20%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p>Maven中建立的依赖管理方式基本已成为Java语言依赖管理的事实标准，Maven的替代者Gradle也基本沿用了Maven的依赖管理机制。在Maven依赖管理中，唯一标识一个依赖项是由该依赖项的三个属性构成的，分别是groupId、artifactId以及version。这三个属性可以唯一确定一个组件（Jar包或者War包）。</p>
+<p>其实在Nexus仓库中，一个仓库一般分为public(Release)仓和SNAPSHOT仓，前者存放正式版本，后者存放快照版本。如果在项目配置文件中（无论是build.gradle还是pom.xml）指定的版本号带有’-SNAPSHOT’后缀，比如版本号为’Junit-4.10-SNAPSHOT’，那么打出的包就是一个快照版本。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>Pycharm 使用技巧积累</title>
     <url>/2020/10/31/Pycharm-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%A7%AF%E7%B4%AF/</url>
     <content><![CDATA[<p>如何替换变量的大小写 </p>
@@ -858,6 +858,16 @@ new capacity : 00100000</code></pre>
         <tag>IDE</tag>
         <tag>Jetbrains</tag>
         <tag>Pycharm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Scala和Java的版本兼容问题</title>
+    <url>/2019/11/26/Scala-and-java-version-compatibility-issues/</url>
+    <content><![CDATA[<p><img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/1574740536160.png?raw=true" alt></p>
+<p><a href="https://docs.scala-lang.org/overviews/jdk-compatibility/overview.html">JDK COMPATIBILITY</a></p>
+]]></content>
+      <tags>
+        <tag>scala</tag>
       </tags>
   </entry>
   <entry>
@@ -951,16 +961,6 @@ new capacity : 00100000</code></pre>
       </categories>
       <tags>
         <tag>SQL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Scala和Java的版本兼容问题</title>
-    <url>/2019/11/26/Scala-and-java-version-compatibility-issues/</url>
-    <content><![CDATA[<p><img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/1574740536160.png?raw=true" alt></p>
-<p><a href="https://docs.scala-lang.org/overviews/jdk-compatibility/overview.html">JDK COMPATIBILITY</a></p>
-]]></content>
-      <tags>
-        <tag>scala</tag>
       </tags>
   </entry>
   <entry>
@@ -1264,6 +1264,12 @@ new capacity : 00100000</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>专业书籍备忘录</title>
+    <url>/2019/12/05/%E4%B8%93%E4%B8%9A%E4%B9%A6%E7%B1%8D%E5%A4%87%E5%BF%98%E5%BD%95/</url>
+    <content><![CDATA[<p><img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/%E5%AD%A6%E4%B9%A0%E4%B9%A6%E7%B1%8D.png?raw=true" alt></p>
+]]></content>
+  </entry>
+  <entry>
     <title>hello world</title>
     <url>/2019/11/25/first-blog/</url>
     <content><![CDATA[<h2 id="第一篇博客"><a href="#第一篇博客" class="headerlink" title="第一篇博客"></a>第一篇博客</h2><p>昨天花了一些时间搭建了 hexo 的框架，打算慢慢的从知乎转移到个人博客了。</p>
@@ -1317,17 +1323,6 @@ res0: <span class="hljs-type">Array</span>[<span class="hljs-type">Int</span>] =
       </tags>
   </entry>
   <entry>
-    <title>专业书籍备忘录</title>
-    <url>/2019/12/05/%E4%B8%93%E4%B8%9A%E4%B9%A6%E7%B1%8D%E5%A4%87%E5%BF%98%E5%BD%95/</url>
-    <content><![CDATA[<p><img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/%E5%AD%A6%E4%B9%A0%E4%B9%A6%E7%B1%8D.png?raw=true" alt></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>从ACID到CAP/BASE</title>
-    <url>/2019/12/03/%E4%BB%8EACID%E5%88%B0CAP-BASE/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>二分查找的各种变形</title>
     <url>/2019/11/26/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%9A%84%E5%90%84%E7%A7%8D%E5%8F%98%E5%BD%A2/</url>
     <content><![CDATA[<h2 id="二分查找，寻找插入的位置"><a href="#二分查找，寻找插入的位置" class="headerlink" title="二分查找，寻找插入的位置"></a>二分查找，寻找插入的位置</h2><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">binarySearch</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> h, <span class="hljs-keyword">int</span> k)</span> </span>&#123;
@@ -1350,6 +1345,11 @@ res0: <span class="hljs-type">Array</span>[<span class="hljs-type">Int</span>] =
       <tags>
         <tag>数据结构与算法</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>从ACID到CAP/BASE</title>
+    <url>/2019/12/03/%E4%BB%8EACID%E5%88%B0CAP-BASE/</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>从Comparable到compareTo方法</title>
@@ -1549,6 +1549,15 @@ res0: <span class="hljs-type">Array</span>[<span class="hljs-type">Int</span>] =
       </tags>
   </entry>
   <entry>
+    <title>秒杀系统学习笔记</title>
+    <url>/2019/12/15/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h2 id="环境的搭建"><a href="#环境的搭建" class="headerlink" title="环境的搭建"></a>环境的搭建</h2><h3 id="Spring-Boot"><a href="#Spring-Boot" class="headerlink" title="Spring Boot"></a>Spring Boot</h3><p><a href="https://spring.io/projects/spring-boot/">Spring Boot 官网</a></p>
+<p><a href="https://spring.io/guides/gs/rest-service/">Spring Boot 构建一个 RESTFUL 风格的 Web 服务</a></p>
+<p>互不 通信 的 分布式 架构 方式。 缓存 与 应用 分离 部署， 缓存 系统 部署 在 一组 专门 的 服务器 上， 应用 程序 通过 一致性 Hash 等 路 由 算法 选择 缓存 服务器 远程 访问 缓存 数据， 缓存 服务器 之间 不 通信， 缓存 集群 的 规模 可以 很容易 地 实现 扩容， 具有 良好 的 可 伸缩性。</p>
+<p>李智慧. 大型网站技术架构:核心原理与案例分析 (p. 49). 电子工业出版社. Kindle 版本. </p>
+]]></content>
+  </entry>
+  <entry>
     <title>深入理解 Kafka 核心设计和实践原理</title>
     <url>/2020/10/25/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Kafka%20%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E8%B7%B5%E5%8E%9F%E7%90%86/</url>
     <content><![CDATA[<h1 id="第-4-章-主题和分区"><a href="#第-4-章-主题和分区" class="headerlink" title="第 4 章 - 主题和分区"></a>第 4 章 - 主题和分区</h1><h2 id="4-1-主题的管理"><a href="#4-1-主题的管理" class="headerlink" title="4.1 主题的管理"></a>4.1 主题的管理</h2><p>主题的管理主要是包括主题的创建、修改、删除以及查看主题的元数据，都可以通过 Kafka 提供的 kafka-topics.sh 脚本执行这一些操作。</p>
@@ -1693,15 +1702,6 @@ res0: <span class="hljs-type">Array</span>[<span class="hljs-type">Int</span>] =
       </tags>
   </entry>
   <entry>
-    <title>秒杀系统学习笔记</title>
-    <url>/2019/12/15/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h2 id="环境的搭建"><a href="#环境的搭建" class="headerlink" title="环境的搭建"></a>环境的搭建</h2><h3 id="Spring-Boot"><a href="#Spring-Boot" class="headerlink" title="Spring Boot"></a>Spring Boot</h3><p><a href="https://spring.io/projects/spring-boot/">Spring Boot 官网</a></p>
-<p><a href="https://spring.io/guides/gs/rest-service/">Spring Boot 构建一个 RESTFUL 风格的 Web 服务</a></p>
-<p>互不 通信 的 分布式 架构 方式。 缓存 与 应用 分离 部署， 缓存 系统 部署 在 一组 专门 的 服务器 上， 应用 程序 通过 一致性 Hash 等 路 由 算法 选择 缓存 服务器 远程 访问 缓存 数据， 缓存 服务器 之间 不 通信， 缓存 集群 的 规模 可以 很容易 地 实现 扩容， 具有 良好 的 可 伸缩性。</p>
-<p>李智慧. 大型网站技术架构:核心原理与案例分析 (p. 49). 电子工业出版社. Kindle 版本. </p>
-]]></content>
-  </entry>
-  <entry>
     <title>背包问题</title>
     <url>/2019/11/29/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>待补充</p>
@@ -1840,6 +1840,17 @@ dp[j] = min(dp[j], dp[j-c] + 1)</script><p>在这里我们可以完全背包和0
       </tags>
   </entry>
   <entry>
+    <title>重构：改善既有代码的设计</title>
+    <url>/2020/11/04/%E9%87%8D%E6%9E%84%EF%BC%9A%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1/</url>
+    <content><![CDATA[<a id="more"></a>
+<h1 id="待补充的内容"><a href="#待补充的内容" class="headerlink" title="待补充的内容"></a>待补充的内容</h1><ol>
+<li>Maven 的基本使用方法</li>
+<li>Java 的输入输出流</li>
+<li>jackson 的序列化使用 &amp; 操作 json 文件，参考 <a href="https://www.cnblogs.com/yourbatman/p/13559185.html#%E6%A0%91%E6%A8%A1%E5%9E%8B">Jackson 类详解</a></li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
     <title>设计模式</title>
     <url>/2019/12/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<p><strong>设计模式</strong>是软件设计中常见问题或者常见应用场景的典型解决方案。 每个模式就像一张蓝图， 你可以通过对其进行定制来解决代码中的特定设计问题。</p>
@@ -1957,17 +1968,6 @@ dp[j] = min(dp[j], dp[j-c] + 1)</script><p>在这里我们可以完全背包和0
         <tag>Java</tag>
         <tag>设计模式</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>重构：改善既有代码的设计</title>
-    <url>/2020/11/04/%E9%87%8D%E6%9E%84%EF%BC%9A%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E7%9A%84%E8%AE%BE%E8%AE%A1/</url>
-    <content><![CDATA[<a id="more"></a>
-<h1 id="待补充的内容"><a href="#待补充的内容" class="headerlink" title="待补充的内容"></a>待补充的内容</h1><ol>
-<li>Maven 的基本使用方法</li>
-<li>Java 的输入输出流</li>
-<li>jackson 的序列化使用 &amp; 操作 json 文件，参考 <a href="https://www.cnblogs.com/yourbatman/p/13559185.html#%E6%A0%91%E6%A8%A1%E5%9E%8B">Jackson 类详解</a></li>
-</ol>
-]]></content>
   </entry>
   <entry>
     <title>ConcurrentHashMap</title>
