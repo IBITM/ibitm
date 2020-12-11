@@ -1,226 +1,204 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
-
-
-
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="张潇">
-  <meta name="keywords" content="">
-  <title>深入理解 Kafka 核心设计和实践原理 - 求索之心</title>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+    <meta name="author" content="张潇">
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
-  
+
+
+<title>深入理解 Kafka 核心设计和实践原理 | SearchHearth</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
     
     
-      
-      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+        
     
-  
-
-  
 
 
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 5.2.0"></head>
-
-
 <body>
-  <header style="height: 40vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>点滴琢磨</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/banner_img.jpg') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container page-header text-center fade-in-up">
-            <span class="h2" id="subtitle">
-              
-            </span>
-
-            
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-10-25 21:18" pubdate>
-        2020年10月25日 晚上
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      1.2k 字
-    </span>
-  
-
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      13
-       分钟
-    </span>
-  
-
-  
-  
-</div>
-
-            
-          </div>
-
-          
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">求索之心</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
         </div>
-      </div>
-    </div>
-  </header>
+    </nav>
 
-  <main>
     
-      
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">求索之心</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto" id="post">
-            <!-- SEO header -->
-            <h1 style="display: none">深入理解 Kafka 核心设计和实践原理</h1>
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">深入理解 Kafka 核心设计和实践原理</h1>
             
-            <div class="markdown-body" id="post-body">
-              <h1 id="第-4-章-主题和分区"><a href="#第-4-章-主题和分区" class="headerlink" title="第 4 章 - 主题和分区"></a>第 4 章 - 主题和分区</h1><h2 id="4-1-主题的管理"><a href="#4-1-主题的管理" class="headerlink" title="4.1 主题的管理"></a>4.1 主题的管理</h2><p>主题的管理主要是包括主题的创建、修改、删除以及查看主题的元数据，都可以通过 Kafka 提供的 kafka-topics.sh 脚本执行这一些操作。</p>
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">张潇</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">October 25, 2020&nbsp;&nbsp;21:18:20</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="第-4-章-主题和分区"><a href="#第-4-章-主题和分区" class="headerlink" title="第 4 章 - 主题和分区"></a>第 4 章 - 主题和分区</h1><h2 id="4-1-主题的管理"><a href="#4-1-主题的管理" class="headerlink" title="4.1 主题的管理"></a>4.1 主题的管理</h2><p>主题的管理主要是包括主题的创建、修改、删除以及查看主题的元数据，都可以通过 Kafka 提供的 kafka-topics.sh 脚本执行这一些操作。</p>
 <p>这个脚本本质上是调用了 kafka.admin.TopicCommand 类来执行主题管理的操作。</p>
 <p>一般来说，还有 2 种办法可以实现主题的管理</p>
 <ul>
@@ -228,7 +206,6 @@
 <li>直接修改日志文件和 Zookeeper 节点。Kafka 的日志文件存放在 log.dir 或者 log.dirs 参数所配置的目录下，默认是 /tmp/kafka-logs/。Zoookeeper 中存储着分区的元数据，我们可以通过直接修改 Zookeeper 的节点数据来实现对主题的管理。</li>
 </ul>
 <p>kafka-topics.sh 脚本中的参数</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -236,8 +213,7 @@
 <th>释义</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>alter</td>
 <td>用于修改主题，包括分区数和主题的配置</td>
 </tr>
@@ -305,44 +281,31 @@
 <td>Zookeeper</td>
 <td>指定连接的 Zookeeper 的地址信息</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <p>需要先明确一下主题、分区、副本和日志的概念，主题和分区都是提供给上层用户的抽象，而在副本层面或者更确切地说是 Log 层面才有真实的物理存在。</p>
-<p><img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/主题、分区、副本和 Log 之间的关系.png?raw=true" srcset="/img/loading.gif" alt="主题、分区、副本和 Log 之间的关系"></p>
+<p>![主题、分区、副本和 Log 之间的关系](<a target="_blank" rel="noopener" href="https://github.com/IBITM/ibitm.github.io/blob/master/img/%E4%B8%BB%E9%A2%98%E3%80%81%E5%88%86%E5%8C%BA%E3%80%81%E5%89%AF%E6%9C%AC%E5%92%8C">https://github.com/IBITM/ibitm.github.io/blob/master/img/主题、分区、副本和</a> Log 之间的关系.png?raw=true)</p>
 <h3 id="查看主题信息"><a href="#查看主题信息" class="headerlink" title="查看主题信息"></a>查看主题信息</h3><p>我们可以直接通过查看底层的物理存储和 Zookeeper 的节点信息来获取主题下分区的分配方案</p>
-<pre><code class="hljs gradle">ls -al <span class="hljs-regexp">/tmp/</span>kafka-logs/ | <span class="hljs-keyword">grep</span> topic_name</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -al &#x2F;tmp&#x2F;kafka-logs&#x2F; | grep topic_name</span><br></pre></td></tr></table></figure>
+
 <p>当我们创建一个主题后，会在 Zookeeper 的 /brokers/topics/ 目录下创建一个同名的实节点（实节点？）</p>
-<pre><code class="hljs awk">get <span class="hljs-regexp">/brokers/</span>topics/topic_name</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">get &#x2F;brokers&#x2F;topics&#x2F;topic_name</span><br></pre></td></tr></table></figure>
+
 <p>但是通用的方法还是通过 kafka-topics.sh 命令，该命令可以与 topics-with-overrides 、unavailable-partitions、under-replicated-partitions 连用来过滤一些数据。</p>
-<pre><code class="hljs shell">bin/kafka-topics.sh 
---zookeeper localhost:2121/kafka
---describe 
---topic topic_name1, topic_name2, ...</code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh </span><br><span class="line">--zookeeper localhost:2121/kafka</span><br><span class="line">--describe </span><br><span class="line">--topic topic_name1, topic_name2, ...</span><br></pre></td></tr></table></figure>
+
 <p>此外，如果你不知道你具体有哪一些主题，可以使用 list 命令查看有哪一些主题</p>
-<pre><code class="hljs shell">bin/kafka-topics.sh 
---zookeeper localhost:2121/kafka
---list</code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh </span><br><span class="line">--zookeeper localhost:2121/kafka</span><br><span class="line">--list</span><br></pre></td></tr></table></figure>
+
 <h3 id="创建主题"><a href="#创建主题" class="headerlink" title="创建主题"></a>创建主题</h3><p>首先，有一个比较重要的 broker 端的参数 auto.create.topics.enabele 默认为 true。当生产者给一个尚未创建的主题发送消息或者当生产者向一个尚未创建的主题发送元数据请求或者读取数据时，都会按照 num.partitions 和 default.replication.factor  的值来创建一个主题。在生产活动中强烈建议该参数设置为 false。</p>
 <p>接下来我们通过 kafka-topics.sh 命令创建主题</p>
-<pre><code class="hljs shell">bin/kafka-topics.sh 
---zookeeper localhost:2121/kafka
---create
---topic topic_name1
---partitions n
---replication-factor m</code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh </span><br><span class="line">--zookeeper localhost:2121/kafka</span><br><span class="line">--create</span><br><span class="line">--topic topic_name1</span><br><span class="line">--partitions n</span><br><span class="line">--replication-factor m</span><br></pre></td></tr></table></figure>
+
 <p>该命令同时可以搭配 replica-assignment 来手动指定分区副本的分配方案，这个参数的使用暂时不做讨论。</p>
 <p>另外一个使用比较多的参数是 config，该参数可以覆盖原本的默认配置，比如</p>
-<pre><code class="hljs shell">bin/kafka-topics.sh 
---zookeeper localhost:2121/kafka
---create
---topic topic_name1
---partitions 1
---replication-factor 1
---config cleanup.policy=compact
---config max.message.bytes=10000</code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh </span><br><span class="line">--zookeeper localhost:2121/kafka</span><br><span class="line">--create</span><br><span class="line">--topic topic_name1</span><br><span class="line">--partitions 1</span><br><span class="line">--replication-factor 1</span><br><span class="line">--config cleanup.policy=compact</span><br><span class="line">--config max.message.bytes=10000</span><br></pre></td></tr></table></figure>
+
 <p>使用语法就是 <code>--config key=value</code> 的形式。除了主题的分区分配策略可以通过 Zookeeper 节点查看，主题的配置同样可以通过 Zookeeper 查看，对应的节点为 /config/topics/topic_name</p>
-<p>有一个需要特殊注意的点是主题的命名，kafka-topics 节点在创建主题的时候会检测主题名中是否含有 . 或者 _ 。为什么要这多样做呢？因为 Kafka 内部做埋点时会根据主题名命名 metrics 的名字，并且会将 . 转化成 _ 。所以尽量不要在命名主题时，使用 . 。此外，主题名尽量不要以 <strong> 开头，因为以 </strong> 开头在 Kafka 中被视为内部主题。</p>
+<p>有一个需要特殊注意的点是主题的命名，kafka-topics 节点在创建主题的时候会检测主题名中是否含有 . 或者 _ 。为什么要这多样做呢？因为 Kafka 内部做埋点时会根据主题名命名 metrics 的名字，并且会将 . 转化成 _ 。所以尽量不要在命名主题时，使用 . 。此外，主题名尽量不要以 __ 开头，因为以 __ 开头在 Kafka 中被视为内部主题。</p>
 <blockquote>
 <p>关于功能升级和重构的思考：</p>
 <ol>
@@ -353,285 +316,66 @@
 <h2 id="4-2-初识-KafkaAdminClient"><a href="#4-2-初识-KafkaAdminClient" class="headerlink" title="4.2 初识 KafkaAdminClient"></a>4.2 初识 KafkaAdminClient</h2><p>// to do</p>
 <h2 id="4-3-分区的管理"><a href="#4-3-分区的管理" class="headerlink" title="4.3 分区的管理"></a>4.3 分区的管理</h2><p>// to do</p>
 
-            </div>
-            <hr>
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://ibitm.github.io/2020/10/25/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Kafka%20%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E8%B7%B5%E5%8E%9F%E7%90%86/">https://ibitm.github.io/2020/10/25/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Kafka%20%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E8%B7%B5%E5%8E%9F%E7%90%86/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
             <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Kafka/">Kafka</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext row">
-                  <article class="post-prev col-6">
+                <span>Tag(s):</span>
+                <span class="tag">
                     
                     
-                      <a href="/2020/10/26/LeetCode%20564.%20%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E5%9B%9E%E6%96%87%E6%95%B0/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">寻找最近的回文数</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
+                        <a href="/tags/Kafka/"># Kafka</a>
                     
-                  </article>
-                  <article class="post-next col-6">
+                        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"># 读书笔记</a>
                     
-                    
-                      <a href="/2019/12/22/Linux%20%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/">
-                        <span class="hidden-mobile">Linux 包管理基础</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
+                        
+                </span>
             </div>
-
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
             
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div class="disqus" style="width:100%">
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-      var disqus_config = function () {
-        this.page.url = 'https://ibitm.github.io/2020/10/25/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Kafka%20%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E8%B7%B5%E5%8E%9F%E7%90%86/';
-        this.page.identifier = '/2020/10/25/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Kafka%20%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E8%B7%B5%E5%8E%9F%E7%90%86/';
-      };
-      function loadDisqus() {
-        (function () {
-          var d = document,
-            s = d.createElement('script');
-          s.src = '//' + '' + '.disqus.com/embed.js';
-          s.setAttribute('data-timestamp', new Date());
-          (d.head || d.body).appendChild(s);
-        })();
-      }
-      waitElementVisible('disqus_thread', loadDisqus);
-    </script>
-    <noscript>Please enable JavaScript to view the
-      <a target="_blank" href="https://disqus.com/?ref_noscript" rel="nofollow noopener noopener">comments powered by Disqus.</a>
-    </noscript>
-  </div>
-
-
-              </article>
+                <a class="prev" rel="prev" href="/2020/10/26/LeetCode%20564.%20%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E5%9B%9E%E6%96%87%E6%95%B0/">寻找最近的回文数</a>
             
-          </article>
+            
+            <a class="next" rel="next" href="/2019/12/22/Linux%20%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/">Linux 包管理基础</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
         </div>
-      </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 张潇 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
     </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
-</div>
-
-      </div>
-    
-  </div>
-</div>
-
-<!-- Custom -->
-
-
-    
-  </main>
-
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
-
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-  
-
-  
-
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-
-  
-
-  
 </footer>
 
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
-
-
-
-  
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-
-
-
-
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '#post-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "深入理解 Kafka 核心设计和实践原理&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    </div>
 </body>
 </html>
