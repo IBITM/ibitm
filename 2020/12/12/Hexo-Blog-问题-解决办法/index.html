@@ -193,11 +193,11 @@
         <div class="post-content">
             <h1 id="怎么给-Post-加脚注-amp-参考文献"><a href="#怎么给-Post-加脚注-amp-参考文献" class="headerlink" title="怎么给 Post 加脚注 &amp; 参考文献"></a>怎么给 Post 加脚注 &amp; 参考文献</h1><p><a target="_blank" rel="noopener" href="https://zhanghuimeng.github.io/post/add-footnote-plugin-for-hexo-blog/#bib1">为Hexo博客添加脚注插件</a></p>
 <p><strong>基本知识的铺垫</strong></p>
-<p>HTML 链接是通过标签 <a> 来定义的，我们常见的超链接是这么实现的</p>
+<p>HTML 链接是通过标签 <code>&lt;a&gt;</code> 来定义的，我们常见的超链接是这么实现的</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.runoob.com&quot;</span>&gt;</span>这是一个链接<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p><a target="_blank" rel="noopener" href="https://www.runoob.com">这是一个链接</a></p>
-<p>而上标文本是通过<sup> 标签实现的</p>
+<p>而上标文本是通过<code>&lt;sup&gt; </code>标签实现的</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>这个文本包含 <span class="tag">&lt;<span class="name">sup</span>&gt;</span>上标<span class="tag">&lt;/<span class="name">sup</span>&gt;</span> 文本。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>这个文本包含 <sup>上标</sup> 文本。</p>
@@ -206,9 +206,9 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#bib1&quot;</span> <span class="attr">id</span>=<span class="string">&quot;bib1ref&quot;</span>&gt;</span>这是一句需要参考文献的话。<span class="tag">&lt;<span class="name">sup</span>&gt;</span>[1]<span class="tag">&lt;/<span class="name">sup</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p><a href="#bib1" id="bib1ref">这是一句需要参考文献的话。<sup>[1]</sup></a></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">id</span>=<span class="string">&quot;bib1&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#bib1ref&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">sup</span>&gt;</span>[1]<span class="tag">&lt;/<span class="name">sup</span>&gt;</span>参考文献的具体内容。<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">id</span>=<span class="string">&quot;bib1&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#bib1ref&quot;</span>&gt;</span>[1]参考文献的具体内容。<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><a id="bib1" href="#bib1ref"><sup>[1]</sup>参考文献的具体内容。</a></p>
+<p><a id="bib1" href="#bib1ref">[1]参考文献的具体内容。</a></p>
 <p>❗ 需要手动标号，包括方括号、id 和 href 的内容</p>
 
         </div>
