@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="张潇">
+
+
+
+
+
+<title>日志分析系统 | SearchHearth</title>
+
+
+
+    <link rel="icon" href="/image/tt20.jpg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">求索之心</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">求索之心</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">日志分析系统</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">张潇</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">December 8, 2019&nbsp;&nbsp;15:30:41</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="项目概述"><a href="#项目概述" class="headerlink" title="项目概述"></a>项目概述</h2><h2 id="项目所用的组件版本"><a href="#项目所用的组件版本" class="headerlink" title="项目所用的组件版本"></a>项目所用的组件版本</h2><h2 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h2><p>Zookeeper 两个最重要的系统模型：ZNode 和 Watcher</p>
+<h3 id="ZNode"><a href="#ZNode" class="headerlink" title="ZNode"></a>ZNode</h3><p>在 Zookeeper 中节点有三种类型：</p>
+<ul>
+<li>持久节点（persistent）</li>
+<li>临时节点（ephemeral）</li>
+<li>顺序节点</li>
+</ul>
+<p>在节点创建过程中，通过组合使用，可是生成 4 种组合型节点</p>
+<p><strong>持久节点</strong></p>
+<p>持久节点是指数据节点创建后，就会一直存在 Zookeeper 服务器上，直到有删除操作删除这个节点。</p>
+<p><strong>临时节点</strong></p>
+<p>与持久节点不同，临时节点的生命周期与客户端的会话联系在一起。也就说，如果客户端会话失效，那么这个客户端创建的临时节点就会被删除。</p>
+<h3 id="Watcher-数据变更的通知"><a href="#Watcher-数据变更的通知" class="headerlink" title="Watcher - 数据变更的通知"></a>Watcher - 数据变更的通知</h3><p>Zookeeper 通过 Watcher 机制提供了一种分布式数据订阅/发布功能。Zookeeper 允许客户端在一个节点上注册一个 Watcher 事件监听，一旦一些事务对这个节点做一些操作，就会触发了这个 Watcher，客户端就会收到一个事件通知。</p>
+<p>理解了 ZNode 和 Watcher 基本上就能大致了解 Zookeeper 的运行机制。</p>
+<h2 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h2><h3 id="预分区"><a href="#预分区" class="headerlink" title="预分区"></a>预分区</h3><h3 id="RowKey-设计"><a href="#RowKey-设计" class="headerlink" title="RowKey 设计"></a>RowKey 设计</h3><p>在 HBase 中一条记录的唯一标识就是 rowkey ，那么这条数据存储于哪个 region，取决于 rowkey 处于哪个一个预分区的区间内。</p>
+<p><strong>设计 rowkey 的主要目的 ，就是让数据均匀的分布于所有的 region 中，在一定程度上防止数据倾斜。</strong></p>
+<h4 id="rowkey-长度原则"><a href="#rowkey-长度原则" class="headerlink" title="rowkey 长度原则"></a>rowkey 长度原则</h4><p>Rowkey 是一个二进制码流，Rowkey 的长度被很多开发者建议说设计在 10~100 个字节，不过建议是越短越好，不要超过 16 个字节，存为byte[]字节数组，<strong>一般设计成定长的</strong>。</p>
+<p>原因如下：</p>
+<ol>
+<li>数据的持久化文件 HFile 中是按照 KeyValue 存储的，如果 Rowkey 过长比如 100 个字 节，1000 万列数据光 Rowkey 就要占用 100*1000 万=10 亿个字节，将近 1G 数据，这会极大 影响 HFile 的存储效率；</li>
+<li>MemStore 将缓存部分数据到内存，如果 Rowkey 字段过长内存的有效利用率会降低， 系统将无法缓存更多的数据，这会降低检索效率。因此 Rowkey 的字节长度越短越好。</li>
+<li>目前操作系统是都是 64 位系统，内存 8 字节对齐。控制在 16 个字节，8 字节的整数 倍利用操作系统的最佳特性。</li>
+</ol>
+<h4 id="rowkey-散列原则"><a href="#rowkey-散列原则" class="headerlink" title="rowkey 散列原则"></a>rowkey 散列原则</h4><p>如果 Rowkey 是按时间戳的方式递增，不要将时间放在二进制码的前面，建议将 Rowkey 的高位作为散列字段，由程序循环生成，低位放时间字段，这样将提高数据均衡分布在每个 RegionServer 实现负载均衡的几率。</p>
+<p>如果没有散列字段，首字段直接是时间信息将产生所有 新数据都在一个 RegionServer 上堆积的热点现象，这样在做数据检索的时候负载将会集中 在个别 RegionServer，降低查询效率。</p>
+<p>row key是按照<strong>字典序</strong>存储，因此，设计row key时，要充分利用这个排序特点，将经常一起读取的数据存储到一块，将最近可能会被访问的数据放在一块。</p>
+<p>举个例子：如果最近写入HBase表中的数据是最可能被访问的，可以考虑将时间戳作为row key的一部分，由于是字典序排序，所以可以使用 <code>Long.MAX_VALUE - timestamp</code> 作为rowkey，这样能保证新写入的数据在读取时可以被快速命中。</p>
+<h4 id="rowkey-唯一原则"><a href="#rowkey-唯一原则" class="headerlink" title="rowkey 唯一原则"></a>rowkey 唯一原则</h4><p>必须在设计上保证其唯一性。rowkey 是按照字典顺序排序存储的，因此，设计 rowkey 的时候，要充分利用这个排序的特点，将经常读取的数据存储到一块，将最近可能会被访问 的数据放到一块。</p>
+<p>在日志数据中，用户 id 有 16 位左右，时间是 8 位，当前时间是 <code>System.currentTimeMillis()</code>不足16位，补 0. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleRowKeyGenerator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] getUUIDKey(String prefix) <span class="keyword">throws</span> UnsupportedEncodingException &#123;</span><br><span class="line">        <span class="keyword">return</span> (prefix + UUID.randomUUID().toString()).getBytes(<span class="string">&quot;UTF8&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] getRandomKey(String prefix) <span class="keyword">throws</span> UnsupportedEncodingException &#123;</span><br><span class="line">        <span class="keyword">return</span> (prefix + String.valueOf(<span class="keyword">new</span> Random().nextLong())).getBytes(<span class="string">&quot;UTF8&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] getTimestampKey(String prefix) <span class="keyword">throws</span> UnsupportedEncodingException &#123;</span><br><span class="line">        <span class="keyword">return</span> (prefix + String.valueOf(System.currentTimeMillis())).getBytes(<span class="string">&quot;UTF8&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] getNanoTimestampKey(String prefix) <span class="keyword">throws</span> UnsupportedEncodingException &#123;</span><br><span class="line">        <span class="keyword">return</span> (prefix + String.valueOf(System.nanoTime())).getBytes(<span class="string">&quot;UTF8&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 自定义 RowKey</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] getKfkRowKey(String userid,String datetime)<span class="keyword">throws</span> UnsupportedEncodingException &#123;</span><br><span class="line">        <span class="keyword">return</span> (userid + datetime + String.valueOf(System.currentTimeMillis())).getBytes(<span class="string">&quot;UTF8&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://ibitm.github.io/2019/12/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/">https://ibitm.github.io/2019/12/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E9%9D%A2%E8%AF%95/"># 面试</a>
+                    
+                        <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"># 大数据</a>
+                    
+                        <a href="/tags/Zookeeper/"># Zookeeper</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2019/12/HashMap/">HashMap</a>
+            
+            
+            <a class="next" rel="next" href="/2019/12/The_producer-consumer_model_with_ring_buffers_is_implemented_using_two_types_of_locks/">使用两种锁实现带有环形缓冲区的生产者消费者模型</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 张潇 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

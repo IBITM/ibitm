@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="张潇">
+
+
+
+
+
+<title>LeetCode 263.丑数序列 | SearchHearth</title>
+
+
+
+    <link rel="icon" href="/image/tt20.jpg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">求索之心</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">求索之心</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">LeetCode 263.丑数序列</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">张潇</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">October 27, 2020&nbsp;&nbsp;15:41:16</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/LeetCode/">LeetCode</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="丑数序列"><a href="#丑数序列" class="headerlink" title="丑数序列"></a>丑数序列</h2><p>丑数问题可以归结为序列问题，而序列问题中的元素往往存在一些递推关系，使用编程来解决序列问题往往可以考察程序员对于问题特征的思考和算法实现能力。</p>
+<a id="more"></a>
+
+<h2 id="263-丑数"><a href="#263-丑数" class="headerlink" title="263. 丑数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/ugly-number/">263. 丑数</a></h2><blockquote>
+<p>编写一个程序判断给定的数是否为丑数。</p>
+<p>丑数就是只包含质因数 2, 3, 5 的正整数。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: 6</span><br><span class="line">输出: true</span><br><span class="line">解释: 6 &#x3D; 2 × 3</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: 8</span><br><span class="line">输出: true</span><br><span class="line">解释: 8 &#x3D; 2 × 2 × 2</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: 14</span><br><span class="line">输出: false </span><br><span class="line">解释: 14 不是丑数，因为它包含了另外一个质因数 7。</span><br></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isUgly</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        # 吐槽一下，题目里说了正整数，结果测试用例里给了一个 0 </span><br><span class="line">        <span class="keyword">if</span> (num &lt; <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">while</span> (num % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">            num /= <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">while</span> (num % <span class="number">3</span> == <span class="number">0</span>)</span><br><span class="line">            num /= <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">while</span> (num % <span class="number">5</span> == <span class="number">0</span>)</span><br><span class="line">            num /= <span class="number">5</span>;</span><br><span class="line">        <span class="keyword">return</span> num == <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="264-丑数-II"><a href="#264-丑数-II" class="headerlink" title="264. 丑数 II"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/ugly-number-ii/">264. 丑数 II</a></h2><p>编写一个程序，找出第 <code>n</code> 个丑数。</p>
+<p>丑数就是质因数只包含 <code>2, 3, 5</code> 的<strong>正整数</strong>。</p>
+<p><strong>示例:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: n &#x3D; 10</span><br><span class="line">输出: 12</span><br><span class="line">解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。</span><br></pre></td></tr></table></figure>
+
+<p><strong>说明:</strong>  </p>
+<ol>
+<li><code>1</code> 是丑数。</li>
+<li><code>n</code> <strong>不超过</strong>1690。</li>
+</ol>
+<p><strong>思路：</strong></p>
+<p>为什么说丑数问题是一个序列问题呢？</p>
+<p>因为第 n 个丑数肯定是由比 n 小的丑数 * 2、* 3 或者 *5 得到。</p>
+<p>那我们怎么通过开始的丑数来获得有序的丑数序列呢？</p>
+<p><img src="https://github.com/IBITM/ibitm.github.io/blob/master/img/LeetCode/%E4%B8%91%E6%95%B0%E5%BA%8F%E5%88%97.png?raw=true" alt="丑数序列"></p>
+<p>我们设置 3 个指针，红色每次 <em>2，绿色每次 \</em>3，蓝色每次 *5</p>
+<p><strong>Step1</strong></p>
+<p>我们可以由 1*2 得到 2 或者 1*3 得到 3 再或者 1* 5 = 5</p>
+<p>我们选择三者中的最小值 2，并且红色指针向前走一步</p>
+<p><strong>Step2</strong></p>
+<p>我们可以由 1*3 = 3 或者 1* 5 = 5 再或者 2*2= 4</p>
+<p>我们选择三者中的最小值 3，并且绿色指针向前走一步</p>
+<p><strong>Step2</strong></p>
+<p>我们可以由 1* 5 = 5 或者 2*2= 4 再或者 2*3 = 6</p>
+<p>我们选择三者中的最小值 4，并且红色指针向前走一步</p>
+<p>以此类推</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">nthUglyNumber</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] help = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        help[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> i2 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> i3 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> i5 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> index = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (index &lt; n) &#123;</span><br><span class="line">            help[index] = Math.min(<span class="number">2</span> * help[i2], Math.min(<span class="number">3</span> * help[i3], <span class="number">5</span> * help[i5]));</span><br><span class="line">            <span class="keyword">if</span> (help[index] == <span class="number">2</span> * help[i2])</span><br><span class="line">                i2++;</span><br><span class="line">            <span class="keyword">if</span> (help[index] == <span class="number">3</span> * help[i3])</span><br><span class="line">                i3++;</span><br><span class="line">            <span class="keyword">if</span> (help[index] == <span class="number">5</span> * help[i5])</span><br><span class="line">                i5++;</span><br><span class="line">            index++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> help[index - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://ibitm.github.io/2020/10/LeetCode-263-%E4%B8%91%E6%95%B0%E5%BA%8F%E5%88%97/">https://ibitm.github.io/2020/10/LeetCode-263-%E4%B8%91%E6%95%B0%E5%BA%8F%E5%88%97/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/LeetCode/"># LeetCode</a>
+                    
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/"># 数据结构和算法</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/10/Pycharm-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%A7%AF%E7%B4%AF/">Pycharm 使用技巧积累</a>
+            
+            
+            <a class="next" rel="next" href="/2020/10/LeetCode%20564.%20%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E5%9B%9E%E6%96%87%E6%95%B0/">寻找最近的回文数</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 张潇 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

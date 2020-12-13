@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="张潇">
+
+
+
+
+
+<title>寻找最近的回文数 | SearchHearth</title>
+
+
+
+    <link rel="icon" href="/image/tt20.jpg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">求索之心</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">求索之心</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">寻找最近的回文数</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">张潇</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">October 26, 2020&nbsp;&nbsp;9:18:59</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/LeetCode/">LeetCode</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="564-寻找最近的回文数"><a href="#564-寻找最近的回文数" class="headerlink" title="564. 寻找最近的回文数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/find-the-closest-palindrome/">564. 寻找最近的回文数</a></h1><blockquote>
+<p>给定一个整数 n ，你需要找到与它最近的回文数（不包括自身）。</p>
+<p>“最近的”定义为两个整数<strong>差的绝对值</strong>最小。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;123&quot;</span><br><span class="line">输出: &quot;121&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意:</strong></p>
+<ol>
+<li><strong>n</strong> 是由字符串表示的正整数，其长度不超过18。</li>
+<li>如果有多个结果，返回最小的那个。</li>
+</ol>
+</blockquote>
+<h2 id="拓展知识点-Java-基本数据结构的表示范围"><a href="#拓展知识点-Java-基本数据结构的表示范围" class="headerlink" title="拓展知识点-Java 基本数据结构的表示范围"></a>拓展知识点-Java 基本数据结构的表示范围</h2><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>存储</th>
+<th>表示范围</th>
+<th>定义变量时的特殊处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>byte</td>
+<td>1B</td>
+<td>[-128 ,127]</td>
+<td>末尾加B</td>
+</tr>
+<tr>
+<td>short</td>
+<td>2B</td>
+<td>[-32768,32767]</td>
+<td>末尾加S</td>
+</tr>
+<tr>
+<td>int</td>
+<td>4B</td>
+<td>[-2147483648,2147483647]（20亿左右，10位十进制数）</td>
+<td>无</td>
+</tr>
+<tr>
+<td>long</td>
+<td>8B</td>
+<td>[-9223372036854774808,9223372036854774807]（19位十进制数）</td>
+<td>末尾加L</td>
+</tr>
+</tbody></table>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>最近的回文数可能比当前的数 n 大或者小，所以这个题目需要比较比 n 大的最小回文数和比 n 小的最大回文数到 n 的距离来确定最近的回文数是哪一个。</p>
+<p>我们再考虑如何从 n 如何得到这 2 个回文数。</p>
+<p>我们观察 n = 123，当我们从中间位置反转时我们可以直接得到一个回文数 121，121 就是比 123 小的最大回文数。</p>
+<p>当时 n  = 12312 的时候，我们从中间位置反转可以得到 12321 ，这时候 12321 就是比 12312 大的最小回文数。</p>
+<p>当 n 的位数为偶数时，同样可以得到类似的结论。</p>
+<p>以上的规律并不能实质性的帮我们解决问题，我们还是需要想出从 n 得到这两个回文数的办法。</p>
+<p>我们再回到 n = 12312，我们可以知道距离它最近的 2 个回文是 12321 和 12221</p>
+<p>12321 可以由反转直接得到，12221 可以由 12312 中间位 -1 之后在反转得到。</p>
+<p>当我们 + 或者 - 的时候一定要考虑溢出和结尾的情况</p>
+<p>当 n = 101 时，99 可以由 91 反转得到</p>
+<p>当 n = 12345 的时候，12421 可以由 12445 反转得到</p>
+<p>当 n = 99 的时候，101 可以由 100 反转得到</p>
+<p>这时候知道为什么题目里面会规定 n  的长度不会超过 18 了吧，因为 long 能表示 19 位，我们在计算过程中会出现进位的情况。</p>
+<p>如何处理 n 的位数奇偶和一些边界情况的处理，就只能细扣代码了。</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">nearestPalindromic</span><span class="params">(String n)</span> </span>&#123;</span><br><span class="line">		Long num = Long.valueOf(n);</span><br><span class="line">		Long raw = getRawPalindrome(n);</span><br><span class="line">		Long big = raw &gt; num ? raw : getBigPalindrome(raw);</span><br><span class="line">		Long small = raw &lt; num ? raw : getSmallPalindrome(raw);</span><br><span class="line">		<span class="keyword">return</span> String.valueOf(big - num &gt;= num - small ? small : big);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title">getRawPalindrome</span><span class="params">(String n)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">char</span>[] chs = n.toCharArray();</span><br><span class="line">		<span class="keyword">int</span> len = chs.length;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len / <span class="number">2</span>; i++) &#123;</span><br><span class="line">			chs[len - <span class="number">1</span> - i] = chs[i];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> Long.valueOf(String.valueOf(chs));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title">getBigPalindrome</span><span class="params">(Long raw)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">char</span>[] chs = String.valueOf(raw).toCharArray();</span><br><span class="line">		<span class="keyword">char</span>[] res = <span class="keyword">new</span> <span class="keyword">char</span>[chs.length + <span class="number">1</span>];</span><br><span class="line">		res[<span class="number">0</span>] = <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; chs.length; i++) &#123;</span><br><span class="line">			res[i + <span class="number">1</span>] = chs[i];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">int</span> size = chs.length;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = (size - <span class="number">1</span>) / <span class="number">2</span> + <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">			<span class="keyword">if</span> (++res[j] &gt; <span class="string">&#x27;9&#x27;</span>) &#123;</span><br><span class="line">				res[j] = <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">int</span> offset = res[<span class="number">0</span>] == <span class="string">&#x27;1&#x27;</span> ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">		size = res.length;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = size - <span class="number">1</span>; i &gt;= (size + offset) / <span class="number">2</span>; i--) &#123;</span><br><span class="line">			res[i] = res[size - i - offset];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> Long.valueOf(String.valueOf(res));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title">getSmallPalindrome</span><span class="params">(Long raw)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">char</span>[] chs = String.valueOf(raw).toCharArray();</span><br><span class="line">		<span class="keyword">char</span>[] res = <span class="keyword">new</span> <span class="keyword">char</span>[chs.length];</span><br><span class="line">		<span class="keyword">int</span> size = res.length;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">			res[i] = chs[i];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = (size - <span class="number">1</span>) / <span class="number">2</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">			<span class="keyword">if</span> (--res[j] &lt; <span class="string">&#x27;0&#x27;</span>) &#123;</span><br><span class="line">				res[j] = <span class="string">&#x27;9&#x27;</span>;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (res[<span class="number">0</span>] == <span class="string">&#x27;0&#x27;</span>) &#123;</span><br><span class="line">			res = <span class="keyword">new</span> <span class="keyword">char</span>[size - <span class="number">1</span>];</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; res.length; i++) &#123;</span><br><span class="line">				res[i] = <span class="string">&#x27;9&#x27;</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> size == <span class="number">1</span> ? <span class="number">0</span> : Long.parseLong(String.valueOf(res));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; size / <span class="number">2</span>; k++) &#123;</span><br><span class="line">			res[size - <span class="number">1</span> - k] = res[k];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> Long.valueOf(String.valueOf(res));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://ibitm.github.io/2020/10/LeetCode%20564.%20%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E5%9B%9E%E6%96%87%E6%95%B0/">https://ibitm.github.io/2020/10/LeetCode%20564.%20%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E5%9B%9E%E6%96%87%E6%95%B0/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"># 算法和数据结构</a>
+                    
+                        <a href="/tags/LeetCode/"># LeetCode</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/10/LeetCode-263-%E4%B8%91%E6%95%B0%E5%BA%8F%E5%88%97/">LeetCode 263.丑数序列</a>
+            
+            
+            <a class="next" rel="next" href="/2020/10/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Kafka%20%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E8%B7%B5%E5%8E%9F%E7%90%86/">深入理解 Kafka 核心设计和实践原理</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 张潇 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

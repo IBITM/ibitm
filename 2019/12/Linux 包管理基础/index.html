@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="张潇">
+
+
+
+
+
+<title>Linux 包管理基础 | SearchHearth</title>
+
+
+
+    <link rel="icon" href="/image/tt20.jpg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">求索之心</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">求索之心</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Linux 包管理基础</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">张潇</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">December 22, 2019&nbsp;&nbsp;14:54:18</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Linux/">Linux</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>内容参考自 <a target="_blank" rel="noopener" href="https://linux.cn/article-8782-1.html">Linux 包管理基础：apt、yum、dnf 和 pkg</a></p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>大多数现代的类 Unix 操作系统都提供了一种<strong>中心化</strong>的机制用来搜索和安装软件。软件通常都是存放在存储库中，并通过包的形式进行分发。处理包的工作被称为包管理。包提供了操作系统的基本组件，以及共享的库、应用程序、服务和文档。</p>
+<p>包管理系统除了安装软件外，它还提供了工具来更新已经安装的包。包存储库有助于确保你的系统中使用的代码是经过审查的，并且软件的安装版本已经得到了开发人员和包维护人员的认可。</p>
+<p>在配置服务器或开发环境时，我们最好了解下包在官方存储库之外的情况。某个发行版的稳定版本中的包有可能已经过时了，尤其是那些新的或者快速迭代的软件。然而，包管理无论对于系统管理员还是开发人员来说都是至关重要的技能，而已打包的软件对于主流 Linux 发行版来说也是一笔巨大的财富。</p>
+<h2 id="包管理系统：简要概述"><a href="#包管理系统：简要概述" class="headerlink" title="包管理系统：简要概述"></a>包管理系统：简要概述</h2><p>大多数包系统都是围绕包文件的集合构建的。包文件通常是一个存档文件，它包含已编译的二进制文件和软件的其他资源，以及安装脚本。包文件同时也包含有价值的元数据，包括它们的依赖项，以及安装和运行它们所需的其他包的列表。</p>
+<p>虽然这些包管理系统的功能和优点大致相同，但打包格式和工具却因平台而异：</p>
+<table>
+<thead>
+<tr>
+<th align="left">操作系统</th>
+<th align="left">格式</th>
+<th align="left">工具</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Debian</td>
+<td align="left"><code>.deb</code></td>
+<td align="left"><code>apt</code>, <code>apt-cache</code>, <code>apt-get</code>, <code>dpkg</code></td>
+</tr>
+<tr>
+<td align="left">Ubuntu</td>
+<td align="left"><code>.deb</code></td>
+<td align="left"><code>apt</code>, <code>apt-cache</code>, <code>apt-get</code>, <code>dpkg</code></td>
+</tr>
+<tr>
+<td align="left">CentOS</td>
+<td align="left"><code>.rpm</code></td>
+<td align="left"><code>yum</code></td>
+</tr>
+<tr>
+<td align="left">Fedora</td>
+<td align="left"><code>.rpm</code></td>
+<td align="left"><code>dnf</code></td>
+</tr>
+<tr>
+<td align="left">FreeBSD</td>
+<td align="left">Ports, <code>.txz</code></td>
+<td align="left"><code>make</code>, <code>pkg</code></td>
+</tr>
+</tbody></table>
+<p>Debian 及其衍生版，如 Ubuntu、Linux Mint 和 Raspbian，它们的包格式是 <code>.deb</code>。APT 这款先进的包管理工具提供了大多数常见的操作命令：搜索存储库、安装软件包及其依赖项，并管理升级。在本地系统中，我们还可以使用 <code>dpkg</code> 程序来安装单个的 <code>deb</code> 文件，APT 命令作为底层 <code>dpkg</code> 的前端，有时也会直接调用它。</p>
+<p>最近发布的 debian 衍生版大多数都包含了 <code>apt</code> 命令，它提供了一个简洁统一的接口，可用于通常由 <code>apt-get</code> 和 <code>apt-cache</code> 命令处理的常见操作。这个命令是可选的，但使用它可以简化一些任务。</p>
+<p>CentOS、Fedora 和其它 Red Hat 家族成员使用 RPM 文件。在 CentOS 中，通过 <code>yum</code> 来与单独的包文件和存储库进行交互。</p>
+<p>在最近的 Fedora 版本中，<code>yum</code> 已经被 <code>dnf</code> 取代，<code>dnf</code> 是它的一个现代化的分支，它保留了大部分 <code>yum</code> 的接口。</p>
+<p>FreeBSD 的二进制包系统由 <code>pkg</code> 命令管理。FreeBSD 还提供了 <code>Ports</code> 集合，这是一个存在于本地的目录结构和工具，它允许用户获取源码后使用 Makefile 直接从源码编译和安装包。</p>
+<h2 id="更新包列表"><a href="#更新包列表" class="headerlink" title="更新包列表"></a>更新包列表</h2><p>大多数系统在<strong>本地都会有一个和远程存储库对应的包数据库</strong>，在安装或升级包之前最好更新一下这个数据库。另外，<code>yum</code> 和 <code>dnf</code> 在执行一些操作之前也会自动检查更新。当然你可以在任何时候对系统进行更新。</p>
+<table>
+<thead>
+<tr>
+<th align="left">系统</th>
+<th align="left">命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Debian / Ubuntu</td>
+<td align="left"><code>sudo apt-get update</code></td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"><code>sudo apt update</code></td>
+</tr>
+<tr>
+<td align="left">CentOS</td>
+<td align="left"><code>yum check-update</code></td>
+</tr>
+<tr>
+<td align="left">Fedora</td>
+<td align="left"><code>dnf check-update</code></td>
+</tr>
+<tr>
+<td align="left">FreeBSD Packages</td>
+<td align="left"><code>sudo pkg update</code></td>
+</tr>
+<tr>
+<td align="left">FreeBSD Ports</td>
+<td align="left"><code>sudo portsnap fetch update</code></td>
+</tr>
+</tbody></table>
+<h3 id="更新已安装的包"><a href="#更新已安装的包" class="headerlink" title="更新已安装的包"></a>更新已安装的包</h3><p>在没有包系统的情况下，想确保机器上所有已安装的软件都保持在最新的状态是一个很艰巨的任务。你将不得不跟踪数百个不同包的上游更改和安全警报。虽然包管理器并不能解决升级软件时遇到的所有问题，但它确实使你能够使用一些命令来维护大多数系统组件。</p>
+<p>在 FreeBSD 上，升级已安装的 ports 可能会引入破坏性的改变，有些步骤还需要进行手动配置，所以在通过 <code>portmaster</code> 更新之前最好阅读下 <code>/usr/ports/UPDATING</code> 的内容。</p>
+<table>
+<thead>
+<tr>
+<th>Debian / Ubuntu</th>
+<th><code>sudo apt-get upgrade</code></th>
+<th>只更新已安装的包</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td><code>sudo apt-get dist-upgrade</code></td>
+<td>可能会增加或删除包以满足新的依赖项</td>
+</tr>
+<tr>
+<td></td>
+<td><code>sudo apt upgrade</code></td>
+<td>和 <code>apt-get upgrade</code> 类似</td>
+</tr>
+<tr>
+<td></td>
+<td><code>sudo apt full-upgrade</code></td>
+<td>和 <code>apt-get dist-upgrade</code> 类似</td>
+</tr>
+<tr>
+<td>CentOS</td>
+<td><code>sudo yum update</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Fedora</td>
+<td><code>sudo dnf upgrade</code></td>
+<td></td>
+</tr>
+<tr>
+<td>FreeBSD Packages</td>
+<td><code>sudo pkg upgrade</code></td>
+<td></td>
+</tr>
+<tr>
+<td>FreeBSD Ports</td>
+<td><code>less /usr/ports/UPDATING</code></td>
+<td>使用 <code>less</code> 来查看 ports 的更新提示（使用上下光标键滚动，按 q 退出）。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>cd /usr/ports/ports-mgmt/portmaster &amp;&amp; sudo make install &amp;&amp; sudo portmaster -a</code></td>
+<td>安装 <code>portmaster</code> 然后使用它更新已安装的 ports</td>
+</tr>
+</tbody></table>
+<h2 id="结论和进一步的阅读"><a href="#结论和进一步的阅读" class="headerlink" title="结论和进一步的阅读"></a>结论和进一步的阅读</h2><p>本指南通过对多个系统间进行交叉对比概述了一下包管理系统的基本操作，但只涉及了这个复杂主题的表面。对于特定系统更详细的信息，可以参考以下资源：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/ubuntu-and-debian-package-management-essentials">这份指南</a> 详细介绍了 Ubuntu 和 Debian 的软件包管理。</li>
+<li>这里有一份 CentOS 官方的指南 <a target="_blank" rel="noopener" href="https://www.centos.org/docs/5/html/yum/">使用 yum 管理软件</a></li>
+<li>这里有一个有关 Fedora 的 <code>dnf</code> 的 <a target="_blank" rel="noopener" href="https://fedoraproject.org/wiki/Dnf">wiki 页面</a> 以及一份有关 <code>dnf</code> <a target="_blank" rel="noopener" href="https://dnf.readthedocs.org/en/latest/index.html">官方的手册</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/how-to-manage-packages-on-freebsd-10-1-with-pkg">这份指南</a> 讲述了如何使用 <code>pkg</code> 在 FreeBSD 上进行包管理</li>
+<li>这本 <a target="_blank" rel="noopener" href="https://www.freebsd.org/doc/handbook/">FreeBSD Handbook</a> 有一节讲述了<a target="_blank" rel="noopener" href="https://www.freebsd.org/doc/handbook/ports-using.html">如何使用 Ports 集合</a></li>
+</ul>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://ibitm.github.io/2019/12/Linux%20%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/">https://ibitm.github.io/2019/12/Linux%20%E5%8C%85%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Linux/"># Linux</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/10/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%20Kafka%20%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E8%B7%B5%E5%8E%9F%E7%90%86/">深入理解 Kafka 核心设计和实践原理</a>
+            
+            
+            <a class="next" rel="next" href="/2019/12/SQL-%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93/">SQL 实践总结</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 张潇 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
