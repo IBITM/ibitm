@@ -12,7 +12,7 @@
 
 
 
-<title>Hello World | SearchHearth</title>
+<title>computer-networks | SearchHearth</title>
 
 
 
@@ -173,7 +173,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Hello World</h1>
+            <h1 class="post-title">computer-networks</h1>
             
                 <div class="post-meta">
                     
@@ -182,7 +182,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">December 10, 2020&nbsp;&nbsp;23:52:18</a>
+                        Date: <a href="#">January 13, 2021&nbsp;&nbsp;13:38:25</a>
                         </span>
                     
                     
@@ -191,19 +191,28 @@
         </header>
 
         <div class="post-content">
-            <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+            <p>想要梳理一个 HTTP 请求是怎么从浏览器发起然后经过一系列的处理过程然后被返回的。<br>希望将多级的网络系统梳理明白。</p>
+<h2 id="准备知识"><a href="#准备知识" class="headerlink" title="准备知识"></a>准备知识</h2><h3 id="OSI-七层模型-amp-设备"><a href="#OSI-七层模型-amp-设备" class="headerlink" title="OSI 七层模型 &amp; 设备"></a>OSI 七层模型 &amp; 设备</h3><p><img src="/img/OSI%20%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B.jpg" alt="OSI七层模型概览"></p>
+<h4 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h4><p><strong>通信方式.</strong></p>
+<p>根据信息在传输线上的传送方向，分为以下三种通信方式：</p>
+<p>单工通信：单向传输<br>半双工通信：双向交替传输<br>全双工通信：双向同时传输</p>
+<p><strong>集线器（Hub).</strong></p>
+<p>集线器是工作在物理层的设备。集线器会把收到的数据（比特流）广播到其他的端口，由于是半双工的工作方式，所以存在一定的冲突问题。</p>
+<p>集线器一般用于</p>
+<h4 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h4><p><strong>网桥.</strong></p>
+<p>网桥是工作在数据链路层的设备，主要作用是用来连接不同的网络，一定程度避免了集线器的“泛洪转发”问题。</p>
+<p>随着越来越多的网络连接在一起时，信道上发生碰撞的概率逐渐变大。</p>
+<p>这里引入一下广播域和冲突域的概念。</p>
+<p>刚才我们提到集线器会广播收到的数据，这种转发方式称为“泛洪转发”，并且我们称通过集线相连的主机处于同一广播域和冲突域之中。</p>
+<p>网桥的出现一定程度就解决了这个问题。网桥通过端口将网络划分出来不同的广播域，并且会采取滤机制，避免数据帧在不同广播域中广播。</p>
+<p>而网桥是怎么记录不同的主机在哪一个广播域中呢？工作原理类似于交换机的自学习能力，下面会提到。</p>
+<p><strong>交换机.</strong></p>
+<p>交换机可以了理解为加强版的网络，一般来说交换机的接口远多于网桥，并且</p>
+<p>交换机具有自学习能力，学习的是交换表的内容，交换表中存储着 MAC 地址到接口的映射。</p>
+<p>正是由于这种自学习能力，因此交换机是一种即插即用设备，不需要网络管理员手动配置交换表内容。</p>
+<p>下图中，交换机有 4 个接口，主机 A 向主机 B 发送数据帧时，交换机把主机 A 到接口 1 的映射写入交换表中。为了发送数据帧到 B，先查交换表，此时没有主机 B 的表项，那么主机 A 就发送广播帧，主机 C 和主机 D 会丢弃该帧，主机 B 回应该帧向主机 A 发送数据包时，交换机查找交换表得到主机 A 映射的接口为 1，就发送数据帧到接口 1，同时交换机添加主机 B 到接口 2 的映射。</p>
+<p><img src="/img/%E7%BD%91%E6%A1%A5%E7%9A%84%E8%87%AA%E5%AD%A6%E4%B9%A0.png" alt="网桥的自学习例子"></p>
+<p>待续未完</p>
 
         </div>
 
@@ -213,7 +222,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://ibitm.github.io/2020/12/hello-world/">https://ibitm.github.io/2020/12/hello-world/</a></span>
+                        <span><a href="https://ibitm.github.io/2021/01/computer-networks/">https://ibitm.github.io/2021/01/computer-networks/</a></span>
                     </p>
                 
                 
@@ -241,10 +250,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2020/12/transaction/">初探事务</a>
             
-            
-            <a class="next" rel="next" href="/2020/11/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%9A%84%E8%AE%B0%E5%BD%95/">常用工具的记录</a>
+            <a class="next" rel="next" href="/2020/12/java-web-03-filter/">Java web 之 Filter</a>
             
         </section>
 
